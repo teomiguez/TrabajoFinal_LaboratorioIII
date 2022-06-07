@@ -1,18 +1,17 @@
-package app;
+package clases;
 
-public class UsuarioAdmin 
+public class ObraImpresa
 {
-	
 	// Atributos
 	
 	// Constructor
-		
+	
 	// Getters
-		
+	
 	// Setters
-		
+	
 	// Metodos
-		
+	
 	// Overrides necesarios → equals - toString
 
 }

@@ -1,12 +1,12 @@
-package app;
+package clases;
 
-public class Libro 
+public class UsuarioAdmin 
 {
 	
 	// Atributos
 	
 	// Constructor
-	
+		
 	// Getters
 		
 	// Setters

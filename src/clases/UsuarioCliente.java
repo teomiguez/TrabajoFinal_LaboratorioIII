@@ -1,6 +1,6 @@
-package app;
+package clases;
 
-public class Usuario 
+public class UsuarioCliente 
 {
 	
 	// Atributos
@@ -14,5 +14,5 @@ public class Usuario
 	// Metodos
 	
 	// Overrides necesarios → equals - toString
-	
+
 }

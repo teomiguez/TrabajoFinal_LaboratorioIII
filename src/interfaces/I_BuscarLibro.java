@@ -1,4 +1,4 @@
-package interfaz;
+package interfaces;
 
 public interface I_BuscarLibro {
 	

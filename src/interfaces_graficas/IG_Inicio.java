@@ -1,4 +1,4 @@
-package interfaz_grafica;
+package interfaces_graficas;
 
 public class IG_Inicio {
 	

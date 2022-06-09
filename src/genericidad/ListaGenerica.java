@@ -1,6 +1,8 @@
 package genericidad;
 
-public class ListaGenerica 
+import clases.ObraImpresa;
+
+public class ListaGenerica <E extends ObraImpresa, I_BuscarLibro>
 {
 	
 	// Atributos

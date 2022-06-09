@@ -36,5 +36,7 @@ public abstract class ObraImpresa
 	// Metodos
 	
 	// Overrides necesarios → equals - toString
+	
+	
 
 }

@@ -14,12 +14,16 @@ public class UsuarioCliente extends Usuario
 	{
 		super(name, password, email);
 		// new de coleccion
-		this.bajaLogica = false;
-	}
+		this.setBajaLogica(false);
+	}	
 	
 	// Getters
 		
+	public boolean isBajaLogica() {  return bajaLogica;  }
+	
 	// Setters
+	
+	public void setBajaLogica(boolean bajaLogica) {  this.bajaLogica = bajaLogica;  }
 		
 	// Metodos
 	

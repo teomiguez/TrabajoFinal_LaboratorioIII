@@ -1,6 +1,6 @@
 package genericidad;
 
-public class Lista 
+public class ListaGenerica 
 {
 	
 	// Atributos

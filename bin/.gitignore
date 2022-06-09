@@ -1,5 +1,7 @@
-/clases/
 /app/
+/archivos/
+/clases/
+/genericidad/
 /interfaces/
 /interfaces_graficas/
-/genericidad/
+/json/

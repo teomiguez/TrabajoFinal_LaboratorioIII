@@ -37,6 +37,15 @@ public abstract class ObraImpresa
 	
 	// Overrides necesarios → equals - toString
 	
+	@Override
+	public boolean equals(Object obj) 
+	{
+		ObraImpresa aux = (ObraImpresa)obj;
+		
+		if (this.id == aux.id)
+			return true;
+		else
+			return false;
+	}
 	
-
 }

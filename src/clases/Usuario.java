@@ -35,6 +35,14 @@ public abstract class Usuario
 	
 	// Overrides necesarios → equals - toString
 	
-	
+	@Override
+	public boolean equals(Object obj) {
+		Usuario aux = (Usuario)obj;
+		
+		if (this.email.equals(aux.email))
+			return true;
+		else
+			return false;
+	}
 	
 }

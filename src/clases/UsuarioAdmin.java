@@ -5,6 +5,7 @@ public class UsuarioAdmin extends Usuario
 	
 	// Atributos
 	
+	
 	// Constructor
 		
 	public UsuarioAdmin (String name, String password, String email)

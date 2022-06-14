@@ -1,5 +1,8 @@
 package genericidad;
 
+import java.util.ArrayList;
+import java.util.HashSet;
+
 import clases.Libro;
 import clases.ObraImpresa;
 import interfaces.I_BuscarLibro;
@@ -7,20 +10,20 @@ import interfaces.I_BuscarLibro;
 public class ListaGenerica <E extends ObraImpresa> implements I_BuscarLibro
 {
 	
-	// Atributos
-	
-	// coleccion<E>
-	
-	// Constructor
+	private HashSet<E>lista; 
 	
 	public ListaGenerica ()
 	{
-		// el new de la coleccion
+		this.lista = new HashSet<>();
 	}
-		
-	// Getters
-		
-	// Setters
+	
+	public HashSet<E> getLista() {
+		return lista;
+	}
+	
+	public void setLista(HashSet<E> lista) {
+		this.lista = lista;
+	}
 		
 	// Metodos
 	

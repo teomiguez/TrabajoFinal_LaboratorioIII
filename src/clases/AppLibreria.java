@@ -12,7 +12,12 @@ public class AppLibreria implements I_BuscarLibro
 	
 	// Constructor
 	
-	// en el constructor cargamos con el archivo las colecciones?
+	public AppLibreria ()
+	{
+		// hacemos los new
+		
+		// cargamos con el archivo las colecciones?	
+	}
 		
 	// Getters
 			

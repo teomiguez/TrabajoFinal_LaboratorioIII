@@ -34,9 +34,9 @@ public class ListaGenerica <E extends ObraImpresa> implements I_BuscarLibro
 		// cuerpo
 	}
 	
-	public ObraImpresa buscarObra (int id)
+	public ObraImpresa buscarObra_PorId (int id)
 	{
-		ObraImpresa aux;
+		ObraImpresa aux = null;
 		
 		// cuerpo
 		

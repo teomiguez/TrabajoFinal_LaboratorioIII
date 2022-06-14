@@ -3,15 +3,15 @@ package clases;
 public class Libro extends ObraImpresa
 {
 	
-	// Atributos
+	// ATRIBUTOS
 	
 	private String titulo;
 	private int anioEdicion;
-	private String genero; // ver enum
+	private String genero;
 	private String autor;
 	private String descripcion;
 	
-	// Constructor
+	// CONSTRUCTOR
 	
 	public Libro (int id, int stock, String titulo, int anioEdicion, String genero, String autor, String descripcion)
 	{
@@ -24,7 +24,7 @@ public class Libro extends ObraImpresa
 		this.descripcion = descripcion;
 	}
 	
-	// Getters
+	// GETTERS
 	
 	public String getTitulo() {  return titulo;  }
 	public int getAnioEdicion() {  return anioEdicion;  }
@@ -36,8 +36,21 @@ public class Libro extends ObraImpresa
 	
 	public void setDescripcion(String descripcion) {  this.descripcion = descripcion;  }
 		
-	// Metodos
+	// METODOS
 		
-	// Overrides necesarios → equals - toString
+	// OVERRIDERS NECESARIOS
+	
+	@Override
+	public String toString() {
+		
+		return super.toString() + "\n" +
+				"Libro {" + "\n" + 
+				"Titulo: " + this.getTitulo() + "\n" + 
+				"Anio de Edicion: " + this.getAnioEdicion() + "\n" + 
+				"Genero: " + this.getGenero() + "\n" + 
+				"Autor: " + this.getAutor() + "\n" + 
+				"Descripcion: " + this.getDescripcion() + "\n" + 
+				"}";
+	}
 
 }

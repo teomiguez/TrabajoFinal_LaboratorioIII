@@ -1,7 +1,7 @@
 package genericidad;
 
-import java.util.ArrayList;
 import java.util.HashSet;
+import java.util.Iterator;
 
 import clases.Libro;
 import clases.ObraImpresa;
@@ -9,39 +9,63 @@ import interfaces.I_BuscarLibro;
 
 public class ListaGenerica <E extends ObraImpresa> implements I_BuscarLibro
 {
+	// ATRIBUTOS
 	
 	private HashSet<E>lista; 
+	
+	// CONSTRUCTOR
 	
 	public ListaGenerica ()
 	{
 		this.lista = new HashSet<>();
 	}
-	
-	public HashSet<E> getLista() {
-		return lista;
-	}
-	
-	public void setLista(HashSet<E> lista) {
-		this.lista = lista;
-	}
-		
-	// Metodos
+
+	// METODOS
 	
 	public void agregarObra (E obra)
 	{
-		// cuerpo
+		boolean flag = false;
+		Iterator<E> it = this.lista.iterator();
+		
+		while (it.hasNext()) // ITERO PARA RECORRER
+		{
+			if (it.next().getId() == obra.getId()) // COMPARO LAS IDs PARA VER SI NO ESTA DE BAJA
+			{
+				it.next().setBajaLogica(true); // SI LO ENCUENTRO LO "AGREGO"
+				flag = true; // USO UN FLAG PARA VER SI ESTABA O NO
+				
+			}
+		}
+		if (flag == false) // SI NO ESTABA LO AGREGO
+			this.lista.add(obra);
 	}
 	
 	public void sacarObra (int id)
 	{
-		// cuerpo
+		Iterator<E> it = this.lista.iterator();
+		
+		while (it.hasNext()) // ITERO PARA RECORRER
+		{
+			if (it.next().getId() == id) // COMPARO LAS IDs
+			{
+				it.next().setBajaLogica(false); // SI LO ENCUENTRO LO "SACO"
+			}
+		}
 	}
 	
-	public ObraImpresa buscarObra_PorId (int id)
+	public E buscarObra_PorId (int id)
 	{
-		ObraImpresa aux = null;
 		
-		// cuerpo
+		Iterator<E> it = this.lista.iterator();
+		E aux = null;
+		
+		while (it.hasNext()) // BUSCO POR ID
+		{
+			if (it.next().getId() == id) // SI LO ENCUENTRO LO CARGO EN OBRA
+			{
+				aux = it.next();
+			}
+		}
 		
 		return aux;
 	}
@@ -55,38 +79,78 @@ public class ListaGenerica <E extends ObraImpresa> implements I_BuscarLibro
 		return lista;
 	}
 	
-	// Overrides necesarios
+	// OVERRIDERS NECESARIOS
 	
 	@Override
 	public Libro buscarLibroPor_Titulo(String titulo) {
+
+		Libro lib = null;
 		
-		// TODO Auto-generated method stub
+		Iterator<Libro> it = (Iterator<Libro>) this.lista.iterator();
 		
-		return null;
+		while (it.hasNext())
+		{
+			if (it.next().getTitulo().equals(titulo))
+			{
+				lib = it.next();
+			}
+		}
+		
+		return lib;
 	}
 
 	@Override
-	public Libro buscarLibroPor_AnioEdicion(int anioEdicion) {
+	public StringBuilder buscarLibrosPor_AnioEdicion(int anioEdicion) {
 		
-		// TODO Auto-generated method stub
+		StringBuilder lista = new StringBuilder();
 		
-		return null;
+		Iterator<Libro> it = (Iterator<Libro>) this.lista.iterator();
+		
+		while (it.hasNext())
+		{
+			if (it.next().getAnioEdicion() == anioEdicion)
+			{
+				lista.append(it.next().toString() + "\n");
+			}
+		}
+		
+		return lista;
 	}
 
 	@Override
-	public Libro buscarLibroPor_Autor(String autor) {
+	public StringBuilder buscarLibrosPor_Autor(String autor) {
 		
-		// TODO Auto-generated method stub
+		StringBuilder lista = new StringBuilder();
 		
-		return null;
+		Iterator<Libro> it = (Iterator<Libro>) this.lista.iterator();
+		
+		while (it.hasNext())
+		{
+			if (it.next().getAutor().equals(autor))
+			{
+				lista.append(it.next().toString() + "\n");
+			}
+		}
+		
+		return lista;
 	}
 
 	@Override
-	public Libro buscarLibroPor_Genero(String genero) {
-		
-		// TODO Auto-generated method stub
-		
-		return null;
-	}
+	public StringBuilder buscarLibrosPor_Genero(String genero) {
 
+		StringBuilder lista = new StringBuilder();
+		
+		Iterator<Libro> it = (Iterator<Libro>) this.lista.iterator();
+		
+		while (it.hasNext())
+		{
+			if (it.next().getGenero().equals(genero))
+			{
+				lista.append(it.next().toString() + "\n");
+			}
+		}
+		
+		return lista;
+	}
+	
 }

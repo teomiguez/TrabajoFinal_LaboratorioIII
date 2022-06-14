@@ -7,8 +7,8 @@ public interface I_BuscarLibro {
 	// INTERFAZ CON != FORMAS DE BUSCAR UN LIBRO
 	
 	Libro buscarLibroPor_Titulo (String titulo);
-	Libro buscarLibroPor_AnioEdicion (int anioEdicion);
-	Libro buscarLibroPor_Autor (String autor);
-	Libro buscarLibroPor_Genero (String genero);
+	StringBuilder buscarLibrosPor_AnioEdicion (int anioEdicion);
+	StringBuilder buscarLibrosPor_Autor (String autor);
+	StringBuilder buscarLibrosPor_Genero (String genero);
 
 }

@@ -3,22 +3,35 @@ package clases;
 public class UsuarioAdmin extends Usuario
 {
 	
-	// Atributos
+	// ATRIBUTOS
 	
 	
-	// Constructor
+	// CONSTRUCTOR
 		
 	public UsuarioAdmin (String name, String password, String email)
 		{
 			super(name, password, email);
 		}
 		
-	// Getters
+	// METODOS
 		
-	// Setters
+	// OVERRIDERS NECESARIOS → equals - toString
+	
+	@Override
+	public boolean equals(Object obj) {
 		
-	// Metodos
+		Usuario aux = (Usuario)obj; // CASTEO
 		
-	// Overrides necesarios → equals - toString
+		if (this.getEmail().equals(aux.getEmail())) // COMPARO
+			return true;
+		else
+			return false;
+	}
+	
+	@Override
+	public String toString() {
+		
+		return super.toString();
+	}
 
 }

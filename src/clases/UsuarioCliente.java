@@ -2,12 +2,12 @@ package clases;
 
 public class UsuarioCliente extends Usuario {
 
-	// Atributos
+	// ATRIBUTOS
 
 	// private coleccionAlquilados
 	private boolean bajaLogica;
 
-	// Constructor
+	// CONSTRUCTOR
 
 	public UsuarioCliente(String name, String password, String email) {
 		super(name, password, email);
@@ -15,20 +15,37 @@ public class UsuarioCliente extends Usuario {
 		this.setBajaLogica(false);
 	}
 
-	// Getters
+	// GETTERS
 
 	public boolean isBajaLogica() {
 		return bajaLogica;
 	}
 
-	// Setters
+	// SETTERS
 
 	public void setBajaLogica(boolean bajaLogica) {
 		this.bajaLogica = bajaLogica;
 	}
 
-	// Metodos
+	// METODOS
 
-	// Overrides necesarios → equals - toString
+	// OVERRIDERS NECESARIOS → equals - toString
+	
+	@Override
+	public boolean equals(Object obj) {
+		
+		Usuario aux = (Usuario)obj; // CASTEO
+		
+		if (this.getEmail().equals(aux.getEmail())) // COMPARO
+			return true;
+		else
+			return false;
+	}
+	
+	@Override
+	public String toString() {
+		
+		return super.toString();
+	}
 
 }

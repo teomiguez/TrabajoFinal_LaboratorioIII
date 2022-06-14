@@ -3,13 +3,13 @@ package clases;
 public abstract class Usuario 
 {
 	
-	// Atributos
+	// ATRIBUTOS
 	
 	private String name;
 	private String password;
 	private String email;
 	
-	// Constructor
+	// CONSTRUCTOR
 		
 	public Usuario (String name, String password, String email)
 	{
@@ -18,22 +18,21 @@ public abstract class Usuario
 		this.email = email;
 	}
 	
-	// Getters
+	// GETTERS
 	
 	public String getName() {  return name;  }
 	public String getPassword() {  return password;  }
 	public String getEmail() {  return email;  }
 	
-	// Setters
+	// SETTERS
 	
 	public void setName(String name) {  this.name = name;  }
 	public void setPassword(String password) {  this.password = password;  }
 	
-	// Metodos
+	// METODOS
 	
 	
-	
-	// Overrides necesarios → equals - toString
+	// OVERRIDERS NECESARIOS → equals - toString
 	
 	@Override
 	public boolean equals(Object obj) {
@@ -44,5 +43,16 @@ public abstract class Usuario
 		else
 			return false;
 	}
+
+	@Override
+	public String toString() {
+		
+		return "Usuario {" + "\n" +
+				"name: " + this.getName() + "\n" +
+				"password=" + this.getPassword() + "\n" +
+				"email=" + this.getEmail() + "\n" +
+				"}";
+	}
+	
 	
 }

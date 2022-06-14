@@ -2,14 +2,14 @@ package clases;
 
 public abstract class ObraImpresa
 {
-	// Atributos
+	// ATRIBUTOS
 	
 	private int id;
 	private boolean bajaLogica;
 	private int inStock;
 	private int inAlquiler;
 	
-	// Constructor
+	// CONSTRUCTOR
 	
 	public ObraImpresa (int id, int stock)
 	{
@@ -20,32 +20,42 @@ public abstract class ObraImpresa
 	}
 	
 	
-	// Getters
+	// GETTERS
 	
 	public int getId() {  return id;  }
 	public boolean getBajaLogica() {  return bajaLogica;  }
 	public int getInStock() {  return inStock;  }
 	public int getInAlquiler() {  return inAlquiler;  }
 	
-	// Setters
+	// SETTERS
 	
 	public void setBajaLogica(boolean bajaLogica) {  this.bajaLogica = bajaLogica;  }
 	public void setInStock(int inStock) {  this.inStock = inStock;  }
 	public void setInAlquiler(int inAlquiler) {  this.inAlquiler = inAlquiler;  }
 	
-	// Metodos
+	// METODOS
 	
-	// Overrides necesarios → equals - toString
+	// OVERRIDERS NECESARIOS → equals - toString
 	
 	@Override
 	public boolean equals(Object obj) 
 	{
-		ObraImpresa aux = (ObraImpresa)obj;
+		ObraImpresa aux = (ObraImpresa)obj; // CASTEO
 		
-		if (this.id == aux.id)
+		if (this.id == aux.id) // COMPARO
 			return true;
 		else
 			return false;
+	}
+	
+	@Override
+	public String toString() {
+		
+		return "Obra Impresa {" + "\n" + 
+				"ID: " + this.getId() + "\n" + 
+				"En Stock: " + this.getInStock() + "\n" + 
+				"En Alquiler:" + this.getInAlquiler() + "\n" + 
+				"}";
 	}
 	
 }

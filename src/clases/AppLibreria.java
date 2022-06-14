@@ -2,6 +2,9 @@ package clases;
 
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.Iterator;
+import java.util.Map;
+import java.util.Map.Entry;
 import java.util.TreeMap;
 
 import genericidad.ListaGenerica;
@@ -9,55 +12,72 @@ import interfaces.I_BuscarLibro;
 
 public class AppLibreria implements I_BuscarLibro
 {
-	// Atributos
+	// ATRIBUTOS
 	
-	public HashMap<String,ListaGenerica> obrasImpresas;
+	public HashMap<String, ListaGenerica<Libro>> obrasImpresas;
 	public ArrayList<ObraImpresa> librosAlquilados;
 	public TreeMap <String,String> clientes;
 	
 	
-	// Constructor
+	// CONSTRUCTORES
+	
 	public AppLibreria ()
 	{
-		// hacemos los new
+		// HACEMOS LOS NEW
+		
 		this.obrasImpresas = new HashMap<>();
 		this.librosAlquilados = new ArrayList<>();
 		this.clientes = new TreeMap<>();
-		// cargamos con el archivo las colecciones?	
+		
+		// CARGAMOS LAS COLECIONES CON LOS ARCHIVOS
 	}
 		
+	// METODOS
+	
+	public ListaGenerica buscarGenero (String genero)
+	{
+		ListaGenerica lista = null;
+		
+		Iterator<Entry<String, ListaGenerica<Libro>>> filas = obrasImpresas.entrySet().iterator();
+		
+		while (filas.hasNext())
+		{
+			Entry<String, ListaGenerica<Libro>> unaFila = filas.next();
 			
-	// Overrides necesarios
+			if (unaFila.getKey().equals(genero))
+				lista = unaFila.getValue();
+		}
+		
+		return lista;
+	}
+	
+	// OVERRIDERS NECESARIOS
 	
 	@Override
 	public Libro buscarLibroPor_Titulo(String titulo) {
-		
 		// TODO Auto-generated method stub
-		
 		return null;
 	}
 
+
 	@Override
-	public Libro buscarLibroPor_AnioEdicion(int anioEdicion) {
-		
+	public StringBuilder buscarLibrosPor_AnioEdicion(int anioEdicion) {
 		// TODO Auto-generated method stub
-		
 		return null;
 	}
 
+
 	@Override
-	public Libro buscarLibroPor_Autor(String autor) {
-		
+	public StringBuilder buscarLibrosPor_Autor(String autor) {
 		// TODO Auto-generated method stub
-		
 		return null;
 	}
 
+
 	@Override
-	public Libro buscarLibroPor_Genero(String genero) {
-		
+	public StringBuilder buscarLibrosPor_Genero(String genero) {
 		// TODO Auto-generated method stub
-		
 		return null;
 	}
+	
 }

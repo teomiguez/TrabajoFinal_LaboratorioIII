@@ -1,6 +1,8 @@
-/genericidad/
+/app/
 /archivos/
 /clases/
-/json/
 /excepciones/
-/app/
+/genericidad/
+/interfaces/
+/interfaces_graficas/
+/json/

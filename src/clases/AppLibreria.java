@@ -55,10 +55,35 @@ public class AppLibreria implements I_BuscarLibro
 	}
 	
 	// METODOS - BUSCAR EN librosAlquilados.-
+	public ListaGenerica buscarGeneroEnAlquilados (String genero)
+	{
+		for(int i=0;i<=librosAlquilados.size();i++)
+		{
+			//cuerpo
+		}
+	}
+	
+	
 	
 	// completar...
 	
 	// METODOS - BUSCAR EN clienntes.-
+	public UsuarioCliente buscarCliente (String name)
+	{
+		UsuarioCliente client = null;
+		
+		Iterator<Entry<String, UsuarioCliente>> filas = clientes.entrySet().iterator();
+		
+		while (filas.hasNext())
+		{
+			Entry<String, UsuarioCliente> unaFila = filas.next();
+			
+			if (unaFila.getKey().equals(name))
+				client = unaFila.getValue();
+		}
+		
+		return client;
+	}
 	
 	// completar...
 	
@@ -66,8 +91,22 @@ public class AppLibreria implements I_BuscarLibro
 	
 	@Override
 	public Libro buscarLibroPor_Titulo(String titulo) {
-		// TODO Auto-generated method stub
-		return null;
+
+		Libro aux = null;
+		
+		Iterator<Entry<String, ListaGenerica<Libro>>> filas = obrasImpresas.entrySet().iterator();
+		
+		while (filas.hasNext())
+		{
+			Entry<String, ListaGenerica<Libro>> unaFila = filas.next();
+			
+			if (filas.next().getTitulo().equals(titulo))
+			{
+				aux = filas.next();
+			}
+		}
+		
+		return aux;
 	}
 
 

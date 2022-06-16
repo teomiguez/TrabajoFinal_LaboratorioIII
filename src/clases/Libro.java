@@ -1,5 +1,7 @@
 package clases;
 
+import clasesAbstractas.ObraImpresa;
+
 public class Libro extends ObraImpresa
 {
 	

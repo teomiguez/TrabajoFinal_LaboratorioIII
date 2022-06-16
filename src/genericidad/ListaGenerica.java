@@ -4,7 +4,7 @@ import java.util.HashSet;
 import java.util.Iterator;
 
 import clases.Libro;
-import clases.ObraImpresa;
+import clasesAbstractas.ObraImpresa;
 import interfaces.I_BuscarLibro;
 
 public class ListaGenerica <E extends ObraImpresa> implements I_BuscarLibro

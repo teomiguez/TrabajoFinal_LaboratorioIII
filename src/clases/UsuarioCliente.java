@@ -1,5 +1,7 @@
 package clases;
 
+import clasesAbstractas.Usuario;
+
 public class UsuarioCliente extends Usuario {
 
 	// ATRIBUTOS

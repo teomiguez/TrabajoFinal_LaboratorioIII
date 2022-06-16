@@ -1,5 +1,7 @@
 package clases;
 
+import clasesAbstractas.Usuario;
+
 public class UsuarioAdmin extends Usuario
 {
 	

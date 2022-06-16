@@ -1,4 +1,4 @@
-package clases;
+package clasesAbstractas;
 
 public abstract class Usuario 
 {

@@ -5,6 +5,9 @@ import java.util.HashMap;
 import java.util.Iterator;
 import java.util.Map;
 import java.util.Map.Entry;
+
+import clasesAbstractas.ObraImpresa;
+
 import java.util.TreeMap;
 
 import genericidad.ListaGenerica;

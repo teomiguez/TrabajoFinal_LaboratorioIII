@@ -1,6 +1,6 @@
 package excepciones;
 
-public class Excepcion_ContraseniaInvalida 
+public class Excepcion_ContraseniaInvalida extends Exception
 {
 	
 }

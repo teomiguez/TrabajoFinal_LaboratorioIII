@@ -14,9 +14,9 @@ public class AppLibreria implements I_BuscarLibro
 {
 	// ATRIBUTOS
 	
-	public HashMap<String, ListaGenerica<Libro>> obrasImpresas;
+	public HashMap<String, ListaGenerica<Libro>> obrasImpresas; // String -> genero
 	public ArrayList<ObraImpresa> librosAlquilados;
-	public TreeMap <String,String> clientes;
+	public TreeMap <String,UsuarioCliente> clientes;
 	
 	
 	// CONSTRUCTORES
@@ -32,7 +32,7 @@ public class AppLibreria implements I_BuscarLibro
 		// CARGAMOS LAS COLECIONES CON LOS ARCHIVOS
 	}
 		
-	// METODOS
+	// METODOS - BUSCAR EN obrasImpresas.-
 	
 	public ListaGenerica buscarGenero (String genero)
 	{
@@ -50,6 +50,14 @@ public class AppLibreria implements I_BuscarLibro
 		
 		return lista;
 	}
+	
+	// METODOS - BUSCAR EN librosAlquilados.-
+	
+	// completar...
+	
+	// METODOS - BUSCAR EN clienntes.-
+	
+	// completar...
 	
 	// OVERRIDERS NECESARIOS
 	
@@ -75,7 +83,7 @@ public class AppLibreria implements I_BuscarLibro
 
 
 	@Override
-	public StringBuilder buscarLibrosPor_Genero(String genero) {
+	public StringBuilder buscarLibrosPor_Genero(String genero) { 
 		// TODO Auto-generated method stub
 		return null;
 	}

@@ -100,9 +100,9 @@ public class ListaGenerica <E extends ObraImpresa> implements I_BuscarLibro
 	}
 
 	@Override
-	public StringBuilder buscarLibrosPor_AnioEdicion(int anioEdicion) {
+	public ListaGenerica<Libro> buscarLibrosPor_AnioEdicion(int anioEdicion) {
 		
-		StringBuilder lista = new StringBuilder();
+		ListaGenerica<Libro> lista = new ListaGenerica<>();
 		
 		Iterator<Libro> it = (Iterator<Libro>) this.lista.iterator();
 		
@@ -110,7 +110,7 @@ public class ListaGenerica <E extends ObraImpresa> implements I_BuscarLibro
 		{
 			if (it.next().getAnioEdicion() == anioEdicion)
 			{
-				lista.append(it.next().toString() + "\n");
+				lista.agregarObra(it.next());
 			}
 		}
 		
@@ -118,9 +118,9 @@ public class ListaGenerica <E extends ObraImpresa> implements I_BuscarLibro
 	}
 
 	@Override
-	public StringBuilder buscarLibrosPor_Autor(String autor) {
+	public ListaGenerica<Libro> buscarLibrosPor_Autor(String autor) {
 		
-		StringBuilder lista = new StringBuilder();
+		ListaGenerica<Libro> lista = new ListaGenerica<>();
 		
 		Iterator<Libro> it = (Iterator<Libro>) this.lista.iterator();
 		
@@ -128,7 +128,7 @@ public class ListaGenerica <E extends ObraImpresa> implements I_BuscarLibro
 		{
 			if (it.next().getAutor().equals(autor))
 			{
-				lista.append(it.next().toString() + "\n");
+				lista.agregarObra(it.next());
 			}
 		}
 		
@@ -136,9 +136,9 @@ public class ListaGenerica <E extends ObraImpresa> implements I_BuscarLibro
 	}
 
 	@Override
-	public StringBuilder buscarLibrosPor_Genero(String genero) {
+	public ListaGenerica<Libro> buscarLibrosPor_Genero(String genero) {
 
-		StringBuilder lista = new StringBuilder();
+		ListaGenerica<Libro> lista = new ListaGenerica<>();
 		
 		Iterator<Libro> it = (Iterator<Libro>) this.lista.iterator();
 		
@@ -146,7 +146,7 @@ public class ListaGenerica <E extends ObraImpresa> implements I_BuscarLibro
 		{
 			if (it.next().getGenero().equals(genero))
 			{
-				lista.append(it.next().toString() + "\n");
+				lista.agregarObra(it.next());
 			}
 		}
 		

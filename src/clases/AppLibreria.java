@@ -6,19 +6,16 @@ import java.util.Iterator;
 import java.util.Map;
 import java.util.Map.Entry;
 
-import clasesAbstractas.ObraImpresa;
-
 import java.util.TreeMap;
 
 import genericidad.ListaGenerica;
-import interfaces.I_BuscarLibro;
 
-public class AppLibreria implements I_BuscarLibro
+public class AppLibreria
 {
 	// ATRIBUTOS
 	
 	public HashMap<String, ListaGenerica<Libro>> obrasImpresas; // String -> genero
-	public ArrayList<ObraImpresa> librosAlquilados;
+	public ArrayList<Libro> librosAlquilados;
 	public TreeMap <String,UsuarioCliente> clientes;
 	
 	
@@ -33,19 +30,91 @@ public class AppLibreria implements I_BuscarLibro
 		this.clientes = new TreeMap<>();
 		
 		// CARGAMOS LAS COLECIONES CON LOS ARCHIVOS
+		
+		
 	}
 		
-	// METODOS - BUSCAR EN obrasImpresas.-
+	// --------------------
+	//   METODOS - LISTAR
+	// --------------------
 	
-	public ListaGenerica buscarGenero (String genero)
+	// LISTAR obrasImpresas
+	
+	public StringBuilder listar_obrasImpresas()
 	{
-		ListaGenerica lista = null;
 		
-		Iterator<Entry<String, ListaGenerica<Libro>>> filas = obrasImpresas.entrySet().iterator();
+	}
+	
+	// LISTAR librosAlquilados
+	
+	public StringBuilder listar_obrasImpresas()
+	{
+		
+	}
+	
+	// LISTAR clientes
+	
+	public StringBuilder listar_obrasImpresas()
+	{
+		
+	}
+	
+	// --------------------
+	//   METODOS - BUSCAR
+	// --------------------
+	
+	// -----------------------------
+	//    BUSCAR EN obrasImpresas
+	// -----------------------------
+	
+	// buscar por titulo
+	
+	public Libro buscarPorTitulo_EnObrasImpresas(String titulo)
+	{
+		Libro libro = null;
+		
+		Iterator <Entry<String, ListaGenerica<Libro>>> filas = this.obrasImpresas.entrySet().iterator();
 		
 		while (filas.hasNext())
 		{
-			Entry<String, ListaGenerica<Libro>> unaFila = filas.next();
+			Map.Entry<String, ListaGenerica<Libro>> unaFila = filas.next();
+			
+			if (libro == null)
+				libro = unaFila.getValue().buscarLibroPor_Titulo(titulo);
+		}
+		
+		return libro;
+	}
+	
+	// buscar por anioEdicion
+	
+	public ListaGenerica<Libro> buscarPorAnioEdicion_EnObrasImpresas(int anioEdicion)
+	{
+		ListaGenerica<Libro> lista = new ListaGenerica<Libro>();
+		
+		Iterator <Entry<String, ListaGenerica<Libro>>> filas = this.obrasImpresas.entrySet().iterator();
+		
+		while (filas.hasNext())
+		{
+			Map.Entry<String, ListaGenerica<Libro>> unaFila = filas.next();
+			
+			lista = unaFila.getValue().buscarLibrosPor_AnioEdicion(anioEdicion);
+		}
+		
+		return lista;
+	}
+	
+	// buscar por genero
+	
+	public ListaGenerica<Libro> buscarPorGenero_EnObrasImpresas(String genero)
+	{
+		ListaGenerica<Libro> lista = new ListaGenerica<Libro>();
+		
+		Iterator <Entry<String, ListaGenerica<Libro>>> filas = this.obrasImpresas.entrySet().iterator();
+		
+		while (filas.hasNext())
+		{
+			Map.Entry<String, ListaGenerica<Libro>> unaFila = filas.next();
 			
 			if (unaFila.getKey().equals(genero))
 				lista = unaFila.getValue();
@@ -54,80 +123,127 @@ public class AppLibreria implements I_BuscarLibro
 		return lista;
 	}
 	
-	// METODOS - BUSCAR EN librosAlquilados.-
-	public ListaGenerica buscarGeneroEnAlquilados (String genero)
+	// buscar por autor
+	
+	public ListaGenerica<Libro> buscarPorAutor_EnObrasImpresas(String autor)
 	{
-		for(int i=0;i<=librosAlquilados.size();i++)
-		{
-			//cuerpo
-		}
-	}
-	
-	
-	
-	// completar...
-	
-	// METODOS - BUSCAR EN clienntes.-
-	public UsuarioCliente buscarCliente (String name)
-	{
-		UsuarioCliente client = null;
+		ListaGenerica<Libro> lista = new ListaGenerica<Libro>();
 		
-		Iterator<Entry<String, UsuarioCliente>> filas = clientes.entrySet().iterator();
+		Iterator <Entry<String, ListaGenerica<Libro>>> filas = this.obrasImpresas.entrySet().iterator();
 		
 		while (filas.hasNext())
 		{
-			Entry<String, UsuarioCliente> unaFila = filas.next();
+			Map.Entry<String, ListaGenerica<Libro>> unaFila = filas.next();
 			
-			if (unaFila.getKey().equals(name))
-				client = unaFila.getValue();
+			lista = unaFila.getValue().buscarLibrosPor_Autor(autor);
 		}
 		
-		return client;
+		return lista;
 	}
 	
-	// completar...
 	
-	// OVERRIDERS NECESARIOS
+	// -------------------------------
+	//    BUSCAR EN librosAlquilados
+	// -------------------------------
 	
-	@Override
-	public Libro buscarLibroPor_Titulo(String titulo) {
-
-		Libro aux = null;
+	// buscar por titulo
+	
+	public Libro buscarPorTitulo_EnlibrosAlquilados(String titulo)
+	{
+		Libro libro = null;
 		
-		Iterator<Entry<String, ListaGenerica<Libro>>> filas = obrasImpresas.entrySet().iterator();
+		for( int i=0 ; i<this.librosAlquilados.size() ; i++)
+		{
+			if (this.librosAlquilados.get(i).getTitulo().equals(titulo))
+				libro = this.librosAlquilados.get(i);
+		}
+		
+		return libro;
+	}
+	
+	// buscar por anioEdicion
+	
+	public ListaGenerica<Libro> buscarPorAnioEdicion_EnlibrosAlquilados(int anioEdicion)
+	{
+		ListaGenerica<Libro> lista = new ListaGenerica<Libro>();
+		
+		for( int i=0 ; i<this.librosAlquilados.size() ; i++)
+		{
+			if (this.librosAlquilados.get(i).getAnioEdicion() == anioEdicion)
+				lista.agregarObra(this.librosAlquilados.get(i));
+		}
+		
+		return lista;
+	}
+	
+	// buscar por genero
+	
+	public ListaGenerica<Libro> buscarPorGenero_EnlibrosAlquilados(String genero)
+	{
+		ListaGenerica<Libro> lista = new ListaGenerica<Libro>();
+		
+		for( int i=0 ; i<this.librosAlquilados.size() ; i++)
+		{
+			if (this.librosAlquilados.get(i).getGenero().equals(genero))
+				lista.agregarObra(this.librosAlquilados.get(i));
+		}
+		
+		return lista;
+	}
+	
+	// buscar por autor
+	
+	public ListaGenerica<Libro> buscarPorAutor_EnlibrosAlquilados(String autor)
+	{
+		ListaGenerica<Libro> lista = new ListaGenerica<Libro>();
+		
+		for( int i=0 ; i<this.librosAlquilados.size() ; i++)
+		{
+			if (this.librosAlquilados.get(i).getAutor().equals(autor))
+				lista.agregarObra(this.librosAlquilados.get(i));
+		}
+		
+		return lista;
+	}
+	
+	// -----------------------------
+	//    BUSCAR EN clientes
+	// -----------------------------
+	
+	// buscar por usuario
+	
+	public UsuarioCliente buscarUsuario_EnClientes(String usario)
+	{
+		UsuarioCliente usuario = null;
+		
+		Iterator<Entry<String, UsuarioCliente>> filas = this.clientes.entrySet().iterator();
 		
 		while (filas.hasNext())
 		{
-			Entry<String, ListaGenerica<Libro>> unaFila = filas.next();
+			Map.Entry<String, UsuarioCliente> unaFila = filas.next();
 			
-			if (filas.next().getTitulo().equals(titulo))
-			{
-				aux = filas.next();
-			}
+			if (unaFila.getKey().equals(usario))
+				usuario = unaFila.getValue();
 		}
+		return usuario;
+	}
+	
+	// buscar por email
+	
+	public UsuarioCliente buscarUsuarioPorEmail_EnClientes(String email)
+	{
+		UsuarioCliente usuario = null;
 		
-		return aux;
-	}
-
-
-	@Override
-	public StringBuilder buscarLibrosPor_AnioEdicion(int anioEdicion) {
-		// TODO Auto-generated method stub
-		return null;
-	}
-
-
-	@Override
-	public StringBuilder buscarLibrosPor_Autor(String autor) {
-		// TODO Auto-generated method stub
-		return null;
-	}
-
-
-	@Override
-	public StringBuilder buscarLibrosPor_Genero(String genero) { 
-		// TODO Auto-generated method stub
-		return null;
+		Iterator<Entry<String, UsuarioCliente>> filas = this.clientes.entrySet().iterator();
+		
+		while (filas.hasNext())
+		{
+			Map.Entry<String, UsuarioCliente> unaFila = filas.next();
+			
+			if (unaFila.getValue().getEmail().equals(email))
+				usuario = unaFila.getValue();
+		}
+		return usuario;
 	}
 	
 }

@@ -11,6 +11,11 @@ public abstract class Usuario
 	
 	// CONSTRUCTOR
 		
+	public Usuario ()
+	{
+		
+	}
+	
 	public Usuario (String name, String password, String email)
 	{
 		this.name = name;

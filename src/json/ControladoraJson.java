@@ -1,7 +1,11 @@
 package json;
 
 import java.util.HashMap;
+import java.util.Iterator;
+import java.util.Map;
+import java.util.Map.Entry;
 
+import org.json.JSONException;
 import org.json.JSONObject;
 
 import clases.AppLibreria;
@@ -25,6 +29,7 @@ public class ControladoraJson {
 	public JSONObject json_obrasImpresas() // GENERAR JSON DE obrasImpresas
 	{
 		JSONObject json = new JSONObject();
+		HashMap<String, ListaGenerica<Libro>> map = app.getObrasImpresas();
 		
 		// cuerpo
 		

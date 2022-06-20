@@ -31,7 +31,7 @@ public class ListaGenerica <E extends ObraImpresa> implements I_BuscarLibro
 		{
 			if (it.next().getId() == obra.getId()) // COMPARO LAS IDs PARA VER SI NO ESTA DE BAJA
 			{
-				it.next().setBajaLogica(true); // SI LO ENCUENTRO LO "AGREGO"
+				it.next().setBajaLogica(true); // SI ESTABA DE BAJA Y LO ENCUENTRO LO "AGREGO"
 				flag = true; // USO UN FLAG PARA VER SI ESTABA O NO
 				
 			}
@@ -42,15 +42,9 @@ public class ListaGenerica <E extends ObraImpresa> implements I_BuscarLibro
 	
 	public void sacarObra (int id)
 	{
-		Iterator<E> it = this.lista.iterator();
+		E obra = this.buscarObra_PorId(id);
 		
-		while (it.hasNext()) // ITERO PARA RECORRER
-		{
-			if (it.next().getId() == id) // COMPARO LAS IDs
-			{
-				it.next().setBajaLogica(false); // SI LO ENCUENTRO LO "SACO"
-			}
-		}
+		this.lista.remove(obra);
 	}
 	
 	public E buscarObra_PorId (int id)
@@ -74,7 +68,12 @@ public class ListaGenerica <E extends ObraImpresa> implements I_BuscarLibro
 	{
 		StringBuilder lista = new StringBuilder();
 		
-		// cuerpo
+		Iterator<E> it = this.lista.iterator();
+		
+		while (it.hasNext()) // ITERO PARA RECORRER
+		{
+			lista.append(it.next().toString());
+		}
 		
 		return lista;
 	}

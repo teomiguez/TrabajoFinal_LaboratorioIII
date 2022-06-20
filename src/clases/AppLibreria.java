@@ -33,16 +33,11 @@ public class AppLibreria
 		this.obrasImpresas = new HashMap<>();
 		this.librosAlquilados = new ArrayList<>();
 		this.clientes = new TreeMap<>();
-		
-		// CARGAMOS LAS COLECIONES CON LOS ARCHIVOS
-		
-		
 	}
 	
 	// GETTERS
 	
-	// SETTERS
-	
+	public HashMap<String, ListaGenerica<Libro>> getObrasImpresas() {  return obrasImpresas;  }
 	
 	// --------------------------
 	//   METODO - LOGIN USUARIO
@@ -53,21 +48,28 @@ public class AppLibreria
 		boolean rta = false;
 		int intentos = 0;
 		
-		try 
+		if (usuario.equals("admin") && password.equals("admin")) // si es un admin - entra
 		{
-			if (this.buscarUsuario_EnClientes(usuario) != null)
+			rta = true;
+		}
+		else // no es admin - busca
+		{
+			try 
 			{
-				UsuarioCliente user = this.buscarUsuario_EnClientes(usuario);
-				
-				if (this.verificarPassword(user, password, intentos));
-					rta = true;
+				if (this.buscarUsuario_EnClientes(usuario) != null)
+				{
+					UsuarioCliente user = this.buscarUsuario_EnClientes(usuario);
+					
+					if (this.verificarPassword(user, password, intentos));
+						rta = true;
+				}
+			} catch (E_UsuarioInvalido e) 
+			{
+				System.out.println(e.getMessage());
+			} catch (E_ContraseniaInvalida e) 
+			{
+				System.out.println(e.getMessage());
 			}
-		} catch (E_UsuarioInvalido e) 
-		{
-			System.out.println(e.getMessage());
-		} catch (E_ContraseniaInvalida e) 
-		{
-			System.out.println(e.getMessage());
 		}
 		
 		return rta;
@@ -179,7 +181,23 @@ public class AppLibreria
 	{
 		boolean rta = false;
 		
-		// cuerpo
+		UsuarioCliente usuario = null;
+		
+		try 
+		{
+			usuario = this.buscarUsuario_EnClientes(user);
+		} 
+		catch (E_UsuarioInvalido e) 
+		{
+			System.out.println(e.getMessage());
+		}
+		
+		if (usuario != null) 
+		{
+			usuario.setBajaLogica(true);
+			this.clientes.put(usuario.getName(), usuario);
+			rta = true;
+		}
 		
 		return rta;
 	}
@@ -188,7 +206,23 @@ public class AppLibreria
 	{
 		boolean rta = false;
 		
-		// cuerpo
+		UsuarioCliente usuario = null;
+		
+		try 
+		{
+			usuario = this.buscarUsuario_EnClientes(user);
+		} 
+		catch (E_UsuarioInvalido e) 
+		{
+			System.out.println(e.getMessage());
+		}
+		
+		if (usuario != null)
+		{
+			usuario.setBajaLogica(false);
+			this.clientes.put(usuario.getName(), usuario);
+			rta = true;
+		}
 		
 		return rta;
 	}
@@ -197,7 +231,21 @@ public class AppLibreria
 	{
 		boolean rta = false;
 		
-		// cuerpo
+		Libro libro = null;
+		
+		libro = this.buscarPorID_EnObrasImpresas(id);
+		
+		if (libro != null)
+		{
+			libro.setBajaLogica(true);
+			this.agregarLibro(libro);
+			
+			ListaGenerica <Libro> lista = this.buscarPorGenero_EnObrasImpresas(libro.getGenero());
+			lista.agregarObra(libro);
+			this.obrasImpresas.replace(libro.getGenero(), lista);
+			
+			rta = true;
+		}
 		
 		return rta;
 	}
@@ -206,7 +254,21 @@ public class AppLibreria
 	{
 		boolean rta = false;
 		
-		// cuerpo
+		Libro libro = null;
+		
+		libro = this.buscarPorID_EnObrasImpresas(id);
+		
+		if (libro != null)
+		{
+			libro.setBajaLogica(false);
+			this.agregarLibro(libro);
+			
+			ListaGenerica <Libro> lista = this.buscarPorGenero_EnObrasImpresas(libro.getGenero());
+			lista.agregarObra(libro);
+			this.obrasImpresas.replace(libro.getGenero(), lista);
+			
+			rta = true;
+		}
 		
 		return rta;
 	}
@@ -215,20 +277,96 @@ public class AppLibreria
 	//   METODOS - ALQUILAR/DEVOLVER
 	// -------------------------------
 		
-	public boolean alquilarLibro (int id)
+	public boolean alquilarLibro (int id, String usuario)
 	{
 		boolean rta = false;
 		
-		// cuerpo
+		UsuarioCliente user = null;
+		Libro libro = null;
+		int stock;
+		int alquiler;
+		
+		libro = this.buscarPorID_EnObrasImpresas(id);
+		
+		try 
+		{
+			user = this.buscarUsuario_EnClientes(usuario);
+		} 
+		catch (E_UsuarioInvalido e) 
+		{
+			System.out.println(e.getMessage());
+		}
+		
+		if (libro != null && user != null)
+		{
+			// trabajo en obrasImpresas
+			stock = libro.getInStock();
+			alquiler = libro.getInAlquiler();
+			
+			libro.setInStock(stock--);
+			libro.setInAlquiler(alquiler++);
+			
+			ListaGenerica <Libro> lista = this.buscarPorGenero_EnObrasImpresas(libro.getGenero());
+			lista.agregarObra(libro);
+			this.obrasImpresas.replace(libro.getGenero(), lista);
+			
+			// trabajo en librosAlquilados
+			this.librosAlquilados.add(libro);
+			
+			// trabajo en el usuario
+			ListaGenerica<Libro> listaUser = user.getAlquilados();
+			listaUser.agregarObra(libro);
+			user.setAlquilados(listaUser);
+			
+			rta = true;
+			
+		}
+		
 		
 		return rta;
 	}
 	
-	public boolean devolverLibro (int id)
+	public boolean devolverLibro (int id, String usuario)
 	{
 		boolean rta = false;
 		
-		// cuerpo
+		UsuarioCliente user = null;
+		Libro libro = null;
+		int stock;
+		int alquiler;
+		
+		libro = this.buscarPorID_EnObrasImpresas(id);
+		
+		try 
+		{
+			user = this.buscarUsuario_EnClientes(usuario);
+		} 
+		catch (E_UsuarioInvalido e) 
+		{
+			System.out.println(e.getMessage());
+		}
+		
+		if (libro != null && user != null)
+		{
+			// trabajo en obrasImpresas
+			stock = libro.getInStock();
+			alquiler = libro.getInAlquiler();
+			
+			libro.setInStock(stock++);
+			libro.setInAlquiler(alquiler--);
+			
+			ListaGenerica <Libro> lista = this.buscarPorGenero_EnObrasImpresas(libro.getGenero());
+			lista.agregarObra(libro);
+			this.obrasImpresas.replace(libro.getGenero(), lista);
+			
+			// trabajo en librosAlquilados
+			this.librosAlquilados.remove(libro);
+			
+			// trabajo en el usuario
+			user.alquilados.sacarObra(id);
+			
+			rta = true;
+		}
 		
 		return rta;
 	}
@@ -239,35 +377,39 @@ public class AppLibreria
 	
 	// LISTAR obrasImpresas
 	
-	public static StringBuilder listar_obrasImpresas()
+	public StringBuilder listar_obrasImpresas()
 	{
 		StringBuilder str = new StringBuilder();
+		Libro libro = null;
 		
-		// cuerpo
+		Iterator <Entry<String, ListaGenerica<Libro>>> filas = this.obrasImpresas.entrySet().iterator();
+		
+		while (filas.hasNext())
+		{
+			Map.Entry<String, ListaGenerica<Libro>> unaFila = filas.next();
+			
+			str.append("GENERO: " + unaFila.getKey());
+			
+			ListaGenerica<Libro> lista = unaFila.getValue();
+			
+			str.append(lista.listar());
+		}
 		
 		return str;
 	}
 	
 	// LISTAR librosAlquilados
 	
-	public static StringBuilder listar_librosAlquilados()
+	public StringBuilder listar_librosAlquilados()
 	{
 		StringBuilder str = new StringBuilder();
 		
-		// cuerpo
+		for (int i=0 ; i < this.librosAlquilados.size() ; i++)
+		{
+			str.append(this.librosAlquilados.get(i).toString());
+		}
 		
 		return str;
-	}
-	
-	// LISTAR clientes
-	
-	public static StringBuilder listar_clientes()
-	{
-		StringBuilder str = new StringBuilder();
-		
-		// cuerpo
-		
-		return str;	
 	}
 	
 	// --------------------

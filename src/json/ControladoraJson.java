@@ -1,19 +1,11 @@
 package json;
 
-import java.util.ArrayList;
-
 import java.util.HashMap;
-import java.util.Iterator;
-import java.util.TreeMap;
-import java.util.Map.Entry;
 
 import org.json.JSONObject;
 
-import app.JsonUtiles;
 import clases.AppLibreria;
 import clases.Libro;
-import clases.UsuarioCliente;
-import clasesAbstractas.ObraImpresa;
 import genericidad.ListaGenerica;
 
 public class ControladoraJson { 
@@ -21,22 +13,20 @@ public class ControladoraJson {
 	// ACA TRBAJAMOS CON JSON
 	
 	// ATRIBUTOS
-	private HashMap<String, ListaGenerica<Libro>> map;
+	private AppLibreria app;
 	
 	// CONSTRUCTOR
-	public ControladoraJson(HashMap map)
+	public ControladoraJson(AppLibreria app)
 	{
-		this.map = map;
+		this.app = app;
 	}
 	
 	// METODOS
-	public static JSONObject json_obrasImpresas()
+	public JSONObject json_obrasImpresas() // GENERAR JSON DE obrasImpresas
 	{
 		JSONObject json = new JSONObject();
 		
-		Iterator <Entry<String, ListaGenerica<Libro>>> filas = this.map.entrySet().iterator();
-		
-		// GENERAR JSON DEL HASMAP (obrasImpresas)
+		// cuerpo
 		
 		return json;
 		

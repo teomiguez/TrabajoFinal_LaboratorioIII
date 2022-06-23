@@ -1,6 +1,7 @@
 package json;
 
 import java.util.HashMap;
+
 import java.util.Iterator;
 import java.util.Map;
 import java.util.Map.Entry;
@@ -14,12 +15,23 @@ import genericidad.ListaGenerica;
 
 public class ControladoraJson {
 
+<<<<<<< HEAD
 	public static JSONObject generarJson_obrasImpresas(HashMap<String, ListaGenerica<Libro>> map) {
 		JSONObject json = new JSONObject(); // la raiz (jsonObject)
 
 		Iterator<Entry<String, ListaGenerica<Libro>>> filas = map.entrySet().iterator();
 		while (filas.hasNext()) {
 			Map.Entry<String, ListaGenerica<Libro>> unaFila = filas.next();
+=======
+	public static JSONObject generarJson_obrasImpresas(HashMap<String, ListaGenerica<Libro>> map)
+	{
+		JSONObject json = new JSONObject(); // la raiz (jsonObject) { }
+
+		Iterator<Entry<String, ListaGenerica<Libro>>> filas = map.entrySet().iterator(); // CONVIERTE EN FILAS
+		while (filas.hasNext()) 
+		{
+			Map.Entry<String, ListaGenerica<Libro>> unaFila = filas.next(); // FILA CON LA QUE TRABAJAS
+>>>>>>> a82c3294d9378643677517f9777aa9ba0d929842
 
 			JSONArray arrayLibros = new JSONArray(); // array de los libros
 

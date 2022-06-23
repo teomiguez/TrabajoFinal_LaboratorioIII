@@ -20,6 +20,11 @@ public class ListaGenerica <E extends Libro> implements I_BuscarLibro
 
 	// METODOS
 	
+	public Libro devolver_posicion (int pos)
+	{
+		return this.lista.get(pos);
+	}
+	
 	public int size()
 	{
 		return this.lista.size();

@@ -1,44 +1,45 @@
 package genericidad;
 
-import java.util.HashSet;
-import java.util.Iterator;
+import java.util.ArrayList;
 
 import clases.Libro;
-import clasesAbstractas.ObraImpresa;
 import interfaces.I_BuscarLibro;
 
-public class ListaGenerica <E extends ObraImpresa> implements I_BuscarLibro
+public class ListaGenerica <E extends Libro> implements I_BuscarLibro
 {
 	// ATRIBUTOS
 	
-	private HashSet<E>lista; 
+	private ArrayList<E> lista; 
 	
 	// CONSTRUCTOR
 	
 	public ListaGenerica ()
 	{
-		this.lista = new HashSet<>();
+		this.lista = new ArrayList<>();
 	}
 
 	// METODOS
 	
+	public int size()
+	{
+		return this.lista.size();
+	}
+	
 	public void agregarObra (E obra)
 	{
 		boolean flag = false;
-		Iterator<E> it = this.lista.iterator();
 		
-		while (it.hasNext()) // ITERO PARA RECORRER
+		for (int i = 0; i < this.lista.size(); i++) 
 		{
-			if (it.next().getId() == obra.getId()) // COMPARO LAS IDs PARA VER SI NO ESTA DE BAJA
-			{
-				it.next().setBajaLogica(true); // SI ESTABA DE BAJA Y LO ENCUENTRO LO "AGREGO"
-				flag = true; // USO UN FLAG PARA VER SI ESTABA O NO
-				
-			}
+			
+			if (this.lista.get(i).getId() == obra.getId()) // METODO "GAUCHITO" PARA EVITAR REPETIDOS
+				flag = true;
+			
 		}
-		if (flag == false) // SI NO ESTABA LO AGREGO
+		
+		if (flag != true)
 			this.lista.add(obra);
-	}
+		}
 	
 	public void sacarObra (int id)
 	{
@@ -49,16 +50,14 @@ public class ListaGenerica <E extends ObraImpresa> implements I_BuscarLibro
 	
 	public E buscarObra_PorId (int id)
 	{
-		
-		Iterator<E> it = this.lista.iterator();
 		E aux = null;
 		
-		while (it.hasNext()) // BUSCO POR ID
+		for (int i = 0; i < this.lista.size(); i++) 
 		{
-			if (it.next().getId() == id) // SI LO ENCUENTRO LO CARGO EN OBRA
-			{
-				aux = it.next();
-			}
+			
+			if (this.lista.get(i).getId() == id)
+				aux = this.lista.get(i);
+			
 		}
 		
 		return aux;
@@ -68,11 +67,11 @@ public class ListaGenerica <E extends ObraImpresa> implements I_BuscarLibro
 	{
 		StringBuilder lista = new StringBuilder();
 		
-		Iterator<E> it = this.lista.iterator();
-		
-		while (it.hasNext()) // ITERO PARA RECORRER
+		for (int i = 0; i < this.lista.size(); i++) 
 		{
-			lista.append(it.next().toString());
+			
+			lista.append(this.lista.get(i).toString());
+			
 		}
 		
 		return lista;
@@ -85,15 +84,14 @@ public class ListaGenerica <E extends ObraImpresa> implements I_BuscarLibro
 
 		Libro lib = null;
 		
-		Iterator<Libro> it = (Iterator<Libro>) this.lista.iterator();
-		
-		while (it.hasNext())
+		for (int i = 0; i < this.lista.size(); i++) 
 		{
-			if (it.next().getTitulo().equals(titulo))
-			{
-				lib = it.next();
-			}
+			
+			if (this.lista.get(i).getTitulo().equals(titulo))
+				lib = this.lista.get(i);
+			
 		}
+		
 		
 		return lib;
 	}
@@ -103,14 +101,12 @@ public class ListaGenerica <E extends ObraImpresa> implements I_BuscarLibro
 		
 		ListaGenerica<Libro> lista = new ListaGenerica<>();
 		
-		Iterator<Libro> it = (Iterator<Libro>) this.lista.iterator();
-		
-		while (it.hasNext())
+		for (int i = 0; i < this.lista.size(); i++) 
 		{
-			if (it.next().getAnioEdicion() == anioEdicion)
-			{
-				lista.agregarObra(it.next());
-			}
+			
+			if (this.lista.get(i).getAnioEdicion() == anioEdicion)
+				lista.agregarObra(this.lista.get(i));
+			
 		}
 		
 		return lista;
@@ -121,14 +117,12 @@ public class ListaGenerica <E extends ObraImpresa> implements I_BuscarLibro
 		
 		ListaGenerica<Libro> lista = new ListaGenerica<>();
 		
-		Iterator<Libro> it = (Iterator<Libro>) this.lista.iterator();
-		
-		while (it.hasNext())
+		for (int i = 0; i < this.lista.size(); i++) 
 		{
-			if (it.next().getAutor().equals(autor))
-			{
-				lista.agregarObra(it.next());
-			}
+			
+			if (this.lista.get(i).getAutor().equals(autor))
+				lista.agregarObra(this.lista.get(i));
+			
 		}
 		
 		return lista;
@@ -139,14 +133,12 @@ public class ListaGenerica <E extends ObraImpresa> implements I_BuscarLibro
 
 		ListaGenerica<Libro> lista = new ListaGenerica<>();
 		
-		Iterator<Libro> it = (Iterator<Libro>) this.lista.iterator();
-		
-		while (it.hasNext())
+		for (int i = 0; i < this.lista.size(); i++) 
 		{
-			if (it.next().getGenero().equals(genero))
-			{
-				lista.agregarObra(it.next());
-			}
+			
+			if (this.lista.get(i).getGenero().equals(genero))
+				lista.agregarObra(this.lista.get(i));
+			
 		}
 		
 		return lista;

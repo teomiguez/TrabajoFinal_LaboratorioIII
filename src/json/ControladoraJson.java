@@ -9,42 +9,46 @@ import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
-import clases.AppLibreria;
 import clases.Libro;
 import genericidad.ListaGenerica;
 
 public class ControladoraJson {
 
-	// ACA TRBAJAMOS CON JSON
-
-	// ATRIBUTOS
-	private AppLibreria app;
-
-	// CONSTRUCTOR
-	public ControladoraJson(AppLibreria app) {
-		this.app = app;
-	}
-
-	// METODOS
-	public JSONObject json_obrasImpresas() // GENERAR JSON DE obrasImpresas
+	public static JSONObject generarJson_obrasImpresas(HashMap<String, ListaGenerica<Libro>> map)
 	{
-		JSONObject json = new JSONObject();
-		HashMap<String, ListaGenerica<Libro>> map = app.getObrasImpresas();
+		JSONObject json = new JSONObject(); // la raiz (jsonObject)
 
 		Iterator<Entry<String, ListaGenerica<Libro>>> filas = map.entrySet().iterator();
-		while (filas.hasNext()) {
+		while (filas.hasNext()) 
+		{
 			Map.Entry<String, ListaGenerica<Libro>> unaFila = filas.next();
-			try {
-				JSONArray arrayLibros = new JSONArray();
-				ListaGenerica<Libro> aux = new ListaGenerica<>();
-				json.put(unaFila.getKey(), aux);
+
+			JSONArray arrayLibros = new JSONArray(); // array de los libros
 				
+			ListaGenerica<Libro> aux = new ListaGenerica<>();
+			aux = unaFila.getValue();
 				
+			for (int i = 0; i < aux.size(); i++) 
+			{
 				
-			} catch (JSONException e) {
+				JSONObject obj = new JSONObject(); // un jsonObject por cada libro
+			
+				// hacer el put de cada atributo
+			
+				arrayLibros.put(obj); // agregamos el "libro" al array
+				
+			}
+			
+			try 
+			{
+				json.put(unaFila.getKey(), arrayLibros);
+			} 
+			catch (JSONException e) 
+			{
 				// TODO Auto-generated catch block
 				e.printStackTrace();
 			}
+
 
 		}
 

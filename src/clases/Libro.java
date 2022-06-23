@@ -13,7 +13,7 @@ public class Libro extends ObraImpresa
 	private String autor;
 	private String descripcion;
 	
-	// CONSTRUCTOR
+	// CONSTRUCTORES
 	
 	public Libro (int id, int stock, String titulo, int anioEdicion, String genero, String autor, String descripcion)
 	{

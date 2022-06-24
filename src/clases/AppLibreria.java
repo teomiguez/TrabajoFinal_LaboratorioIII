@@ -1,14 +1,11 @@
 package clases;
 
 import java.util.ArrayList;
-
 import java.util.HashMap;
 import java.util.Iterator;
 import java.util.Map;
 import java.util.Map.Entry;
-
 import java.util.TreeMap;
-
 import excepciones.E_EmailInvalido;
 import excepciones.E_ContraseniaInvalida;
 import excepciones.E_UsuarioExistente;
@@ -17,56 +14,61 @@ import genericidad.ListaGenerica;
 
 public class AppLibreria
 {
-	// ATRIBUTOS
+	//	ATRIBUTOS.
 	
-	private HashMap<String, ListaGenerica<Libro>> obrasImpresas; // String -> genero
+	private HashMap<String, ListaGenerica<Libro>> obrasImpresas; //	String -> genero.
 	private ArrayList<Libro> librosAlquilados;
 	private TreeMap <String,UsuarioCliente> clientes;
 	
+	//	CONSTRUCTORES.
 	
-	// CONSTRUCTORES
-	
-	public AppLibreria ()
+	public AppLibreria()
 	{
-		// HACEMOS LOS NEW
+		//	NEWS.
 		
 		this.obrasImpresas = new HashMap<>();
 		this.librosAlquilados = new ArrayList<>();
 		this.clientes = new TreeMap<>();
 	}
 	
-	// GETTERS
+	//	GETTERS.
 	
-	public HashMap<String, ListaGenerica<Libro>> getObrasImpresas() {  return obrasImpresas;  }
+	public HashMap<String, ListaGenerica<Libro>> getObrasImpresas() 
+	{  
+		return obrasImpresas;  
+	}
 	
-	// --------------------------
-	//   METODO - LOGIN USUARIO
-	// --------------------------
+	// 	MÉTODOS: 
+	//	LOG IN USUARIO. 
 	
 	public boolean loginUsuario(String usuario, String password)
 	{
 		boolean rta = false;
 		int intentos = 0;
 		
-		if (usuario.equals("admin") && password.equals("admin")) // si es un admin - entra
+		if(usuario.equals("admin") && password.equals("admin")) //	Si es un usuario admin entra.
 		{
 			rta = true;
 		}
-		else // no es admin - busca
+		else //	Si no es usuario admin busca entre los usuarios cliente.
 		{
 			try 
 			{
-				if (this.buscarUsuario_EnClientes(usuario) != null)
+				if(this.buscarUsuario_EnClientes(usuario) != null)
 				{
 					UsuarioCliente user = this.buscarUsuario_EnClientes(usuario);
 					
-					if (this.verificarPassword(user, password, intentos));
+					if(this.verificarPassword(user, password, intentos));
+					{
 						rta = true;
+					}
 				}
-			} catch (E_UsuarioInvalido e) 
+			}
+			catch(E_UsuarioInvalido e) 
 			{
 				System.out.println(e.getMessage());
-			} catch (E_ContraseniaInvalida e) 
+			} 
+			catch(E_ContraseniaInvalida e) 
 			{
 				System.out.println(e.getMessage());
 			}
@@ -75,9 +77,7 @@ public class AppLibreria
 		return rta;
 	}
 	
-	// ------------------------------
-	//   METODO - REGISTRAR USUARIO
-	// ------------------------------
+	//	REGISTRAR USUARIO.
 	
 	public boolean registerUsuario(String email, String usuario, String password)
 	{
@@ -87,12 +87,13 @@ public class AppLibreria
 		
 		try 
 		{
-			if (!this.buscarUsuarioParaAgregar(usuario))
+			if(!this.buscarUsuarioParaAgregar(usuario))
 			{
 				this.agregarUsuario(user);
 				rta = true;
 			}
-		} catch (E_UsuarioExistente e) 
+		} 
+		catch(E_UsuarioExistente e) 
 		{
 			System.out.println(e.getMessage());
 		}
@@ -100,10 +101,8 @@ public class AppLibreria
 		return rta;
 	}
 	
-	// --------------------------
-	//   METODO - CREAR USUARIO
-	// --------------------------
-	
+	//	CREAR USUARIO.
+
 	public UsuarioCliente crearUsuario(String email, String usuario, String password)
 	{
 		UsuarioCliente user = new UsuarioCliente(usuario, password, email);
@@ -111,9 +110,7 @@ public class AppLibreria
 		return user;
 	}
 	
-	// ------------------------
-	//   METODO - CREAR LIBRO
-	// ------------------------
+	//	CREAR LIBRO.
 	
 	public Libro crearLibro(int id, int stock, String titulo, int anioEdicion, String genero, String autor, String descripcion)
 	{
@@ -122,77 +119,70 @@ public class AppLibreria
 		return libro;
 	}
 	
-	// -----------------------------------
-	//   METODOS - AGREGAR USUARIO/LIBRO
-	// -----------------------------------
+	//	AGREGAR USUARIO/LIBRO.
 	
-	public boolean agregarUsuario (UsuarioCliente user)
+	public boolean agregarUsuario(UsuarioCliente user)
 	{
 		boolean rta = false;
 		
 		try 
 		{
-			if (!this.buscarUsuarioParaAgregar(user.getName()))
+			if(!this.buscarUsuarioParaAgregar(user.getName()))
 			{
 				this.clientes.put(user.getName(), user);
+				rta = true;
 			}
-		} catch (E_UsuarioExistente e) 
+		} 
+		catch(E_UsuarioExistente e) 
 		{
 			System.out.println(e.getMessage());
 		}
 		
-		return false;
+		return rta;
 	}
 	
-	public boolean agregarLibro (Libro libro)
+	public boolean agregarLibro(Libro libro)
 	{
 		boolean rta = false;
 		
-		if (this.buscarPorID_EnObrasImpresas(libro.getId()) == null)
+		if(this.buscarPorID_EnObrasImpresas(libro.getId()) == null)
 		{
-			if(this.obrasImpresas.containsValue(libro.getGenero())) // si contiene el genero
+			if(this.obrasImpresas.containsValue(libro.getGenero())) //	Si contiene el género.
 			{
 				ListaGenerica <Libro> lista = this.buscarPorGenero_EnObrasImpresas(libro.getGenero());
 				lista.agregarObra(libro);
-				
 				this.obrasImpresas.replace(libro.getGenero(), lista);
-				
 				rta = true;
 			}
-			else // si no lo contiene
+			else //	Si no lo contiene.
 			{
 				ListaGenerica <Libro> lista2 = new ListaGenerica<Libro>();
 				lista2.agregarObra(libro);
-				
 				this.obrasImpresas.put(libro.getGenero(), lista2);
-				
 				rta = true;
 			}
 		}
 		
-		return false;
+		return rta;
 	}
 	
-	// --------------------------------------------
-	//   METODOS - DAR BAJA/ALTA UN LIBRO/USUARIO
-	// --------------------------------------------
+	//	DAR BAJA/ALTA UN LIBRO/USUARIO.
 		
-	public boolean darDeBaja_Usuario (String user)
+	public boolean darDeBaja_Usuario(String user)
 	{
 		boolean rta = false;
-		
 		UsuarioCliente usuario = null;
 		
 		try 
 		{
 			usuario = this.buscarUsuario_EnClientes(user);
 		} 
-		catch (E_UsuarioInvalido e) 
+		catch(E_UsuarioInvalido e) 
 		{
 			System.out.println(e.getMessage());
 		}
 		
-		if (usuario != null) 
+		if(usuario != null) 
 		{
 			usuario.setBajaLogica(true);
 			this.clientes.put(usuario.getName(), usuario);
@@ -202,22 +192,21 @@ public class AppLibreria
 		return rta;
 	}
 	
-	public boolean darDeAlta_Usuario (String user)
+	public boolean darDeAlta_Usuario(String user)
 	{
 		boolean rta = false;
-		
 		UsuarioCliente usuario = null;
 		
 		try 
 		{
 			usuario = this.buscarUsuario_EnClientes(user);
 		} 
-		catch (E_UsuarioInvalido e) 
+		catch(E_UsuarioInvalido e) 
 		{
 			System.out.println(e.getMessage());
 		}
 		
-		if (usuario != null)
+		if(usuario != null)
 		{
 			usuario.setBajaLogica(false);
 			this.clientes.put(usuario.getName(), usuario);
@@ -227,142 +216,128 @@ public class AppLibreria
 		return rta;
 	}
 	
-	public boolean darDeBaja_Libro (int id)
+	public boolean darDeBaja_Libro(int id)
 	{
 		boolean rta = false;
-		
 		Libro libro = null;
-		
 		libro = this.buscarPorID_EnObrasImpresas(id);
 		
 		if (libro != null)
 		{
 			libro.setBajaLogica(true);
 			this.agregarLibro(libro);
-			
 			ListaGenerica <Libro> lista = this.buscarPorGenero_EnObrasImpresas(libro.getGenero());
 			lista.agregarObra(libro);
 			this.obrasImpresas.replace(libro.getGenero(), lista);
-			
 			rta = true;
 		}
 		
 		return rta;
 	}
 	
-	public boolean darDeAlta_Libro (int id)
+	public boolean darDeAlta_Libro(int id)
 	{
 		boolean rta = false;
-		
 		Libro libro = null;
-		
 		libro = this.buscarPorID_EnObrasImpresas(id);
 		
-		if (libro != null)
+		if(libro != null)
 		{
 			libro.setBajaLogica(false);
 			this.agregarLibro(libro);
-			
 			ListaGenerica <Libro> lista = this.buscarPorGenero_EnObrasImpresas(libro.getGenero());
 			lista.agregarObra(libro);
-			this.obrasImpresas.replace(libro.getGenero(), lista);
-			
+			this.obrasImpresas.replace(libro.getGenero(), lista);	
 			rta = true;
 		}
 		
 		return rta;
 	}
 	
-	// -------------------------------
-	//   METODOS - ALQUILAR/DEVOLVER
-	// -------------------------------
+	//	ALQUILAR/DEVOLVER.
 		
-	public boolean alquilarLibro (int id, String usuario)
+	public boolean alquilarLibro(int id, String usuario)
 	{
 		boolean rta = false;
-		
 		UsuarioCliente user = null;
 		Libro libro = null;
 		int stock;
 		int alquiler;
-		
 		libro = this.buscarPorID_EnObrasImpresas(id);
 		
 		try 
 		{
 			user = this.buscarUsuario_EnClientes(usuario);
 		} 
-		catch (E_UsuarioInvalido e) 
+		catch(E_UsuarioInvalido e) 
 		{
 			System.out.println(e.getMessage());
 		}
 		
-		if (libro != null && user != null)
+		if(libro != null && user != null)
 		{
-			// trabajo en obrasImpresas
+			//	Trabajo en obrasImpresas.
+			
 			stock = libro.getInStock();
 			alquiler = libro.getInAlquiler();
-			
 			libro.setInStock(stock--);
 			libro.setInAlquiler(alquiler++);
-			
 			ListaGenerica <Libro> lista = this.buscarPorGenero_EnObrasImpresas(libro.getGenero());
 			lista.agregarObra(libro);
 			this.obrasImpresas.replace(libro.getGenero(), lista);
 			
-			// trabajo en librosAlquilados
+			//	Trabajo en librosAlquilados.
+			
 			this.librosAlquilados.add(libro);
 			
-			// trabajo en el usuario
+			//	Trabajo en el usuario.
+			
 			ListaGenerica<Libro> listaUser = user.getAlquilados();
 			listaUser.agregarObra(libro);
 			user.setAlquilados(listaUser);
 			
 			rta = true;
-			
 		}
-		
 		
 		return rta;
 	}
 	
-	public boolean devolverLibro (int id, String usuario)
+	public boolean devolverLibro(int id, String usuario)
 	{
 		boolean rta = false;
-		
 		UsuarioCliente user = null;
 		Libro libro = null;
 		int stock;
 		int alquiler;
-		
 		libro = this.buscarPorID_EnObrasImpresas(id);
 		
 		try 
 		{
 			user = this.buscarUsuario_EnClientes(usuario);
 		} 
-		catch (E_UsuarioInvalido e) 
+		catch(E_UsuarioInvalido e) 
 		{
 			System.out.println(e.getMessage());
 		}
 		
-		if (libro != null && user != null)
+		if(libro != null && user != null)
 		{
-			// trabajo en obrasImpresas
+			//	Trabajo en obrasImpresas.
+			
 			stock = libro.getInStock();
 			alquiler = libro.getInAlquiler();
-			
 			libro.setInStock(stock++);
 			libro.setInAlquiler(alquiler--);
-			
 			ListaGenerica <Libro> lista = this.buscarPorGenero_EnObrasImpresas(libro.getGenero());
 			lista.agregarObra(libro);
 			this.obrasImpresas.replace(libro.getGenero(), lista);
 			
-			// trabajo en librosAlquilados
+			// Trabajo en librosAlquilados.
+			
 			this.librosAlquilados.remove(libro);
 			
-			// trabajo en el usuario
+			// Trabajo en el usuario.
+			
 			user.alquilados.sacarObra(id);
 			
 			rta = true;
@@ -371,40 +346,32 @@ public class AppLibreria
 		return rta;
 	}
 	
-	// --------------------
-	//   METODOS - LISTAR
-	// --------------------
-	
-	// LISTAR obrasImpresas
+	// LISTAR obrasImpresas.
 	
 	public StringBuilder listar_obrasImpresas()
 	{
 		StringBuilder str = new StringBuilder();
-		Libro libro = null;
-		
+		//Libro libro = null; ¿No se usa?		
 		Iterator <Entry<String, ListaGenerica<Libro>>> filas = this.obrasImpresas.entrySet().iterator();
 		
-		while (filas.hasNext())
+		while(filas.hasNext())
 		{
 			Map.Entry<String, ListaGenerica<Libro>> unaFila = filas.next();
-			
 			str.append("GENERO: " + unaFila.getKey());
-			
 			ListaGenerica<Libro> lista = unaFila.getValue();
-			
 			str.append(lista.listar());
 		}
 		
 		return str;
 	}
 	
-	// LISTAR librosAlquilados
+	// LISTAR librosAlquilados.
 	
 	public StringBuilder listar_librosAlquilados()
 	{
 		StringBuilder str = new StringBuilder();
 		
-		for (int i=0 ; i < this.librosAlquilados.size() ; i++)
+		for(int i=0 ; i < this.librosAlquilados.size() ; i++)
 		{
 			str.append(this.librosAlquilados.get(i).toString());
 		}
@@ -412,113 +379,101 @@ public class AppLibreria
 		return str;
 	}
 	
-	// --------------------
-	//   METODOS - BUSCAR
-	// --------------------
-	
-	// -----------------------------
-	//    BUSCAR EN obrasImpresas
-	// -----------------------------
-	
-	// buscar por id
+	//	BUSCAR EN obrasImpresas.	
+	// 	POR id.
 	
 	public Libro buscarPorID_EnObrasImpresas(int id)
 	{
 		Libro libro = null;
-		
 		Iterator <Entry<String, ListaGenerica<Libro>>> filas = this.obrasImpresas.entrySet().iterator();
 		
-		while (filas.hasNext())
+		while(filas.hasNext())
 		{
 			Map.Entry<String, ListaGenerica<Libro>> unaFila = filas.next();
 			
-			if (libro == null)
+			if(libro == null) 
+			{
 				libro = unaFila.getValue().buscarObra_PorId(id);
+			}
 		}
 		
 		return libro;
 	}
 	
-	// buscar por titulo
+	//	POR titulo.
 	
 	public Libro buscarPorTitulo_EnObrasImpresas(String titulo)
 	{
 		Libro libro = null;
-		
 		Iterator <Entry<String, ListaGenerica<Libro>>> filas = this.obrasImpresas.entrySet().iterator();
 		
-		while (filas.hasNext())
+		while(filas.hasNext())
 		{
 			Map.Entry<String, ListaGenerica<Libro>> unaFila = filas.next();
 			
-			if (libro == null)
+			if(libro == null)
+			{
 				libro = unaFila.getValue().buscarLibroPor_Titulo(titulo);
+			}
 		}
 		
 		return libro;
 	}
 	
-	// buscar por anioEdicion
+	//	POR anioEdicion.
 	
 	public ListaGenerica<Libro> buscarPorAnioEdicion_EnObrasImpresas(int anioEdicion)
 	{
 		ListaGenerica<Libro> lista = new ListaGenerica<Libro>();
-		
 		Iterator <Entry<String, ListaGenerica<Libro>>> filas = this.obrasImpresas.entrySet().iterator();
 		
-		while (filas.hasNext())
+		while(filas.hasNext())
 		{
 			Map.Entry<String, ListaGenerica<Libro>> unaFila = filas.next();
-			
 			lista = unaFila.getValue().buscarLibrosPor_AnioEdicion(anioEdicion);
 		}
 		
 		return lista;
 	}
 	
-	// buscar por genero
+	//	POR genero.
 	
 	public ListaGenerica<Libro> buscarPorGenero_EnObrasImpresas(String genero)
 	{
 		ListaGenerica<Libro> lista = new ListaGenerica<Libro>();
-		
 		Iterator <Entry<String, ListaGenerica<Libro>>> filas = this.obrasImpresas.entrySet().iterator();
 		
-		while (filas.hasNext())
+		while(filas.hasNext())
 		{
 			Map.Entry<String, ListaGenerica<Libro>> unaFila = filas.next();
 			
-			if (unaFila.getKey().equals(genero))
+			if(unaFila.getKey().equals(genero))
+			{
 				lista = unaFila.getValue();
+			}
 		}
 		
 		return lista;
 	}
 	
-	// buscar por autor
+	//	POR autor.
 	
 	public ListaGenerica<Libro> buscarPorAutor_EnObrasImpresas(String autor)
 	{
 		ListaGenerica<Libro> lista = new ListaGenerica<Libro>();
-		
 		Iterator <Entry<String, ListaGenerica<Libro>>> filas = this.obrasImpresas.entrySet().iterator();
 		
-		while (filas.hasNext())
+		while(filas.hasNext())
 		{
 			Map.Entry<String, ListaGenerica<Libro>> unaFila = filas.next();
-			
 			lista = unaFila.getValue().buscarLibrosPor_Autor(autor);
 		}
 		
 		return lista;
 	}
 	
-	
-	// -------------------------------
-	//    BUSCAR EN librosAlquilados
-	// -------------------------------
-	
-	// buscar por titulo
+	//	BUSCAR EN librosAlquilados.
+	// 	POR titulo.
 	
 	public Libro buscarPorTitulo_EnlibrosAlquilados(String titulo)
 	{
@@ -526,80 +481,88 @@ public class AppLibreria
 		
 		for( int i=0 ; i<this.librosAlquilados.size() ; i++)
 		{
-			if (this.librosAlquilados.get(i).getTitulo().equals(titulo))
+			if(this.librosAlquilados.get(i).getTitulo().equals(titulo))
+			{
 				libro = this.librosAlquilados.get(i);
+			}
 		}
 		
 		return libro;
 	}
 	
-	// buscar por anioEdicion
+	//	POR anioEdicion.
 	
 	public ListaGenerica<Libro> buscarPorAnioEdicion_EnlibrosAlquilados(int anioEdicion)
 	{
 		ListaGenerica<Libro> lista = new ListaGenerica<Libro>();
 		
-		for( int i=0 ; i<this.librosAlquilados.size() ; i++)
+		for(int i=0 ; i<this.librosAlquilados.size() ; i++)
 		{
-			if (this.librosAlquilados.get(i).getAnioEdicion() == anioEdicion)
+			if(this.librosAlquilados.get(i).getAnioEdicion() == anioEdicion)
+			{
 				lista.agregarObra(this.librosAlquilados.get(i));
+			}
 		}
 		
 		return lista;
 	}
 	
-	// buscar por genero
+	//	POR genero.
 	
 	public ListaGenerica<Libro> buscarPorGenero_EnlibrosAlquilados(String genero)
 	{
 		ListaGenerica<Libro> lista = new ListaGenerica<Libro>();
 		
-		for( int i=0 ; i<this.librosAlquilados.size() ; i++)
+		for(int i=0 ; i<this.librosAlquilados.size() ; i++)
 		{
-			if (this.librosAlquilados.get(i).getGenero().equals(genero))
+			if(this.librosAlquilados.get(i).getGenero().equals(genero))
+			{
 				lista.agregarObra(this.librosAlquilados.get(i));
+			}
 		}
 		
 		return lista;
 	}
 	
-	// buscar por autor
+	//	POR autor.
 	
 	public ListaGenerica<Libro> buscarPorAutor_EnlibrosAlquilados(String autor)
 	{
 		ListaGenerica<Libro> lista = new ListaGenerica<Libro>();
 		
-		for( int i=0 ; i<this.librosAlquilados.size() ; i++)
+		for(int i=0 ; i<this.librosAlquilados.size() ; i++)
 		{
-			if (this.librosAlquilados.get(i).getAutor().equals(autor))
+			if(this.librosAlquilados.get(i).getAutor().equals(autor))
+			{
 				lista.agregarObra(this.librosAlquilados.get(i));
+			}
 		}
 		
 		return lista;
 	}
 	
-	// -----------------------------
-	//    BUSCAR EN clientes
-	// -----------------------------
-	
-	// buscar por usuario
+	//	BUSCAR EN clientes.
+	//	POR usuario.
 	
 	public UsuarioCliente buscarUsuario_EnClientes(String usario) throws E_UsuarioInvalido
 	{
 		UsuarioCliente usuario = null;
-		
 		Iterator<Entry<String, UsuarioCliente>> filas = this.clientes.entrySet().iterator();
 		
-		while (filas.hasNext())
+		while(filas.hasNext())
 		{
 			Map.Entry<String, UsuarioCliente> unaFila = filas.next();
 			
-			if (unaFila.getKey().equals(usario))
+			if(unaFila.getKey().equals(usario))
+			{
 				usuario = unaFila.getValue();
+			}
 		}
 		
-		if (usuario == null)
+		if(usuario == null)
+		{
 			throw new E_UsuarioInvalido("El usuario no esta registrado.-");
+		}
 		
 		return usuario;
 	}
@@ -607,52 +570,56 @@ public class AppLibreria
 	public boolean buscarUsuarioParaAgregar(String usario) throws E_UsuarioExistente
 	{
 		boolean existe = false;
-		
 		Iterator<Entry<String, UsuarioCliente>> filas = this.clientes.entrySet().iterator();
 		
-		while (filas.hasNext())
+		while(filas.hasNext())
 		{
 			Map.Entry<String, UsuarioCliente> unaFila = filas.next();
 			
-			if (unaFila.getKey().equals(usario))
-				existe = true;;
+			if(unaFila.getKey().equals(usario))
+			{
+				existe = true;
+			}
 		}
 		
-		if (existe == true)
+		if(existe == true)
+		{
 			throw new E_UsuarioExistente("El usuario ya esta registrado.-");
+		}
 		
 		return existe;
 	}
 	
-	// buscar por email
+	//	POR email.
 	
 	public UsuarioCliente buscarUsuarioPorEmail_EnClientes(String email) throws E_EmailInvalido
 	{
 		UsuarioCliente usuario = null;
-		
 		Iterator<Entry<String, UsuarioCliente>> filas = this.clientes.entrySet().iterator();
 		
-		while (filas.hasNext())
+		while(filas.hasNext())
 		{
 			Map.Entry<String, UsuarioCliente> unaFila = filas.next();
 			
-			if (unaFila.getValue().getEmail().equals(email))
+			if(unaFila.getValue().getEmail().equals(email))
+			{
 				usuario = unaFila.getValue();
+			}
 		}
 		return usuario;
 	}
 	
-	// verificar password
+	// VERIFICAR password.
 	
-	public boolean verificarPassword (UsuarioCliente user, String password, int intentos) throws E_ContraseniaInvalida
+	public boolean verificarPassword(UsuarioCliente user, String password, int intentos) throws E_ContraseniaInvalida
 	{
 		if (user.getPassword().equals(password))
 		{
 			return true;
-		}else
+		}
+		else
 		{
 			throw new E_ContraseniaInvalida("La password es invalida.-", intentos++);
 		}
 	}
-	
 }

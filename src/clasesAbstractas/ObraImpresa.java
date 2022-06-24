@@ -2,14 +2,15 @@ package clasesAbstractas;
 
 public abstract class ObraImpresa
 {
-	// ATRIBUTOS
+	
+	// ATRIBUTOS.
 	
 	private int id;
 	private boolean bajaLogica;
 	private int inStock;
 	private int inAlquiler;
 	
-	// CONSTRUCTOR
+	// CONSTRUCTOR.
 	
 	public ObraImpresa (int id, int stock)
 	{
@@ -19,43 +20,70 @@ public abstract class ObraImpresa
 		this.inAlquiler = 0;
 	}
 	
+	// GETTERS.
 	
-	// GETTERS
+	public int getId() 
+	{  
+		return id;  
+	}
 	
-	public int getId() {  return id;  }
-	public boolean getBajaLogica() {  return bajaLogica;  }
-	public int getInStock() {  return inStock;  }
-	public int getInAlquiler() {  return inAlquiler;  }
+	public boolean getBajaLogica() 
+	{  
+		return bajaLogica;  
+	}
 	
-	// SETTERS
+	public int getInStock() 
+	{  
+		return inStock;  
+	}
 	
-	public void setBajaLogica(boolean bajaLogica) {  this.bajaLogica = bajaLogica;  }
-	public void setInStock(int inStock) {  this.inStock = inStock;  }
-	public void setInAlquiler(int inAlquiler) {  this.inAlquiler = inAlquiler;  }
+	public int getInAlquiler() 
+	{  
+		return inAlquiler;  
+	}
 	
-	// METODOS
+	// SETTERS.
 	
-	// OVERRIDERS NECESARIOS → equals - toString
+	public void setBajaLogica(boolean bajaLogica) 
+	{  
+		this.bajaLogica = bajaLogica;  
+	}
+	
+	public void setInStock(int inStock) 
+	{  
+		this.inStock = inStock;  
+	}
+	
+	public void setInAlquiler(int inAlquiler) 
+	{  
+		this.inAlquiler = inAlquiler;  
+	}
+	
+	//	METODOS:
+	//	OVERRIDERS NECESARIOS.
 	
 	@Override
 	public boolean equals(Object obj) 
 	{
-		ObraImpresa aux = (ObraImpresa)obj; // CASTEO
+		ObraImpresa aux = (ObraImpresa)obj; //	Casteo.
 		
-		if (this.id == aux.id) // COMPARO
+		if(this.id == aux.id) //Comparo.
+		{
 			return true;
+		}
 		else
+		{
 			return false;
+		}
 	}
 	
 	@Override
-	public String toString() {
-		
+	public String toString()
+	{	
 		return "Obra Impresa {" + "\n" + 
 				"ID: " + this.getId() + "\n" + 
 				"En Stock: " + this.getInStock() + "\n" + 
 				"En Alquiler:" + this.getInAlquiler() + "\n" + 
 				"}";
 	}
-	
 }

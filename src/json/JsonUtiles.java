@@ -4,19 +4,23 @@ import java.io.FileWriter;
 import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Paths;
-
 import org.json.JSONArray;
 
-public class JsonUtiles {
+public class JsonUtiles 
+{
 	
-	public static void grabar(JSONArray array) {
-        try {
+	public static void grabar(JSONArray array) 
+	{
+        try 
+        {
             FileWriter file = new FileWriter("file.json");
             file.write(array.toString());
             file.flush();
             file.close();
 
-        } catch (IOException e) {
+        } 
+        catch(IOException e) 
+        {
             e.printStackTrace();
         }
     }
@@ -24,15 +28,16 @@ public class JsonUtiles {
     public static String leer(String archivo)
     {
         String contenido = "";
+        
         try
         {
             contenido = new String(Files.readAllBytes(Paths.get(archivo)));
         }
-        catch (IOException e)
+        catch(IOException e)
         {
             e.printStackTrace();
         }
+        
         return contenido;
     }
-
 }

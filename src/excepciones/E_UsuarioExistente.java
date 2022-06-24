@@ -1,11 +1,10 @@
 package excepciones;
 
-public class E_UsuarioExistente extends Exception {
+public class E_UsuarioExistente extends Exception 
+{
 
-	public E_UsuarioExistente(String message) {
-		
-		super(message);
-		
+	public E_UsuarioExistente(String message) 
+	{	
+		super(message);	
 	}
-
 }

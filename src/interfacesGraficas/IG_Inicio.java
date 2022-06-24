@@ -1,7 +1,8 @@
 package interfacesGraficas;
 
-public class IG_Inicio {
+public class IG_Inicio 
+{
 	
-	// INTERFAZ GRAFICA - INICIO
+	// INTERFAZ GRAFICA - INICIO.
 
 }

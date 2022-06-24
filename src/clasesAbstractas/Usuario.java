@@ -3,17 +3,17 @@ package clasesAbstractas;
 public abstract class Usuario 
 {
 	
-	// ATRIBUTOS
+	// ATRIBUTOS.
 	
 	private String name;
 	private String password;
 	private String email;
 	
-	// CONSTRUCTOR
+	// CONSTRUCTOR.
 		
 	public Usuario ()
 	{
-		
+		//¿Vacio?
 	}
 	
 	public Usuario (String name, String password, String email)
@@ -23,41 +23,60 @@ public abstract class Usuario
 		this.email = email;
 	}
 	
-	// GETTERS
+	// GETTERS.
 	
-	public String getName() {  return name;  }
-	public String getPassword() {  return password;  }
-	public String getEmail() {  return email;  }
+	public String getName()
+	{  
+		return name;  
+	}
 	
-	// SETTERS
+	public String getPassword() 
+	{  
+		return password;  
+	}
 	
-	public void setName(String name) {  this.name = name;  }
-	public void setPassword(String password) {  this.password = password;  }
+	public String getEmail()
+	{  
+		return email;  
+	}
 	
-	// METODOS
+	// SETTERS.
 	
+	public void setName(String name)
+	{  
+		this.name = name;  
+	}
 	
-	// OVERRIDERS NECESARIOS â†’ equals - toString
+	public void setPassword(String password) 
+	{  
+		this.password = password; 
+	}
+	
+	// METODOS:
+	// OVERRIDERS NECESARIOS.
 	
 	@Override
-	public boolean equals(Object obj) {
+	public boolean equals(Object obj)
+	{
 		Usuario aux = (Usuario)obj;
 		
-		if (this.email.equals(aux.email))
+		if(this.email.equals(aux.email))
+		{
 			return true;
+		}
 		else
+		{
 			return false;
+		}
 	}
 
 	@Override
-	public String toString() {
-		
+	public String toString()
+	{	
 		return "Usuario {" + "\n" +
 				"name: " + this.getName() + "\n" +
 				"password=" + this.getPassword() + "\n" +
 				"email=" + this.getEmail() + "\n" +
 				"}";
-	}
-	
-	
+	}	
 }

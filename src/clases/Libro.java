@@ -5,7 +5,7 @@ import clasesAbstractas.ObraImpresa;
 public class Libro extends ObraImpresa
 {
 	
-	// ATRIBUTOS
+	//	ATRIBUTOS.
 	
 	private String titulo;
 	private int anioEdicion;
@@ -13,12 +13,11 @@ public class Libro extends ObraImpresa
 	private String autor;
 	private String descripcion;
 	
-	// CONSTRUCTORES
+	//	CONSTRUCTORES.
 	
-	public Libro (int id, int stock, String titulo, int anioEdicion, String genero, String autor, String descripcion)
+	public Libro(int id, int stock, String titulo, int anioEdicion, String genero, String autor, String descripcion)
 	{
 		super(id, stock);
-		
 		this.titulo = titulo;
 		this.anioEdicion = anioEdicion;
 		this.genero = genero;
@@ -26,25 +25,46 @@ public class Libro extends ObraImpresa
 		this.descripcion = descripcion;
 	}
 	
-	// GETTERS
+	//	GETTERS.
 	
-	public String getTitulo() {  return titulo;  }
-	public int getAnioEdicion() {  return anioEdicion;  }
-	public String getGenero() {  return genero;  }
-	public String getAutor() {  return autor;  }
-	public String getDescripcion() {  return descripcion;  }
-		
-	// Setters
+	public String getTitulo() 
+	{  
+		return titulo;  
+	}
 	
-	public void setDescripcion(String descripcion) {  this.descripcion = descripcion;  }
+	public int getAnioEdicion() 
+	{  
+		return anioEdicion;  
+	}
+	
+	public String getGenero() 
+	{  
+		return genero;  
+	}
+	
+	public String getAutor() 
+	{  
+		return autor;  
+	}
+	
+	public String getDescripcion() 
+	{  
+		return descripcion;  
+	}
 		
-	// METODOS
+	//	SETTERS.
+	
+	public void setDescripcion(String descripcion) 
+	{  
+		this.descripcion = descripcion;  
+	}
 		
-	// OVERRIDERS NECESARIOS
+	// 	MÉTODOS: 	
+	// 	OVERRIDERS NECESARIOS.
 	
 	@Override
-	public String toString() {
-		
+	public String toString() 
+	{	
 		return super.toString() + "\n" +
 				"Libro {" + "\n" + 
 				"Titulo: " + this.getTitulo() + "\n" + 
@@ -54,5 +74,4 @@ public class Libro extends ObraImpresa
 				"Descripcion: " + this.getDescripcion() + "\n" + 
 				"}";
 	}
-
 }

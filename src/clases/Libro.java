@@ -1,8 +1,10 @@
 package clases;
 
+import java.io.Serializable;
+
 import clasesAbstractas.ObraImpresa;
 
-public class Libro extends ObraImpresa
+public class Libro extends ObraImpresa implements Serializable
 {
 	//	ATRIBUTOS.
 	
@@ -58,7 +60,7 @@ public class Libro extends ObraImpresa
 		this.descripcion = descripcion;  
 	}
 		
-	// 	MÉTODOS: 	
+	// 	Mï¿½TODOS: 	
 	// 	OVERRIDERS NECESARIOS.
 	
 	@Override

@@ -1,9 +1,11 @@
 package clases;
 
+import java.io.Serializable;
+
 import clasesAbstractas.Usuario;
 import genericidad.ListaGenerica;
 
-public class UsuarioCliente extends Usuario 
+public class UsuarioCliente extends Usuario implements Serializable
 {
 	//	ATRIBUTOS.
 
@@ -43,7 +45,7 @@ public class UsuarioCliente extends Usuario
 		this.alquilados = alquilados;
 	}
 
-	// 	MÉTODOS: 
+	// 	Mï¿½TODOS: 
 	//	OVERRIDERS NECESARIOS.
 	
 	@Override

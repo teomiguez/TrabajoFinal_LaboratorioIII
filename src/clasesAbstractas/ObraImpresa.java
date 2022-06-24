@@ -1,6 +1,8 @@
 package clasesAbstractas;
 
-public abstract class ObraImpresa
+import java.io.Serializable;
+
+public abstract class ObraImpresa implements Serializable
 {
 	// ATRIBUTOS.
 	

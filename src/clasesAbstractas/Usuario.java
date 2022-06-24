@@ -1,6 +1,8 @@
 package clasesAbstractas;
 
-public abstract class Usuario 
+import java.io.Serializable;
+
+public abstract class Usuario implements Serializable
 {
 	// ATRIBUTOS.
 	
@@ -12,7 +14,7 @@ public abstract class Usuario
 		
 	public Usuario ()
 	{
-		//¿Vacio?
+		//ï¿½Vacio?
 	}
 	
 	public Usuario (String name, String password, String email)

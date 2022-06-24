@@ -1,5 +1,6 @@
 package clases;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Iterator;
@@ -12,7 +13,7 @@ import excepciones.E_UsuarioExistente;
 import excepciones.E_UsuarioInvalido;
 import genericidad.ListaGenerica;
 
-public class AppLibreria
+public class AppLibreria implements Serializable
 {
 	//	ATRIBUTOS.
 	
@@ -23,9 +24,7 @@ public class AppLibreria
 	//	CONSTRUCTORES.
 	
 	public AppLibreria()
-	{
-		//	NEWS.
-		
+	{	
 		this.obrasImpresas = new HashMap<>();
 		this.librosAlquilados = new ArrayList<>();
 		this.clientes = new TreeMap<>();
@@ -38,7 +37,7 @@ public class AppLibreria
 		return obrasImpresas;  
 	}
 	
-	// 	MÉTODOS: 
+	// 	Mï¿½TODOS: 
 	//	LOG IN USUARIO. 
 	
 	public boolean loginUsuario(String usuario, String password)
@@ -147,7 +146,7 @@ public class AppLibreria
 		
 		if(this.buscarPorID_EnObrasImpresas(libro.getId()) == null)
 		{
-			if(this.obrasImpresas.containsValue(libro.getGenero())) //	Si contiene el género.
+			if(this.obrasImpresas.containsValue(libro.getGenero())) //	Si contiene el gï¿½nero.
 			{
 				ListaGenerica <Libro> lista = this.buscarPorGenero_EnObrasImpresas(libro.getGenero());
 				lista.agregarObra(libro);
@@ -351,7 +350,7 @@ public class AppLibreria
 	public StringBuilder listar_obrasImpresas()
 	{
 		StringBuilder str = new StringBuilder();
-		//Libro libro = null; ¿No se usa?		
+		//Libro libro = null; ï¿½No se usa?		
 		Iterator <Entry<String, ListaGenerica<Libro>>> filas = this.obrasImpresas.entrySet().iterator();
 		
 		while(filas.hasNext())

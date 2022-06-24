@@ -6,27 +6,26 @@ import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
+
 import clases.AppLibreria;
 
 public class ControladorArchivos 
 {
-	private String archivo;
 	
-	public ControladorArchivos() 
+	public static boolean guardarArchivo(String file, AppLibreria app)
 	{
-		this.archivo = "Usuarios.bin";
-	}
-	
-	public boolean guardarArchivo(AppLibreria app)
-	{
+		boolean seGuardo = false;
+		
 		try 
 		{
-			FileOutputStream fileOutputStream = new FileOutputStream(this.archivo); 
+			FileOutputStream fileOutputStream = new FileOutputStream(file); 
 			ObjectOutputStream objectOutputStream = new ObjectOutputStream(fileOutputStream);  
+			
 			objectOutputStream.writeObject(app);
+			
 			objectOutputStream.close();
 			
-			return true;
+			seGuardo = true;
 		} 
 		catch(FileNotFoundException e) 
 		{
@@ -37,25 +36,25 @@ public class ControladorArchivos
 			e.printStackTrace();
 		}
 		
-		return false;
+		if (seGuardo == true)
+			return true;
+		else
+			return false;
 	}
 	
-	public AppLibreria leerArchivo()
+	public static AppLibreria leerArchivo(String file)
 	{
-		AppLibreria app = new AppLibreria();
+		AppLibreria aux = new AppLibreria();
 		
 		try 
 		{
-			FileInputStream fileInputStream = new FileInputStream(this.archivo);// con outPut guardamos en el archivo
+			FileInputStream fileInputStream = new FileInputStream(file);
+			ObjectInputStream objectInputStream = new ObjectInputStream(fileInputStream);
 			
-			try(ObjectInputStream objectInputStream = new ObjectInputStream(fileInputStream)) 
-			{
-				app = (AppLibreria) objectInputStream.readObject();
-			} catch(ClassNotFoundException e) {
-				e.printStackTrace();
-			}
+			aux = (AppLibreria) objectInputStream.readObject();
 			
-			return app;
+			objectInputStream.close();
+			
 		} 
 		catch(FileNotFoundException e) 
 		{
@@ -64,8 +63,12 @@ public class ControladorArchivos
 		catch(IOException e) 
 		{
 			e.printStackTrace();
+		} 
+		catch (ClassNotFoundException e) 
+		{	
+			e.printStackTrace();
 		}
 		
-		return app;
+		return aux;
 	}
 }

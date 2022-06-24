@@ -4,7 +4,6 @@ import clasesAbstractas.ObraImpresa;
 
 public class Libro extends ObraImpresa
 {
-	
 	//	ATRIBUTOS.
 	
 	private String titulo;

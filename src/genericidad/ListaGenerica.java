@@ -1,14 +1,11 @@
 package genericidad;
 
 import java.util.ArrayList;
-
 import clases.Libro;
-
 import interfaces.I_BuscarLibro;
 
 public class ListaGenerica <E extends Libro> implements I_BuscarLibro
 {
-	
 	//	ATRIBUTOS.
 	
 	private ArrayList<E> lista; 

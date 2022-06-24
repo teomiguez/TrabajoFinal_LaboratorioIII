@@ -3,8 +3,8 @@ package clases;
 import clasesAbstractas.Usuario;
 import genericidad.ListaGenerica;
 
-public class UsuarioCliente extends Usuario {
-
+public class UsuarioCliente extends Usuario 
+{
 	//	ATRIBUTOS.
 
 	ListaGenerica<Libro> alquilados;

@@ -2,7 +2,6 @@ package excepciones;
 
 public class E_ContraseniaInvalida extends Exception 
 {
-
 	// ATRIBUTOS
 
 	private int cantIntentos;

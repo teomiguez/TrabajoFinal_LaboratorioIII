@@ -43,6 +43,7 @@ public class ControladorArchivos
 	public AppLibreria leerArchivo()
 	{
 		AppLibreria app = new AppLibreria();
+		
 		try 
 		{
 			FileInputStream fileInputStream = new FileInputStream(this.archivo);// con outPut guardamos en el archivo

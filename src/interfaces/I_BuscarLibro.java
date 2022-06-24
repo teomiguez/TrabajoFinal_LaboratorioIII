@@ -5,7 +5,6 @@ import genericidad.ListaGenerica;
 
 public interface I_BuscarLibro
 {
-	
 	// INTERFAZ CON DIFERENTES FORMAS DE BUSCAR UN LIBRO.
 	
 	Libro buscarLibroPor_Titulo(String titulo);

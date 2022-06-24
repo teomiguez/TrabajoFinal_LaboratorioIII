@@ -12,12 +12,11 @@ import genericidad.ListaGenerica;
 
 public class ControladoraJson
 {
-
 	public static JSONObject generarJson_obrasImpresas(HashMap<String, ListaGenerica<Libro>> map) 
 	{
 		JSONObject json = new JSONObject(); //	La raiz (jsonObject) { }.
-
 		Iterator<Entry<String, ListaGenerica<Libro>>> filas = map.entrySet().iterator(); // Convierte en filas.
+		
 		while(filas.hasNext()) 
 		{
 			Map.Entry<String, ListaGenerica<Libro>> unaFila = filas.next(); //	Fila con la que se trabaja.

@@ -2,7 +2,6 @@ package clasesAbstractas;
 
 public abstract class Usuario 
 {
-	
 	// ATRIBUTOS.
 	
 	private String name;

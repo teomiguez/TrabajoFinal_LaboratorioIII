@@ -2,7 +2,6 @@ package clasesAbstractas;
 
 public abstract class ObraImpresa
 {
-	
 	// ATRIBUTOS.
 	
 	private int id;

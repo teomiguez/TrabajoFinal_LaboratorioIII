@@ -5,15 +5,16 @@ import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Paths;
 import org.json.JSONArray;
+import org.json.JSONObject;
 
 public class JsonUtiles 
 {
-	public static void grabar(JSONArray array) 
+	public static void grabar(JSONObject json) 
 	{
         try 
         {
             FileWriter file = new FileWriter("file.json");
-            file.write(array.toString());
+            file.write(json.toString());
             file.flush();
             file.close();
 

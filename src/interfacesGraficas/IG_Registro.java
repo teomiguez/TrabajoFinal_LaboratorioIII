@@ -18,8 +18,6 @@ import clases.AppLibreria;
 public class IG_Registro extends JFrame implements ActionListener, ChangeListener
 {
 	// ATRIBUTOS
-	private AppLibreria app;
-	
 	private String usuario;
 	private String email;
 	private String password;
@@ -45,8 +43,6 @@ public class IG_Registro extends JFrame implements ActionListener, ChangeListene
 	// CONSTRUCTOR
 	public IG_Registro ()
 	{
-		app = IG_Bienvenida.appLibreria;
-		
 		setLayout(null);
 		setTitle("Registro");
 		getContentPane().setBackground(new Color(230, 178, 99));
@@ -138,7 +134,7 @@ public class IG_Registro extends JFrame implements ActionListener, ChangeListene
 					
 					// cuando termino de agregarlo vuelve a la pantalla principal para inciar sesion
 					
-					IG_Bienvenida bienvenida = new IG_Bienvenida(this.app);
+					IG_Bienvenida bienvenida = new IG_Bienvenida();
 					
 					bienvenida.setBounds(0, 0, 350, 300);
 					bienvenida.setVisible(true);
@@ -158,7 +154,7 @@ public class IG_Registro extends JFrame implements ActionListener, ChangeListene
 		}
 		if (e.getSource() == boton2)
 		{
-			IG_Bienvenida bienvenida = new IG_Bienvenida(this.app);
+			IG_Bienvenida bienvenida = new IG_Bienvenida();
 			
 			bienvenida.setBounds(0, 0, 350, 300);
 			bienvenida.setVisible(true);

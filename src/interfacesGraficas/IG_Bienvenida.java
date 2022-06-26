@@ -10,7 +10,6 @@ import java.awt.*;
 public class IG_Bienvenida extends JFrame implements ActionListener
 {
 	// ATRIBUTOS
-	public static AppLibreria appLibreria;
 	private String usuario;
 	private String password;
 	
@@ -25,10 +24,8 @@ public class IG_Bienvenida extends JFrame implements ActionListener
 	private JButton boton2;
 	
 	// CONSTRUCTOR
-	public IG_Bienvenida (AppLibreria app) 
-	{
-		appLibreria = app;
-		
+	public IG_Bienvenida () 
+	{	
 		setLayout(null);
 		setTitle("Bienvenida - login");
 		getContentPane().setBackground(new Color(230, 178, 99));

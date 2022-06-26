@@ -26,17 +26,16 @@ public class Main
 		
 		//app = ControladorArchivos.leerArchivo("file.dat");
 		
-		ventanaBienvenida(app);
+		ventanaBienvenida();
 		
 		ControladorArchivos.guardarArchivo("file.dat", app);
 		
-		ControladoraJson.generarJson_obrasImpresas(app.getObrasImpresas());
 		System.out.println(ControladoraJson.generarJson_obrasImpresas(app.getObrasImpresas()).toString());
 	}
 	
-	public static void ventanaBienvenida(AppLibreria app)
+	public static void ventanaBienvenida()
 	{
-		IG_Bienvenida bienvenida = new IG_Bienvenida(app);
+		IG_Bienvenida bienvenida = new IG_Bienvenida();
 		
 		bienvenida.setBounds(0, 0, 350, 300);
 		bienvenida.setVisible(true);

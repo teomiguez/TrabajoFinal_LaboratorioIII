@@ -20,8 +20,6 @@ import clases.AppLibreria;
 public class IG_Admin_BuscarLibro extends JFrame implements ActionListener
 {
 	// ATRIBUTOS
-	private AppLibreria app;
-	
 	private String id;
 	private String titulo;
 	private String anioEdicion;
@@ -48,8 +46,6 @@ public class IG_Admin_BuscarLibro extends JFrame implements ActionListener
 	// CONSTRUCTOR
 	public IG_Admin_BuscarLibro ()
 	{	
-		app = IG_Bienvenida.appLibreria;
-		
 		setLayout(null);
 		setTitle("Ventana Principal Buscar Libro - Admin");
 		getContentPane().setBackground(new Color(230, 178, 99));
@@ -275,7 +271,7 @@ public class IG_Admin_BuscarLibro extends JFrame implements ActionListener
 		}
 		if (e.getSource() == miSalir)
 		{
-			IG_Bienvenida bienvenida = new IG_Bienvenida(this.app);
+			IG_Bienvenida bienvenida = new IG_Bienvenida();
 			
 			bienvenida.setBounds(0, 0, 350, 300);
 			bienvenida.setVisible(true);

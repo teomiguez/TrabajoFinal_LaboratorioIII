@@ -37,8 +37,8 @@ public class IG_VentanaPrincipalCliente extends JFrame implements ActionListener
 	
 	private JMenuBar menuBar; // creo la barra
 	private JMenu menuOpciones, menuAcercaDe; // cada campo que hay en la barra
-	private JMenu menuBuscarLibro; // cada submenu dentro de menuOpciones
-	private JMenuItem miDevolver, miNuevo, miSalir; // cada opcion dentro de menuOpciones
+	private JMenu menuBuscarLibro, menuDevolver; // cada submenu dentro de menuOpciones
+	private JMenuItem miDevolverLista, miDevolverLibro, miNuevo, miSalir; // cada opcion dentro de menuOpciones
 	private JMenuItem miPorTitulo, miPorAnio, miPorGenero, miPorAutor; // cada opcion dentro de menuBuscarLibro
 	private JMenuItem miCreadores; // cada opcion dentro de menuAcercaDe
 	
@@ -80,6 +80,12 @@ public class IG_VentanaPrincipalCliente extends JFrame implements ActionListener
 		menuAcercaDe.setForeground(new Color(0,0,0));
 		menuBar.add(menuAcercaDe);
 				
+		menuDevolver = new JMenu("Devolver");
+		menuDevolver.setBackground(new Color(230, 178, 99));
+		menuDevolver.setFont(new Font("Andale Mono", 1, 14));
+		menuDevolver.setForeground(new Color(0,0,0));
+		menuOpciones.add(menuDevolver);
+		
 		menuBuscarLibro = new JMenu("Buscar Libro");
 		menuBuscarLibro.setBackground(new Color(230, 178, 99));
 		menuBuscarLibro.setFont(new Font("Andale Mono", 1, 14));
@@ -88,11 +94,17 @@ public class IG_VentanaPrincipalCliente extends JFrame implements ActionListener
 				
 		// LAS OPCIONIES DENTRO DE CADA MENU DE LA BARRA
 		// MENU_OPCIONES
-		miDevolver = new JMenuItem("Devolver");
-		miDevolver.setFont(new Font("Andale Mono", 1, 14));
-		miDevolver.setForeground(new Color(0,0,0));
-		menuOpciones.add(miDevolver);
-		miDevolver.addActionListener(this);
+		miDevolverLista = new JMenuItem("Lista Alquilados");
+		miDevolverLista.setFont(new Font("Andale Mono", 1, 14));
+		miDevolverLista.setForeground(new Color(0,0,0));
+		menuDevolver.add(miDevolverLista);
+		miDevolverLista.addActionListener(this);
+		
+		miDevolverLibro = new JMenuItem("Devolver Libro");
+		miDevolverLibro.setFont(new Font("Andale Mono", 1, 14));
+		miDevolverLibro.setForeground(new Color(0,0,0));
+		menuDevolver.add(miDevolverLibro);
+		miDevolverLibro.addActionListener(this);
 		
 		miNuevo = new JMenuItem("Nuevo");
 		miNuevo.setFont(new Font("Andale Mono", 1, 14));
@@ -224,9 +236,18 @@ public class IG_VentanaPrincipalCliente extends JFrame implements ActionListener
 		genero = textGenero.getText().trim();
 		autor = textAutor.getText().trim();
 		
-		if (e.getSource() == miDevolver)
+		if (e.getSource() == miDevolverLista)
 		{
-			// listar librosAlquilados - seleccionar para devolver
+			try 
+			{
+				textArea.setText((this.app.buscarUsuario_EnClientes(usuario)).getAlquilados().listar().toString());
+				System.out.println((this.app.buscarUsuario_EnClientes(usuario)).getAlquilados().listar());
+			}
+			catch (E_UsuarioInvalido ex) 
+			{
+				JOptionPane.showMessageDialog(null, ex.getMessage());
+			}
+			
 		}
 		if (e.getSource() == miNuevo)
 		{
@@ -241,6 +262,29 @@ public class IG_VentanaPrincipalCliente extends JFrame implements ActionListener
 			bienvenida.setResizable(false);
 			bienvenida.setLocationRelativeTo(null);
 			this.setVisible(false);
+		}
+		if (e.getSource() == miDevolverLibro)
+		{
+			if (textTitulo.getText().trim().length() != 0)
+			{
+				try 
+				{
+					UsuarioCliente user = this.app.buscarUsuario_EnClientes(usuario);
+					
+					if(user.getAlquilados().buscarLibroPor_Titulo(titulo) != null)
+					{
+						// terminar
+					}
+				}
+				catch (E_UsuarioInvalido ex) 
+				{
+					JOptionPane.showMessageDialog(null, ex.getMessage());
+				}
+			}
+			else
+			{
+				JOptionPane.showMessageDialog(null, "ERROR - Debes llenar el campos necesario para la busqueda");
+			}
 		}
 		if (e.getSource() == miPorTitulo || e.getSource() == miPorAnio || e.getSource() == miPorGenero || e.getSource() == miPorAutor)
 		{

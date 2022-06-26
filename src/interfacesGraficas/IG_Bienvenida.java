@@ -1,46 +1,41 @@
 package interfacesGraficas;
 
 import javax.swing.*;
-
 import archivos.ControladorArchivos;
 import clases.AppLibreria;
 import excepciones.E_ContraseniaInvalida;
 import excepciones.E_UsuarioInvalido;
 import json.ControladoraJson;
-
 import java.awt.event.*;
 import java.awt.*;
 
 public class IG_Bienvenida extends JFrame implements ActionListener
 {
-	// ATRIBUTOS
+	//	ATRIBUTOS.
+	
 	public static AppLibreria app;
-	
-	public static String usuario; // se pasa por != interfaces
+	public static String usuario; // Se pasa por != interfaces.
 	private String password;
-	
 	private JTextField textField1;
 	private JTextField textField2;
-	
 	private JLabel label1;
 	private JLabel label2;
 	private JLabel label3;
-	
 	private JButton boton1;
 	private JButton boton2;
 	private JButton botonFin;
 	
-	// CONSTRUCTOR
+	//	CONSTRUCTOR.
+	
 	public IG_Bienvenida (AppLibreria appLibreria) 
 	{	
 		this.app = appLibreria;
-		
 		setLayout(null);
-		setTitle("Bienvenida - login");
+		setTitle("Bienvenida - Log In");
 		getContentPane().setBackground(new Color(230, 178, 99));
 		
 		label1 = new JLabel("Usuario");
-		label2 = new JLabel("ContraseÃ±a");
+		label2 = new JLabel("Contraseña");
 		label3 = new JLabel("AppLibreria");
 		
 		label1.setBounds(60,50,200,100);
@@ -96,36 +91,34 @@ public class IG_Bienvenida extends JFrame implements ActionListener
 	@Override
 	public void actionPerformed(ActionEvent e)
 	{
-		if (e.getSource() == boton1)
+		if(e.getSource() == boton1)
 		{
 			IG_Registro registro = new IG_Registro();
-			
 			registro.setBounds(0, 0, 370, 500);
 			registro.setVisible(true);
 			registro.setResizable(false);
 			registro.setLocationRelativeTo(null);
 			this.setVisible(false);
 		}
-		if (e.getSource() ==  boton2)
+		else if(e.getSource() ==  boton2)
 		{
 			usuario = textField1.getText().trim();
 			password = textField2.getText().trim();
 			
-			if (usuario.equals("") || password.equals("")) // si algun campo esta vacio (no tiene texto)
+			if(usuario.equals("") || password.equals("")) //	Si algún campo esta vacio (no tiene texto).
 			{
-				JOptionPane.showMessageDialog(null, "ERROR - Llenar los campos de texto para ingresar"); // mando un mensaje
+				JOptionPane.showMessageDialog(null, "ERROR - Llenar los campos de texto para ingresar."); //	Mando un mensaje.
 			}
-			if (!usuario.equals("") & !password.equals(""))
+			else if(!usuario.equals("") & !password.equals(""))
 			{
-				if (usuario.equals("admin") & password.equals("admin")) // si es admin
+				if(usuario.equals("admin") & password.equals("admin")) //	Si es admin.
 				{
 					IG_Admin_BuscarLibro ventanaAdmin = new IG_Admin_BuscarLibro();
-					
 					ventanaAdmin.setBounds(0, 0, 900, 500);
 					ventanaAdmin.setVisible(true);
 					ventanaAdmin.setResizable(false);
 					ventanaAdmin.setLocationRelativeTo(null);
-					this.setVisible(false); // para que bienvenida no se vea (se cierre)
+					this.setVisible(false); //	Para que bienvenida no se vea (se cierre).
 				}
 				else
 				{
@@ -144,11 +137,9 @@ public class IG_Bienvenida extends JFrame implements ActionListener
 						JOptionPane.showMessageDialog(null, ex.getMessage());
 					}
 					
-					
 					if (entra == true)
 					{		
 						IG_VentanaPrincipalCliente ventanaCliente = new IG_VentanaPrincipalCliente();
-						
 						ventanaCliente.setBounds(0, 0, 900, 500);
 						ventanaCliente.setVisible(true);
 						ventanaCliente.setResizable(false);
@@ -158,13 +149,11 @@ public class IG_Bienvenida extends JFrame implements ActionListener
 				}
 			}
 		}
-		if (e.getSource() == botonFin)
+		else if(e.getSource() == botonFin)
 		{
 			ControladorArchivos.guardarArchivo("file.dat", this.app);
 			ControladoraJson.generarArchivo(ControladoraJson.generarJson_obrasImpresas(this.app.getObrasImpresas()));
-			
 			IG_MostrarJson json = new IG_MostrarJson();
-			
 			json.setBounds(0, 0, 700, 700);
 			json.setVisible(true);
 			json.setResizable(false);
@@ -172,5 +161,4 @@ public class IG_Bienvenida extends JFrame implements ActionListener
 			this.setVisible(false);
 		}
 	}
-	
 }

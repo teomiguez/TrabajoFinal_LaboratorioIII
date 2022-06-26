@@ -1,7 +1,6 @@
 package clases;
 
 import java.io.Serializable;
-
 import clasesAbstractas.Usuario;
 
 public class UsuarioAdmin extends Usuario implements Serializable
@@ -13,7 +12,7 @@ public class UsuarioAdmin extends Usuario implements Serializable
 		super(name, password, email);
 	}
 		
-	// 	Mï¿½TODOS: 
+	// 	MÉTODOS: 
 	//	OVERRIDERS NECESARIOS.
 	
 	@Override

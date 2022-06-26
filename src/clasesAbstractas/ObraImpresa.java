@@ -6,6 +6,7 @@ import java.util.concurrent.atomic.AtomicInteger;
 public abstract class ObraImpresa implements Serializable
 {
 	// ATRIBUTOS.
+	
 	private static AtomicInteger count = new AtomicInteger(0);
 	private int id;
 	private boolean bajaLogica;
@@ -61,9 +62,8 @@ public abstract class ObraImpresa implements Serializable
 		this.inAlquiler = inAlquiler;  
 	}
 	
-	//	METODOS
-	
-	//	OVERRIDERS NECESARIOS
+	//	METODOS:
+	//	OVERRIDERS NECESARIOS.
 	
 	@Override
 	public boolean equals(Object obj) 

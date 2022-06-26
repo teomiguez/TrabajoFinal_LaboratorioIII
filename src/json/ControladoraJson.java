@@ -15,7 +15,7 @@ public class ControladoraJson
 	public static JSONObject generarJson_obrasImpresas(HashMap<String, ListaGenerica<Libro>> map) 
 	{
 		JSONObject json = new JSONObject(); //	La raiz (jsonObject) { }.
-		Iterator<Entry<String, ListaGenerica<Libro>>> filas = map.entrySet().iterator(); // Convierte en filas.
+		Iterator<Entry<String, ListaGenerica<Libro>>> filas = map.entrySet().iterator(); //	Convierte en filas.
 		
 		while(filas.hasNext()) 
 		{
@@ -26,7 +26,6 @@ public class ControladoraJson
 
 			try
 			{
-
 				for(int i = 0; i < aux.size(); i++) 
 				{
 					JSONObject obj = new JSONObject(); //	Un jsonObject por cada libro.
@@ -49,7 +48,7 @@ public class ControladoraJson
 		return json;
 	}
 	
-	public static void generarArchivo (JSONObject obj)
+	public static void generarArchivo(JSONObject obj)
 	{
 		JsonUtiles.grabar(obj);
 	}
@@ -58,5 +57,4 @@ public class ControladoraJson
 	{
 		return JsonUtiles.leer("test.json");
 	}
-	
 }

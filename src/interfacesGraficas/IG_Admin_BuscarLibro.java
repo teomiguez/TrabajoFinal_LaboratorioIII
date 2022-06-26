@@ -4,7 +4,6 @@ import java.awt.Color;
 import java.awt.Font;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-
 import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
@@ -15,57 +14,53 @@ import javax.swing.JOptionPane;
 import javax.swing.JScrollPane;
 import javax.swing.JTextArea;
 import javax.swing.JTextField;
-
 import clases.AppLibreria;
 import clases.Libro;
 
 public class IG_Admin_BuscarLibro extends JFrame implements ActionListener
 {
-	// ATRIBUTOS
-	private AppLibreria app;
+	//	ATRIBUTOS.
 	
+	private AppLibreria app;
 	private int id;
 	private String titulo;
 	private int anioEdicion;
 	private String genero;
 	private String autor;
 	private String descripcion;
-	
-	private JMenuBar menuBar; // creo la barra
-	private JMenu menuOpciones, menuAcercaDe; // cada campo que hay en la barra
-	private JMenu menuBuscarLibro, menuBuscarUsuario; // cada submenu dentro de menuOpciones
-	private JMenuItem miCrearLibro, miNuevo, miSalir; // cada opcion dentro de menuOpciones
-	private JMenuItem miPorId, miPorTitulo, miPorAnio, miPorGenero, miPorAutor; // cada opcion dentro de menuBuscarLibro
-	private JMenuItem miPorUsuario, miPorEmail; // cada opcion dentro de menuBuscarUsuario
-	private JMenuItem miCreadores; // cada opcion dentro de menuAcercaDe
-	
+	private JMenuBar menuBar; //	Creo la barra.
+	private JMenu menuOpciones, menuAcercaDe; //	Cada campo que hay en la barra.
+	private JMenu menuBuscarLibro, menuBuscarUsuario; //	Cada submenu dentro de menuOpciones.
+	private JMenuItem miCrearLibro, miNuevo, miSalir; //	Cada opcion dentro de menuOpciones.
+	private JMenuItem miPorId, miPorTitulo, miPorAnio, miPorGenero, miPorAutor; //	Cada opcion dentro de menuBuscarLibro.
+	private JMenuItem miPorUsuario, miPorEmail; // 	Cada opcion dentro de menuBuscarUsuario.
+	private JMenuItem miCreadores; //	Cada opcion dentro de menuAcercaDe.
 	private JLabel labelId, labelTitulo, labelAnio, labelGenero, labelAutor, labelDescripcion;
 	private JTextField textId, textTitulo, textAnio, textGenero, textAutor;
-	
 	private JButton botonBaja, botonAlta;
-	
 	private JScrollPane scrollPane;
 	private JScrollPane scrollPaneDes;
 	private JTextArea textArea;
 	private JTextArea textAreaDes;
 	
+	//	CONSTRUCTOR.
 	
-	// CONSTRUCTOR
 	public IG_Admin_BuscarLibro ()
 	{	
 		this.app = IG_Bienvenida.app;
-		
 		setLayout(null);
 		setTitle("Ventana Principal Buscar Libro - Admin");
 		getContentPane().setBackground(new Color(230, 178, 99));
 		
-		// LA BARRA
+		//	LA BARRA.
+		
 		menuBar = new JMenuBar();
 		menuBar.setBackground(new Color(230, 178, 99));
 		menuBar.setForeground(new Color(0,0,0));
 		setJMenuBar(menuBar);
 		
-		// LOS MENUS DE LA BARRA
+		//	LOS MENUS DE LA BARRA.
+		
 		menuOpciones = new JMenu("Opciones");
 		menuOpciones.setBackground(new Color(230, 178, 99));
 		menuOpciones.setFont(new Font("Andale Mono", 1, 14));
@@ -90,8 +85,9 @@ public class IG_Admin_BuscarLibro extends JFrame implements ActionListener
 		menuBuscarUsuario.setForeground(new Color(0,0,0));
 		menuOpciones.add(menuBuscarUsuario);
 		
-		// LAS OPCIONIES DENTRO DE CADA MENU DE LA BARRA
-		// MENU_OPCIONES
+		//	LAS OPCIONIES DENTRO DE CADA MENU DE LA BARRA.
+		//	MENU_OPCIONES.
+		
 		miCrearLibro = new JMenuItem("Nuevo Libro");
 		miCrearLibro.setFont(new Font("Andale Mono", 1, 14));
 		miCrearLibro.setForeground(new Color(0,0,0));
@@ -110,7 +106,7 @@ public class IG_Admin_BuscarLibro extends JFrame implements ActionListener
 		menuOpciones.add(miSalir);
 		miSalir.addActionListener(this);
 		
-		// MENU_BUSCARLIBRO
+		//	MENU_BUSCARLIBRO.
 		
 		miPorId = new JMenuItem("Por Id");
 		miPorId.setFont(new Font("Andale Mono", 1, 14));
@@ -118,19 +114,19 @@ public class IG_Admin_BuscarLibro extends JFrame implements ActionListener
 		menuBuscarLibro.add(miPorId);
 		miPorId.addActionListener(this);
 		
-		miPorTitulo = new JMenuItem("Por Titulo");
+		miPorTitulo = new JMenuItem("Por Título");
 		miPorTitulo.setFont(new Font("Andale Mono", 1, 14));
 		miPorTitulo.setForeground(new Color(0,0,0));
 		menuBuscarLibro.add(miPorTitulo);
 		miPorTitulo.addActionListener(this);
 		
-		miPorAnio = new JMenuItem("Por AÃ±o Edicion");
+		miPorAnio = new JMenuItem("Por Año de Edición");
 		miPorAnio.setFont(new Font("Andale Mono", 1, 14));
 		miPorAnio.setForeground(new Color(0,0,0));
 		menuBuscarLibro.add(miPorAnio);
 		miPorAnio.addActionListener(this);
 		
-		miPorGenero = new JMenuItem("Por Genero");
+		miPorGenero = new JMenuItem("Por Género");
 		miPorGenero.setFont(new Font("Andale Mono", 1, 14));
 		miPorGenero.setForeground(new Color(0,0,0));
 		menuBuscarLibro.add(miPorGenero);
@@ -142,7 +138,7 @@ public class IG_Admin_BuscarLibro extends JFrame implements ActionListener
 		menuBuscarLibro.add(miPorAutor);
 		miPorAutor.addActionListener(this);
 		
-		// MENU_BUSCARUSUARIO
+		//	MENU_BUSCARUSUARIO.
 		
 		miPorUsuario = new JMenuItem("Por Usuario");
 		miPorUsuario.setFont(new Font("Andale Mono", 1, 14));
@@ -156,21 +152,22 @@ public class IG_Admin_BuscarLibro extends JFrame implements ActionListener
 		menuBuscarUsuario.add(miPorEmail);
 		miPorEmail.addActionListener(this);
 		
-		// MENU_ACERCADE
+		//	MENU_ACERCADE.
+		
 		miCreadores = new JMenuItem("Creadores");
 		miCreadores.setFont(new Font("Andale Mono", 1, 14));
 		miCreadores.setForeground(new Color(0,0,0));
 		menuAcercaDe.add(miCreadores);
 		miCreadores.addActionListener(this);
 		
-		// ETIQUETAS.-
+		//	ETIQUETAS.
 		
 		labelId = new JLabel("ID");
-		labelTitulo = new JLabel("Titulo");
-		labelAnio = new JLabel("AÃ±o");
-		labelGenero = new JLabel("Genero");
+		labelTitulo = new JLabel("Título");
+		labelAnio = new JLabel("Año");
+		labelGenero = new JLabel("Género");
 		labelAutor = new JLabel("Autor");
-		labelDescripcion = new JLabel("Descripcion");
+		labelDescripcion = new JLabel("Descripción");
 		
 		labelId.setBounds(40,-10,200,100);
 		labelId.setFont(new Font("Andale Mono", 3, 18));
@@ -202,7 +199,7 @@ public class IG_Admin_BuscarLibro extends JFrame implements ActionListener
 		labelDescripcion.setForeground(new Color(0,0,0));
 		add(labelDescripcion);
 		
-		// CUADROS DE TEXTO.-
+		//	CUADROS DE TEXTO.
 		
 		textId = new JTextField();
 		textTitulo = new JTextField();
@@ -235,7 +232,7 @@ public class IG_Admin_BuscarLibro extends JFrame implements ActionListener
 		textAutor.setFont(new Font("Verdana", 0, 14));
 		add(textAutor);
 		
-		// BOTONES
+		//	BOTONES.
 		
 		botonAlta = new JButton("Dar Alta");
 		botonAlta.setBackground(new Color(255,255,255));
@@ -253,12 +250,12 @@ public class IG_Admin_BuscarLibro extends JFrame implements ActionListener
 		botonBaja.setEnabled(false);
 		add(botonBaja);
 		
-		// TEXTAREA Y SCROLLPANE.-
+		//	TEXTAREA Y SCROLLPANE.
 		
 		textArea = new JTextArea();
 		textArea.setEditable(false);
 		textArea.setFont(new Font("Andale Mono", 3, 18));
-		textArea.setText(""); // LO QUE CONTIENE EL TEXTAREA â†’ MODIFICA CON LOS != BOTONES (BUSQUEDA)
+		textArea.setText(""); // LO QUE CONTIENE EL TEXTAREA MODIFICA CON LOS != BOTONES (BUSQUEDA).
 		scrollPane = new JScrollPane(textArea);
 		scrollPane.setBounds(300,15,570,410);
 		add(scrollPane);
@@ -269,19 +266,17 @@ public class IG_Admin_BuscarLibro extends JFrame implements ActionListener
 		textAreaDes.setText("");
 		scrollPaneDes = new JScrollPane(textAreaDes);
 		scrollPaneDes.setBounds(50,250,200,100);
-		add(scrollPaneDes);
-		
+		add(scrollPaneDes);	
 	}
 
 	@Override
 	public void actionPerformed(ActionEvent e) 
 	{	
-		if ((textId.getText().trim().length()) != 0)
+		if((textId.getText().trim().length()) != 0)
 		{
 			id = Integer.parseInt(textId.getText().trim());
 		}
-		
-		if ((textAnio.getText().trim().length()) != 0)
+		else if((textAnio.getText().trim().length()) != 0)
 		{
 			anioEdicion = Integer.parseInt(textAnio.getText().trim());
 		}
@@ -291,83 +286,89 @@ public class IG_Admin_BuscarLibro extends JFrame implements ActionListener
 		autor = textAutor.getText().trim();
 		descripcion = textAreaDes.getText().trim();
 		
-		if (e.getSource() == miCrearLibro)
+		if(e.getSource() == miCrearLibro)
 		{
-			if ((textTitulo.getText().trim().length() != 0) & (textAnio.getText().trim().length() != 0) & (textGenero.getText().trim().length() != 0) & (textAutor.getText().trim().length() != 0) & (textAreaDes.getText().trim().length() != 0))
+			if((textTitulo.getText().trim().length() != 0) & (textAnio.getText().trim().length() != 0) & (textGenero.getText().trim().length() != 0) & (textAutor.getText().trim().length() != 0) & (textAreaDes.getText().trim().length() != 0))
 			{
 				this.app.agregarLibro(this.app.crearLibro(50, titulo, anioEdicion, genero, autor, descripcion));
-				
 				miNuevo();
 			}
-			if ((textTitulo.getText().trim().length() == 0) || (textAnio.getText().trim().length() == 0) || (textGenero.getText().trim().length() == 0) || (textAutor.getText().trim().length() == 0) || (textAreaDes.getText().trim().length() == 0))
+			else if((textTitulo.getText().trim().length() == 0) || (textAnio.getText().trim().length() == 0) || (textGenero.getText().trim().length() == 0) || (textAutor.getText().trim().length() == 0) || (textAreaDes.getText().trim().length() == 0))
 			{
-				JOptionPane.showMessageDialog(null, "ERROR - Debes llenar los campos necesarios para crear un libro");
+				JOptionPane.showMessageDialog(null, "ERROR - Debés llenar los campos necesarios para crear un libro.");
 			}
 		}
-		if (e.getSource() == miNuevo)
+		else if(e.getSource() == miNuevo)
 		{
-			if (this.getTitle().equals("Ventana Principal Buscar Libro - Admin"))
+			if(this.getTitle().equals("Ventana Principal Buscar Libro - Admin"))
 			{
 				miNuevo();
 			}
 		}
-		if (e.getSource() == miSalir)
+		else if(e.getSource() == miSalir)
 		{
 			IG_Bienvenida bienvenida = new IG_Bienvenida(this.app);
-			
 			bienvenida.setBounds(0, 0, 350, 350);
 			bienvenida.setVisible(true);
 			bienvenida.setResizable(false);
 			bienvenida.setLocationRelativeTo(null);
 			this.setVisible(false);
 		}
-		if (e.getSource() == miPorId || e.getSource() == miPorTitulo || e.getSource() == miPorAnio || e.getSource() == miPorGenero || e.getSource() == miPorAutor)
+		else if(e.getSource() == miPorId || e.getSource() == miPorTitulo || e.getSource() == miPorAnio || e.getSource() == miPorGenero || e.getSource() == miPorAutor)
 		{			
-			if (e.getSource() == miPorId)
+			if(e.getSource() == miPorId)
 			{
-				if (textId.getText().trim().length() == 0)
+				if(textId.getText().trim().length() == 0)
 				{
-					JOptionPane.showMessageDialog(null, "ERROR - Debes llenar el campos necesario para la busqueda");
+					JOptionPane.showMessageDialog(null, "ERROR - Debés llenar los campos necesario para la busqueda.");
 				}
-				if (textId.getText().trim().length() != 0)
+				else if(textId.getText().trim().length() != 0)
 				{	
 					Libro lib = this.app.buscarPorID_EnObrasImpresas(id);
 					textArea.setText(lib.toString());
 					
-					if (lib.getBajaLogica() == true)
+					if(lib.getBajaLogica() == true)
+					{
 						botonAlta.setEnabled(true);
-					if (lib.getBajaLogica() == false)
+					}
+					else if(lib.getBajaLogica() == false)
+					{
 						botonBaja.setEnabled(true);
+					}
 					
 					miNuevo();
 				}
 			}
-			if (e.getSource() == miPorTitulo)
+			else if(e.getSource() == miPorTitulo)
 			{	
-				if (textTitulo.getText().trim().length() == 0)
+				if(textTitulo.getText().trim().length() == 0)
 				{
-					JOptionPane.showMessageDialog(null, "ERROR - Debes llenar el campos necesario para la busqueda");
+					JOptionPane.showMessageDialog(null, "ERROR - Debes llenar los campos necesario para la busqueda");
 				}
-				if (textTitulo.getText().trim().length() != 0)
+				else if(textTitulo.getText().trim().length() != 0)
 				{
 					Libro lib = this.app.buscarPorTitulo_EnObrasImpresas(titulo);
 					
-					if (lib != null)
+					if(lib != null)
 					{
 						textArea.setText(lib.toString());
 						
-						if (lib.getBajaLogica() == true)
+						if(lib.getBajaLogica() == true)
+						{
 							botonAlta.setEnabled(true);
-						if (lib.getBajaLogica() == false)
+						}
+						else if(lib.getBajaLogica() == false)
+						{
 							botonBaja.setEnabled(true);
+						}
 						
-						// NO PUEDO HACER QUE EL PROGRAMA ESPERE A QUE SE PULSE ALGO...
+						//	NO PUEDO HACER QUE EL PROGRAMA ESPERE A QUE SE PULSE ALGO...
 						
-						if (e.getSource() == botonAlta)
+						else if(e.getSource() == botonAlta)
 						{
 							this.app.darDeAlta_Libro(lib.getId());
 						}
-						if (e.getSource() == botonAlta)
+						else if(e.getSource() == botonAlta)
 						{
 							this.app.darDeBaja_Libro(lib.getId());
 						}
@@ -376,33 +377,37 @@ public class IG_Admin_BuscarLibro extends JFrame implements ActionListener
 					{
 						JOptionPane.showMessageDialog(null, "ERROR - El libro no esta");
 					}
-					miNuevo();
 					
+					miNuevo();
 				}
 			}
-			if (e.getSource() == miPorAnio)
+			else if(e.getSource() == miPorAnio)
 			{
-				if (textAnio.getText().trim().length() != 0)
+				if(textAnio.getText().trim().length() != 0)
 				{	
 					textArea.setText(this.app.buscarPorGenero_EnObrasImpresas(genero).listar().toString());
 					System.out.println(this.app.buscarPorGenero_EnObrasImpresas(genero).listar());
 					miNuevo();
 				}
 				else
-					JOptionPane.showMessageDialog(null, "ERROR - Debes llenar el campos necesario para la busqueda");
+				{
+					JOptionPane.showMessageDialog(null, "ERROR - Debés llenar los campos necesario para la busqueda.");
+				}
 			}
-			if (e.getSource() == miPorGenero)
+			else if(e.getSource() == miPorGenero)
 			{
-				if (textGenero.getText().trim().length() != 0)
+				if(textGenero.getText().trim().length() != 0)
 				{
 					textArea.setText(this.app.buscarPorGenero_EnObrasImpresas(genero).listar().toString());
 					System.out.println(this.app.buscarPorGenero_EnObrasImpresas(genero).listar());
 					miNuevo();
 				}
 				else
-					JOptionPane.showMessageDialog(null, "ERROR - Debes llenar el campos necesario para la busqueda");
+				{
+					JOptionPane.showMessageDialog(null, "ERROR - Debés llenar los campos necesario para la busqueda.");
+				}
 			}
-			if (e.getSource() == miPorAutor)
+			else if(e.getSource() == miPorAutor)
 			{
 				if (textAutor.getText().trim().length() != 0)
 				{
@@ -410,24 +415,23 @@ public class IG_Admin_BuscarLibro extends JFrame implements ActionListener
 					miNuevo();
 				}
 				else
-					JOptionPane.showMessageDialog(null, "ERROR - Debes llenar el campos necesario para la busqueda");
-			}
-			
+				{
+					JOptionPane.showMessageDialog(null, "ERROR - Debés llenar los campos necesario para la busqueda.");
+				}
+			}	
 		}
-		if (e.getSource() == miPorUsuario || e.getSource() == miPorEmail)
+		else if(e.getSource() == miPorUsuario || e.getSource() == miPorEmail)
 		{
 			IG_Admin_BuscarUsuario ventanaAdmin = new IG_Admin_BuscarUsuario();
-			
 			ventanaAdmin.setBounds(0, 0, 900, 500);
 			ventanaAdmin.setVisible(true);
 			ventanaAdmin.setResizable(false);
 			ventanaAdmin.setLocationRelativeTo(null);
 			this.setVisible(false);
 		}
-		if (e.getSource() == miCreadores)
+		else if(e.getSource() == miCreadores)
 		{
 			IG_Creadores creadores = new IG_Creadores();
-			
 			creadores.setBounds(0, 0, 350, 275);
 			creadores.setVisible(true);
 			creadores.setResizable(false);

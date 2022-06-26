@@ -6,12 +6,10 @@ import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
-
 import clases.AppLibreria;
 
 public class ControladorArchivos 
 {
-	
 	public static boolean guardarArchivo(String file, AppLibreria app)
 	{
 		boolean seGuardo = false;
@@ -20,11 +18,8 @@ public class ControladorArchivos
 		{
 			FileOutputStream fileOutputStream = new FileOutputStream(file); 
 			ObjectOutputStream objectOutputStream = new ObjectOutputStream(fileOutputStream);  
-			
 			objectOutputStream.writeObject(app);
-			
 			objectOutputStream.close();
-			
 			seGuardo = true;
 		} 
 		catch(FileNotFoundException e) 
@@ -36,10 +31,7 @@ public class ControladorArchivos
 			e.printStackTrace();
 		}
 		
-		if (seGuardo == true)
-			return true;
-		else
-			return false;
+		return seGuardo; 
 	}
 	
 	public static AppLibreria leerArchivo(String file)
@@ -50,11 +42,8 @@ public class ControladorArchivos
 		{
 			FileInputStream fileInputStream = new FileInputStream(file);
 			ObjectInputStream objectInputStream = new ObjectInputStream(fileInputStream);
-			
 			aux = (AppLibreria) objectInputStream.readObject();
-			
 			objectInputStream.close();
-			
 		} 
 		catch(FileNotFoundException e) 
 		{
@@ -64,12 +53,11 @@ public class ControladorArchivos
 		{
 			e.printStackTrace();
 		} 
-		catch (ClassNotFoundException e) 
+		catch(ClassNotFoundException e) 
 		{	
 			e.printStackTrace();
 		}
 		
 		return aux;
-	}
-	
+	}	
 }

@@ -17,7 +17,6 @@ public class JsonUtiles
             file.write(json.toString());
             file.flush();
             file.close();
-
         } 
         catch(IOException e) 
         {

@@ -4,7 +4,6 @@ import java.awt.Color;
 import java.awt.Font;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-
 import javax.swing.JButton;
 import javax.swing.JCheckBox;
 import javax.swing.JFrame;
@@ -13,42 +12,36 @@ import javax.swing.JOptionPane;
 import javax.swing.JTextField;
 import javax.swing.event.ChangeEvent;
 import javax.swing.event.ChangeListener;
-
 import clases.AppLibreria;
 import excepciones.E_UsuarioExistente;
 
 public class IG_Registro extends JFrame implements ActionListener, ChangeListener
 {
-	// ATRIBUTOS
-	private AppLibreria app;
+	// ATRIBUTOS.
 	
+	private AppLibreria app;
 	private String usuario;
 	private String email;
 	private String password;
-	
 	private String textoUsuario;
 	private String textoEmail;
 	private String textoPassword;
-	
 	private JTextField textField1;
 	private JTextField textField2;
 	private JTextField textField3;
-	
 	private JLabel label;
 	private JLabel label1;
 	private JLabel label2;
 	private JLabel label3;
-	
 	private JCheckBox check1;
-	
 	private JButton boton1;
 	private JButton boton2;
 	
-	// CONSTRUCTOR
+	// CONSTRUCTOR.
+	
 	public IG_Registro ()
 	{
 		this.app = IG_Bienvenida.app;
-		
 		setLayout(null);
 		setTitle("Registro");
 		getContentPane().setBackground(new Color(230, 178, 99));
@@ -56,7 +49,7 @@ public class IG_Registro extends JFrame implements ActionListener, ChangeListene
 		label = new JLabel("Registro de Usuario");
 		label1 = new JLabel("Usuario");
 		label2 = new JLabel("Email");
-		label3 = new JLabel("ContraseÃ±a");
+		label3 = new JLabel("Contraseña");
 		
 		label.setBounds(20,-10,350,100);
 		label.setFont(new Font("Comic Sans MS", 3, 32));
@@ -96,13 +89,13 @@ public class IG_Registro extends JFrame implements ActionListener, ChangeListene
 		textField3.setFont(new Font("Verdana", 0, 14));
 		add(textField3);
 		
-		check1 = new JCheckBox("Acepto los Terminos y Condiciones");
+		check1 = new JCheckBox("Acepto los Términos y Condiciones");
 		check1.setBackground(new Color(230, 178, 99));
 		check1.setBounds(60,225,230,40);
 		check1.addChangeListener(this);
 		add(check1);
 		
-		boton1 = new JButton("Registrarme");
+		boton1 = new JButton("Registrarse");
 		boton1.setBackground(new Color(255,255,255));
 		boton1.setFont(new Font("Andale Mono", 1, 14));
 		boton1.setBounds(180,270,120,40);
@@ -122,13 +115,13 @@ public class IG_Registro extends JFrame implements ActionListener, ChangeListene
 	@Override
 	public void actionPerformed(ActionEvent e) 
 	{
-		if (e.getSource() == boton1)
+		if(e.getSource() == boton1)
 		{
 			textoUsuario = textField1.getText().trim();
 			textoEmail = textField2.getText().trim();
 			textoPassword = textField3.getText().trim();
 			
-			if (!textoUsuario.equals("") & !textoEmail.equals("") & !textoPassword.equals(""))
+			if(!textoUsuario.equals("") & !textoEmail.equals("") & !textoPassword.equals(""))
 			{
 				boolean registro = false;
 				
@@ -136,12 +129,12 @@ public class IG_Registro extends JFrame implements ActionListener, ChangeListene
 				{
 					registro = this.app.registerUsuario(textoEmail, textoUsuario, textoPassword);
 				} 
-				catch (E_UsuarioExistente e1) 
+				catch(E_UsuarioExistente e1) 
 				{
 					JOptionPane.showMessageDialog(null, e1.getMessage());
 				}
 				
-				if (registro == true)
+				if(registro == true)
 				{	
 					IG_Bienvenida bienvenida = new IG_Bienvenida(this.app);
 					
@@ -150,18 +143,16 @@ public class IG_Registro extends JFrame implements ActionListener, ChangeListene
 					bienvenida.setResizable(false);
 					bienvenida.setLocationRelativeTo(null);
 					this.setVisible(false);
-				}
-				
+				}	
 			}
-			if (textoUsuario.equals("") || textoEmail.equals("") || textoPassword.equals(""))
+			else if(textoUsuario.equals("") || textoEmail.equals("") || textoPassword.equals(""))
 			{
-				JOptionPane.showMessageDialog(null, "ERROR - Llenar los campos de texto para ingresar");
+				JOptionPane.showMessageDialog(null, "ERROR - Llenar los campos de texto para ingresar.");
 			}
 		}
-		if (e.getSource() == boton2)
+		else if(e.getSource() == boton2)
 		{
 			IG_Bienvenida bienvenida = new IG_Bienvenida(this.app);
-			
 			bienvenida.setBounds(0, 0, 350, 350);
 			bienvenida.setVisible(true);
 			bienvenida.setResizable(false);
@@ -173,7 +164,7 @@ public class IG_Registro extends JFrame implements ActionListener, ChangeListene
 	@Override
 	public void stateChanged(ChangeEvent e) 
 	{
-		if (check1.isSelected() == true)
+		if(check1.isSelected() == true)
 		{
 			boton1.setEnabled(true);
 		}
@@ -182,5 +173,4 @@ public class IG_Registro extends JFrame implements ActionListener, ChangeListene
 			boton1.setEnabled(false);
 		}
 	}
-
 }

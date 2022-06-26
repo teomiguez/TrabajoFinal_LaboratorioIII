@@ -3,9 +3,6 @@ package app;
 import archivos.ControladorArchivos;
 import clases.AppLibreria;
 import interfacesGraficas.IG_Bienvenida;
-import json.ControladoraJson;
-
-
 
 /**
 *
@@ -37,5 +34,4 @@ public class Main
 		bienvenida.setResizable(false);
 		bienvenida.setLocationRelativeTo(null);
 	}
-	
 }

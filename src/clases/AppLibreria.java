@@ -37,7 +37,7 @@ public class AppLibreria implements Serializable
 		return obrasImpresas;  
 	}
 	
-	// 	Mï¿½TODOS: 
+	// 	MÉTODOS: 
 	//	LOG IN USUARIO. 
 	
 	public boolean loginUsuario(String usuario, String password) throws E_UsuarioInvalido, E_ContraseniaInvalida 
@@ -122,7 +122,7 @@ public class AppLibreria implements Serializable
 		
 		if(this.buscarPorID_EnObrasImpresas(libro.getId()) == null)
 		{
-			if(this.obrasImpresas.containsValue(libro.getGenero())) //	Si contiene el gï¿½nero.
+			if(this.obrasImpresas.containsValue(libro.getGenero())) //	Si contiene el género.
 			{
 				ListaGenerica <Libro> lista = this.buscarPorGenero_EnObrasImpresas(libro.getGenero());
 				lista.agregarObra(libro);
@@ -250,13 +250,13 @@ public class AppLibreria implements Serializable
 		}
 		
 		if(libro != null && user != null)
-		{
-			//	Trabajo en obrasImpresas.
-			
+		{			
 			stock = libro.getInStock();
 			
 			if (stock > 0)
 			{
+				//	Trabajo en obrasImpresas.
+				
 				alquiler = libro.getInAlquiler();
 				libro.setInStock(stock--);
 				libro.setInAlquiler(alquiler++);
@@ -274,11 +274,7 @@ public class AppLibreria implements Serializable
 				listaUser.agregarObra(libro);
 				user.setAlquilados(listaUser);
 				
-				return true;
-			}
-			else
-			{
-				return false;
+				rta = true;
 			}
 		}
 		
@@ -333,8 +329,7 @@ public class AppLibreria implements Serializable
 	
 	public StringBuilder listar_obrasImpresas()
 	{
-		StringBuilder str = new StringBuilder();
-		//Libro libro = null; ï¿½No se usa?		
+		StringBuilder str = new StringBuilder();	
 		Iterator <Entry<String, ListaGenerica<Libro>>> filas = this.obrasImpresas.entrySet().iterator();
 		
 		while(filas.hasNext())
@@ -354,7 +349,7 @@ public class AppLibreria implements Serializable
 	{
 		StringBuilder str = new StringBuilder();
 		
-		for(int i=0 ; i < this.librosAlquilados.size() ; i++)
+		for(int i=0; i < this.librosAlquilados.size(); i++)
 		{
 			str.append(this.librosAlquilados.get(i).toString());
 		}
@@ -462,7 +457,7 @@ public class AppLibreria implements Serializable
 	{
 		Libro libro = null;
 		
-		for( int i=0 ; i<this.librosAlquilados.size() ; i++)
+		for( int i=0; i<this.librosAlquilados.size(); i++)
 		{
 			if(this.librosAlquilados.get(i).getTitulo().equals(titulo))
 			{
@@ -479,7 +474,7 @@ public class AppLibreria implements Serializable
 	{
 		ListaGenerica<Libro> lista = new ListaGenerica<Libro>();
 		
-		for(int i=0 ; i<this.librosAlquilados.size() ; i++)
+		for(int i=0; i<this.librosAlquilados.size(); i++)
 		{
 			if(this.librosAlquilados.get(i).getAnioEdicion() == anioEdicion)
 			{
@@ -496,7 +491,7 @@ public class AppLibreria implements Serializable
 	{
 		ListaGenerica<Libro> lista = new ListaGenerica<Libro>();
 		
-		for(int i=0 ; i<this.librosAlquilados.size() ; i++)
+		for(int i=0; i<this.librosAlquilados.size(); i++)
 		{
 			if(this.librosAlquilados.get(i).getGenero().equals(genero))
 			{
@@ -513,7 +508,7 @@ public class AppLibreria implements Serializable
 	{
 		ListaGenerica<Libro> lista = new ListaGenerica<Libro>();
 		
-		for(int i=0 ; i<this.librosAlquilados.size() ; i++)
+		for(int i=0; i<this.librosAlquilados.size(); i++)
 		{
 			if(this.librosAlquilados.get(i).getAutor().equals(autor))
 			{
@@ -589,6 +584,7 @@ public class AppLibreria implements Serializable
 				usuario = unaFila.getValue();
 			}
 		}
+		
 		return usuario;
 	}
 	
@@ -602,7 +598,7 @@ public class AppLibreria implements Serializable
 		}
 		else
 		{
-			throw new E_ContraseniaInvalida("La password es invalida.-", intentos++);
+			throw new E_ContraseniaInvalida("La contraseña es invalida.-", intentos++);
 		}
 	}
 }

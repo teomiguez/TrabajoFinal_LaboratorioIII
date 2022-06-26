@@ -11,12 +11,7 @@ public abstract class Usuario implements Serializable
 	private String email;
 	
 	// CONSTRUCTOR.
-		
-	public Usuario ()
-	{
-		//�Vacio?
-	}
-	
+			
 	public Usuario (String name, String password, String email)
 	{
 		this.name = name;

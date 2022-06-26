@@ -3,26 +3,25 @@ package interfacesGraficas;
 import java.awt.Color;
 import java.awt.Font;
 import java.awt.ScrollPane;
-
 import javax.swing.JFrame;
 import javax.swing.JScrollPane;
 import javax.swing.JTextArea;
-
 import clases.AppLibreria;
 import json.ControladoraJson;
 
 public class IG_MostrarJson extends JFrame
 {
-	private AppLibreria app;
+	//	ATRIBUTOS.
 	
+	private AppLibreria app;
 	private JTextArea textArea;
 	private JScrollPane scrollPane;
 	
+	//	MÉTODOS:
 	
 	public IG_MostrarJson()
 	{
 		this.app = IG_Bienvenida.app;
-		
 		setLayout(null);
 		setTitle("Mostrar Json");
 		getContentPane().setBackground(new Color(230, 178, 99));

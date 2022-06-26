@@ -4,7 +4,6 @@ import java.awt.Color;
 import java.awt.Font;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-
 import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
@@ -15,7 +14,6 @@ import javax.swing.JOptionPane;
 import javax.swing.JScrollPane;
 import javax.swing.JTextArea;
 import javax.swing.JTextField;
-
 import clases.AppLibreria;
 import clases.UsuarioCliente;
 import excepciones.E_EmailInvalido;
@@ -23,45 +21,42 @@ import excepciones.E_UsuarioInvalido;
 
 public class IG_Admin_BuscarUsuario extends JFrame implements ActionListener
 {
-	// ATRIBUTOS
-	private AppLibreria app;
+	//	ATRIBUTOS.
 	
+	private AppLibreria app;
 	private String usuario;
 	private String email;
-	
-	private JMenuBar menuBar; // creo la barra
-	private JMenu menuOpciones, menuAcercaDe; // cada campo que hay en la barra
-	private JMenu menuBuscarLibro, menuBuscarUsuario; // cada submenu dentro de menuOpciones
-	private JMenuItem miNuevo, miSalir; // cada opcion dentro de menuOpciones
-	private JMenuItem miPorId, miPorTitulo, miPorAnio, miPorGenero, miPorAutor; // cada opcion dentro de menuBuscarLibro
-	private JMenuItem miPorUsuario, miPorEmail; // cada opcion dentro de menuBuscarUsuario
-	private JMenuItem miCreadores; // cada opcion dentro de menuAcercaDe
-	
+	private JMenuBar menuBar; //	Creo la barra.
+	private JMenu menuOpciones, menuAcercaDe; //	Cada campo que hay en la barra.
+	private JMenu menuBuscarLibro, menuBuscarUsuario; //	Cada sub-menu dentro de menuOpciones.
+	private JMenuItem miNuevo, miSalir; //	Cada opción dentro de menuOpciones.
+	private JMenuItem miPorId, miPorTitulo, miPorAnio, miPorGenero, miPorAutor; //	Cada opción dentro de menuBuscarLibro.
+	private JMenuItem miPorUsuario, miPorEmail; //	Cada opción dentro de menuBuscarUsuario.
+	private JMenuItem miCreadores; //	Cada opción dentro de menuAcercaDe.
 	private JLabel labelUsuario, labelEmail;
 	private JTextField textUsuario, textEmail;
-	
 	private JButton botonBaja, botonAlta;
-	
 	private JScrollPane scrollPane;
 	private JTextArea textArea;
 	
+	//	CONSTRUCTOR.
 	
-	// CONSTRUCTOR
 	public IG_Admin_BuscarUsuario ()
 	{
 		this.app = IG_Bienvenida.app;
-		
 		setLayout(null);
 		setTitle("Ventana Principal Buscar Usuario - Admin");
 		getContentPane().setBackground(new Color(230, 178, 99));
 		
-		// LA BARRA
+		//	LA BARRA.
+		
 		menuBar = new JMenuBar();
 		menuBar.setBackground(new Color(230, 178, 99));
 		menuBar.setForeground(new Color(0,0,0));
 		setJMenuBar(menuBar);
 		
-		// LOS MENUS DE LA BARRA
+		//	LOS MENUS DE LA BARRA.
+		
 		menuOpciones = new JMenu("Opciones");
 		menuOpciones.setBackground(new Color(230, 178, 99));
 		menuOpciones.setFont(new Font("Andale Mono", 1, 14));
@@ -86,8 +81,9 @@ public class IG_Admin_BuscarUsuario extends JFrame implements ActionListener
 		menuBuscarUsuario.setForeground(new Color(0,0,0));
 		menuOpciones.add(menuBuscarUsuario);
 		
-		// LAS OPCIONIES DENTRO DE CADA MENU DE LA BARRA
-		// MENU_OPCIONES
+		//	LAS OPCIONIES DENTRO DE CADA MENU DE LA BARRA.
+		// 	MENU_OPCIONES.
+		
 		miNuevo = new JMenuItem("Nuevo");
 		miNuevo.setFont(new Font("Andale Mono", 1, 14));
 		miNuevo.setForeground(new Color(0,0,0));
@@ -100,7 +96,7 @@ public class IG_Admin_BuscarUsuario extends JFrame implements ActionListener
 		menuOpciones.add(miSalir);
 		miSalir.addActionListener(this);
 		
-		// MENU_BUSCARLIBRO
+		//	MENU_BUSCARLIBRO.
 		
 		miPorId = new JMenuItem("Por Id");
 		miPorId.setFont(new Font("Andale Mono", 1, 14));
@@ -108,19 +104,19 @@ public class IG_Admin_BuscarUsuario extends JFrame implements ActionListener
 		menuBuscarLibro.add(miPorId);
 		miPorId.addActionListener(this);
 		
-		miPorTitulo = new JMenuItem("Por Titulo");
+		miPorTitulo = new JMenuItem("Por Título");
 		miPorTitulo.setFont(new Font("Andale Mono", 1, 14));
 		miPorTitulo.setForeground(new Color(0,0,0));
 		menuBuscarLibro.add(miPorTitulo);
 		miPorTitulo.addActionListener(this);
 		
-		miPorAnio = new JMenuItem("Por AÃ±o Edicion");
+		miPorAnio = new JMenuItem("Por Año de Edición");
 		miPorAnio.setFont(new Font("Andale Mono", 1, 14));
 		miPorAnio.setForeground(new Color(0,0,0));
 		menuBuscarLibro.add(miPorAnio);
 		miPorAnio.addActionListener(this);
 		
-		miPorGenero = new JMenuItem("Por Genero");
+		miPorGenero = new JMenuItem("Por Género");
 		miPorGenero.setFont(new Font("Andale Mono", 1, 14));
 		miPorGenero.setForeground(new Color(0,0,0));
 		menuBuscarLibro.add(miPorGenero);
@@ -132,7 +128,7 @@ public class IG_Admin_BuscarUsuario extends JFrame implements ActionListener
 		menuBuscarLibro.add(miPorAutor);
 		miPorAutor.addActionListener(this);
 		
-		// MENU_BUSCARUSUARIO
+		//	MENU_BUSCARUSUARIO.
 		
 		miPorUsuario = new JMenuItem("Por Usuario");
 		miPorUsuario.setFont(new Font("Andale Mono", 1, 14));
@@ -146,18 +142,18 @@ public class IG_Admin_BuscarUsuario extends JFrame implements ActionListener
 		menuBuscarUsuario.add(miPorEmail);
 		miPorEmail.addActionListener(this);
 		
-		// MENU_ACERCADE
+		//	MENU_ACERCADE.
+		
 		miCreadores = new JMenuItem("Creadores");
 		miCreadores.setFont(new Font("Andale Mono", 1, 14));
 		miCreadores.setForeground(new Color(0,0,0));
 		menuAcercaDe.add(miCreadores);
 		miCreadores.addActionListener(this);
 		
-		// ETIQUETAS.-
+		//	ETIQUETAS.
 		
 		labelUsuario = new JLabel("Usuario");
 		labelEmail = new JLabel("Email");
-		
 		labelUsuario.setBounds(40,-10,200,100);
 		labelUsuario.setFont(new Font("Andale Mono", 3, 18));
 		labelUsuario.setForeground(new Color(0,0,0));
@@ -168,7 +164,7 @@ public class IG_Admin_BuscarUsuario extends JFrame implements ActionListener
 		labelEmail.setForeground(new Color(0,0,0));
 		add(labelEmail);
 		
-		// CUADROS DE TEXTO.-
+		//	CUADROS DE TEXTO.
 		
 		textUsuario = new JTextField();
 		textEmail = new JTextField();
@@ -183,7 +179,7 @@ public class IG_Admin_BuscarUsuario extends JFrame implements ActionListener
 		textEmail.setFont(new Font("Verdana", 0, 14));
 		add(textEmail);
 		
-		// BOTONES
+		//	BOTONES.
 		
 		botonAlta = new JButton("Dar Alta");
 		botonAlta.setBackground(new Color(255,255,255));
@@ -201,16 +197,15 @@ public class IG_Admin_BuscarUsuario extends JFrame implements ActionListener
 		botonBaja.setEnabled(false);
 		add(botonBaja);
 		
-		// TEXTAREA Y SCROLLPANE.-
+		//	TEXTAREA Y SCROLLPANE.
 		
 		textArea = new JTextArea();
 		textArea.setEditable(false);
 		textArea.setFont(new Font("Andale Mono", 3, 18));
-		textArea.setText(""); // LO QUE CONTIENE EL TEXTAREA â†’ MODIFICA CON LOS != BOTONES (BUSQUEDA)
+		textArea.setText(""); // LO QUE CONTIENE EL TEXTAREA MODIFICA CON LOS != BOTONES (BUSQUEDA).
 		scrollPane = new JScrollPane(textArea);
 		scrollPane.setBounds(300,15,570,410);
 		add(scrollPane);	
-		
 	}
 
 	@Override
@@ -219,95 +214,103 @@ public class IG_Admin_BuscarUsuario extends JFrame implements ActionListener
 		usuario = textUsuario.getText().trim();
 		email = textEmail.getText().trim();
 		
-		if (e.getSource() == miNuevo)
+		if(e.getSource() == miNuevo)
 		{
-			if (this.getTitle().equals("Ventana Principal Buscar Usuario - Admin"))
+			if(this.getTitle().equals("Ventana Principal Buscar Usuario - Admin"))
 			{
 				textUsuario.setText("");
 				textEmail.setText("");
 			}
 		}
-		if (e.getSource() == miSalir)
+		else if(e.getSource() == miSalir)
 		{
 			IG_Bienvenida bienvenida = new IG_Bienvenida(this.app);
-			
 			bienvenida.setBounds(0, 0, 350, 350);
 			bienvenida.setVisible(true);
 			bienvenida.setResizable(false);
 			bienvenida.setLocationRelativeTo(null);
 			this.setVisible(false);
 		}
-		if (e.getSource() == miPorId || e.getSource() == miPorTitulo || e.getSource() == miPorAnio || e.getSource() == miPorGenero || e.getSource() == miPorAutor)
+		else if(e.getSource() == miPorId || e.getSource() == miPorTitulo || e.getSource() == miPorAnio || e.getSource() == miPorGenero || e.getSource() == miPorAutor)
 		{
-			IG_Admin_BuscarLibro ventanaAdmin = new IG_Admin_BuscarLibro();
-			
+			IG_Admin_BuscarLibro ventanaAdmin = new IG_Admin_BuscarLibro();	
 			ventanaAdmin.setBounds(0, 0, 900, 500);
 			ventanaAdmin.setVisible(true);
 			ventanaAdmin.setResizable(false);
 			ventanaAdmin.setLocationRelativeTo(null);
 			this.setVisible(false);
 		}
-		if (e.getSource() == miPorUsuario || e.getSource() == miPorEmail)
+		else if(e.getSource() == miPorUsuario || e.getSource() == miPorEmail)
 		{
-			if (e.getSource() == miPorUsuario)
+			if(e.getSource() == miPorUsuario)
 			{
-				if (textUsuario.getText().trim().length() != 0)
+				if(textUsuario.getText().trim().length() != 0)
 				{
 					try 
 					{
 						UsuarioCliente user = this.app.buscarUsuario_EnClientes(usuario);
 						
-						if (user != null)
+						if(user != null)
 						{
 							textArea.setText(user.toString());
 						
-							if (user.isBajaLogica() == true)
+							if(user.isBajaLogica() == true)
+							{
 								botonAlta.setEnabled(true);
-							if (user.isBajaLogica() == false)
+							}
+							else if(user.isBajaLogica() == false)
+							{
 								botonBaja.setEnabled(true);
+							}
 						}
 					}
-					catch (E_UsuarioInvalido ex) 
+					catch(E_UsuarioInvalido ex) 
 					{
 						JOptionPane.showMessageDialog(null, ex.getMessage());
 					}
 				}
 				else
-					JOptionPane.showMessageDialog(null, "ERROR - Debes llenar los campos necesarios para la busqueda");
-				
+				{
+					JOptionPane.showMessageDialog(null, "ERROR - Debés llenar los campos necesarios para la busqueda.");
+				}
 			}
-			if (e.getSource() == miPorEmail)
+			else if(e.getSource() == miPorEmail)
 			{
-				if (textUsuario.getText().trim().length() != 0)
+				if(textUsuario.getText().trim().length() != 0)
 				{
 					try 
 					{
 						UsuarioCliente user = this.app.buscarUsuarioPorEmail_EnClientes(email);
 						
-						if (user != null)
+						if(user != null)
 						{
 							textArea.setText(user.toString());
 						
-							if (user.isBajaLogica() == true)
+							if(user.isBajaLogica() == true)
+							{
 								botonAlta.setEnabled(true);
-							if (user.isBajaLogica() == false)
+							}
+							else if(user.isBajaLogica() == false)
+							{
 								botonBaja.setEnabled(true);
+							}
 						}
 					} 
-					catch (E_EmailInvalido ex) 
+					catch(E_EmailInvalido ex) 
 					{
 						JOptionPane.showMessageDialog(null, ex.getMessage());
 					}
 				}
 				else
-					JOptionPane.showMessageDialog(null, "ERROR - Debes llenar los campos necesarios para la busqueda");
+				{
+					JOptionPane.showMessageDialog(null, "ERROR - Debés llenar los campos necesarios para la busqueda.");
+				}
 				
 			}
 		}
-		if (e.getSource() == miCreadores)
+		else if(e.getSource() == miCreadores)
 		{
 			IG_Creadores creadores = new IG_Creadores();
-			
 			creadores.setBounds(0, 0, 350, 275);
 			creadores.setVisible(true);
 			creadores.setResizable(false);

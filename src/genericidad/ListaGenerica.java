@@ -35,7 +35,7 @@ public class ListaGenerica <E extends Libro> implements I_BuscarLibro
 		
 		for(int i = 0; i < this.lista.size(); i++) 
 		{
-			if(this.lista.get(i).getId() == obra.getId()) // Método "gauchito" para evitar repetidos.
+			if(this.lista.get(i).getId() == obra.getId()) // Mï¿½todo "gauchito" para evitar repetidos.
 			{
 				flag = true;
 			}

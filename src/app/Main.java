@@ -24,18 +24,18 @@ public class Main
 	{
 		AppLibreria app = new AppLibreria();
 		
-		//app = ControladorArchivos.leerArchivo("file.dat");
+		app = ControladorArchivos.leerArchivo("file.dat");
 		
-		ventanaBienvenida();
+		ventanaBienvenida(app);
 		
 		ControladorArchivos.guardarArchivo("file.dat", app);
 		
 		System.out.println(ControladoraJson.generarJson_obrasImpresas(app.getObrasImpresas()).toString());
 	}
 	
-	public static void ventanaBienvenida()
+	public static void ventanaBienvenida(AppLibreria app)
 	{
-		IG_Bienvenida bienvenida = new IG_Bienvenida();
+		IG_Bienvenida bienvenida = new IG_Bienvenida(app);
 		
 		bienvenida.setBounds(0, 0, 350, 300);
 		bienvenida.setVisible(true);

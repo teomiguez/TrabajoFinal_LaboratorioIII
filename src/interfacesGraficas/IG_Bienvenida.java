@@ -3,6 +3,8 @@ package interfacesGraficas;
 import javax.swing.*;
 
 import clases.AppLibreria;
+import excepciones.E_ContraseniaInvalida;
+import excepciones.E_UsuarioInvalido;
 
 import java.awt.event.*;
 import java.awt.*;
@@ -10,7 +12,9 @@ import java.awt.*;
 public class IG_Bienvenida extends JFrame implements ActionListener
 {
 	// ATRIBUTOS
-	private String usuario;
+	public static AppLibreria app;
+	
+	public static String usuario; // se pasa por != interfaces
 	private String password;
 	
 	private JTextField textField1;
@@ -24,8 +28,10 @@ public class IG_Bienvenida extends JFrame implements ActionListener
 	private JButton boton2;
 	
 	// CONSTRUCTOR
-	public IG_Bienvenida () 
+	public IG_Bienvenida (AppLibreria appLibreria) 
 	{	
+		this.app = appLibreria;
+		
 		setLayout(null);
 		setTitle("Bienvenida - login");
 		getContentPane().setBackground(new Color(230, 178, 99));
@@ -95,11 +101,11 @@ public class IG_Bienvenida extends JFrame implements ActionListener
 			usuario = textField1.getText().trim();
 			password = textField2.getText().trim();
 			
-			if (usuario.equals("") & password.equals("")) // si alguna variable esta vacia (no tiene texto)
+			if (usuario.equals("") || password.equals("")) // si algun campo esta vacio (no tiene texto)
 			{
-				JOptionPane.showMessageDialog(null, "ERROR - Llenar los campos de texto para ingresar"); // mando un mensaje (ver poner Excepciones)
+				JOptionPane.showMessageDialog(null, "ERROR - Llenar los campos de texto para ingresar"); // mando un mensaje
 			}
-			else
+			if (!usuario.equals("") & !password.equals(""))
 			{
 				if (usuario.equals("admin") & password.equals("admin")) // si es admin
 				{
@@ -115,6 +121,18 @@ public class IG_Bienvenida extends JFrame implements ActionListener
 				{
 					boolean entra = false;
 					
+					try 
+					{
+						entra = this.app.loginUsuario(usuario, password);
+					}
+					catch(E_UsuarioInvalido ex) 
+					{
+						JOptionPane.showMessageDialog(null, ex.getMessage());
+					} 
+					catch(E_ContraseniaInvalida ex) 
+					{
+						JOptionPane.showMessageDialog(null, ex.getMessage());
+					}
 					
 					
 					if (entra == true)
@@ -127,12 +145,7 @@ public class IG_Bienvenida extends JFrame implements ActionListener
 						ventanaCliente.setLocationRelativeTo(null);
 						this.setVisible(false);
 					}
-					else
-					{
-						// mando un mensaje (una excepcion)
-					}
 				}
-				
 			}
 		}
 	}

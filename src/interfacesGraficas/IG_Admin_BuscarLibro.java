@@ -11,20 +11,25 @@ import javax.swing.JLabel;
 import javax.swing.JMenu;
 import javax.swing.JMenuBar;
 import javax.swing.JMenuItem;
+import javax.swing.JOptionPane;
 import javax.swing.JScrollPane;
 import javax.swing.JTextArea;
 import javax.swing.JTextField;
 
 import clases.AppLibreria;
+import clases.Libro;
 
 public class IG_Admin_BuscarLibro extends JFrame implements ActionListener
 {
 	// ATRIBUTOS
-	private String id;
+	private AppLibreria app;
+	
+	private int id;
 	private String titulo;
-	private String anioEdicion;
+	private int anioEdicion;
 	private String genero;
 	private String autor;
+	private String descripcion;
 	
 	private JMenuBar menuBar; // creo la barra
 	private JMenu menuOpciones, menuAcercaDe; // cada campo que hay en la barra
@@ -34,18 +39,22 @@ public class IG_Admin_BuscarLibro extends JFrame implements ActionListener
 	private JMenuItem miPorUsuario, miPorEmail; // cada opcion dentro de menuBuscarUsuario
 	private JMenuItem miCreadores; // cada opcion dentro de menuAcercaDe
 	
-	private JLabel labelId, labelTitulo, labelAnio, labelGenero, labelAutor;
+	private JLabel labelId, labelTitulo, labelAnio, labelGenero, labelAutor, labelDescripcion;
 	private JTextField textId, textTitulo, textAnio, textGenero, textAutor;
 	
 	private JButton botonBaja, botonAlta;
 	
 	private JScrollPane scrollPane;
+	private JScrollPane scrollPaneDes;
 	private JTextArea textArea;
+	private JTextArea textAreaDes;
 	
 	
 	// CONSTRUCTOR
 	public IG_Admin_BuscarLibro ()
 	{	
+		this.app = IG_Bienvenida.app;
+		
 		setLayout(null);
 		setTitle("Ventana Principal Buscar Libro - Admin");
 		getContentPane().setBackground(new Color(230, 178, 99));
@@ -161,6 +170,7 @@ public class IG_Admin_BuscarLibro extends JFrame implements ActionListener
 		labelAnio = new JLabel("Año");
 		labelGenero = new JLabel("Genero");
 		labelAutor = new JLabel("Autor");
+		labelDescripcion = new JLabel("Descripcion");
 		
 		labelId.setBounds(40,-10,200,100);
 		labelId.setFont(new Font("Andale Mono", 3, 18));
@@ -186,6 +196,11 @@ public class IG_Admin_BuscarLibro extends JFrame implements ActionListener
 		labelAutor.setFont(new Font("Andale Mono", 3, 18));
 		labelAutor.setForeground(new Color(0,0,0));
 		add(labelAutor);
+		
+		labelDescripcion.setBounds(20,185,200,100);
+		labelDescripcion.setFont(new Font("Andale Mono", 3, 18));
+		labelDescripcion.setForeground(new Color(0,0,0));
+		add(labelDescripcion);
 		
 		// CUADROS DE TEXTO.-
 		
@@ -225,7 +240,7 @@ public class IG_Admin_BuscarLibro extends JFrame implements ActionListener
 		botonAlta = new JButton("Dar Alta");
 		botonAlta.setBackground(new Color(255,255,255));
 		botonAlta.setFont(new Font("Andale Mono", 1, 14));
-		botonAlta.setBounds(20,260,120,40);
+		botonAlta.setBounds(20,370,120,40);
 		botonAlta.addActionListener(this);
 		botonAlta.setEnabled(false);
 		add(botonAlta);
@@ -233,7 +248,7 @@ public class IG_Admin_BuscarLibro extends JFrame implements ActionListener
 		botonBaja = new JButton("Dar Baja");
 		botonBaja.setBackground(new Color(255,255,255));
 		botonBaja.setFont(new Font("Andale Mono", 1, 14));
-		botonBaja.setBounds(165,260,120,40);
+		botonBaja.setBounds(165,370,120,40);
 		botonBaja.addActionListener(this);
 		botonBaja.setEnabled(false);
 		add(botonBaja);
@@ -248,30 +263,51 @@ public class IG_Admin_BuscarLibro extends JFrame implements ActionListener
 		scrollPane.setBounds(300,15,570,410);
 		add(scrollPane);
 		
+		textAreaDes = new JTextArea();
+		textAreaDes.setEditable(true);
+		textAreaDes.setFont(new Font("Verdana", 0, 14));
+		textAreaDes.setText("");
+		scrollPaneDes = new JScrollPane(textAreaDes);
+		scrollPaneDes.setBounds(50,250,200,100);
+		add(scrollPaneDes);
 		
 	}
 
 	@Override
 	public void actionPerformed(ActionEvent e) 
 	{
+		// LLENAR TODOS LOS CAMPOS O TIRA ERROR CON ALGO DE INTEGER → VER
+		id = Integer.parseInt(textId.getText().trim());
+		anioEdicion = Integer.parseInt(textAnio.getText().trim());
+		
+		titulo = textTitulo.getText().trim();
+		genero = textGenero.getText().trim();
+		autor = textAutor.getText().trim();
+		descripcion = textAreaDes.getText().trim();
+		
 		if (e.getSource() == miCrearLibro)
 		{
-			
+			if (!textTitulo.equals("") & !textAnio.equals("") & !textGenero.equals("") & !textAutor.equals("") & !textAreaDes.equals(""))
+			{
+				this.app.agregarLibro(this.app.crearLibro(50, titulo, anioEdicion, genero, autor, descripcion));
+				
+				miNuevo();
+			}
+			if (textTitulo.equals("") || textAnio.equals("") || textGenero.equals("") || textAutor.equals("") || textAreaDes.equals(""))
+			{
+				JOptionPane.showMessageDialog(null, "ERROR - Debes llenar los campos necesarios para crear un libro");
+			}
 		}
 		if (e.getSource() == miNuevo)
 		{
 			if (this.getTitle().equals("Ventana Principal Buscar Libro - Admin"))
 			{
-				textId.setText("");
-				textTitulo.setText("");
-				textAnio.setText("");
-				textGenero.setText("");
-				textAutor.setText("");
+				miNuevo();
 			}
 		}
 		if (e.getSource() == miSalir)
 		{
-			IG_Bienvenida bienvenida = new IG_Bienvenida();
+			IG_Bienvenida bienvenida = new IG_Bienvenida(this.app);
 			
 			bienvenida.setBounds(0, 0, 350, 300);
 			bienvenida.setVisible(true);
@@ -283,23 +319,63 @@ public class IG_Admin_BuscarLibro extends JFrame implements ActionListener
 		{
 			if (e.getSource() == miPorId)
 			{
-				// trabajo - busco
+				if (textId.equals(""))
+				{
+					JOptionPane.showMessageDialog(null, "ERROR - Debes llenar el campos necesario para la busqueda");
+				}
+				if (!textId.equals(""))
+				{
+					textArea.setText(this.app.buscarPorID_EnObrasImpresas(id).toString());
+					miNuevo();
+				}
 			}
 			if (e.getSource() == miPorTitulo)
 			{
-				// trabajo - busco
+				if (textTitulo.equals(""))
+				{
+					JOptionPane.showMessageDialog(null, "ERROR - Debes llenar el campos necesario para la busqueda");
+				}
+				if (!textTitulo.equals(""))
+				{
+					textArea.setText(this.app.buscarPorTitulo_EnObrasImpresas(titulo).toString());
+					miNuevo();
+				}
 			}
 			if (e.getSource() == miPorAnio)
 			{
-				// trabajo - busco
+				if (textAnio.equals(""))
+				{
+					JOptionPane.showMessageDialog(null, "ERROR - Debes llenar el campos necesario para la busqueda");
+				}
+				if (!textAnio.equals(""))
+				{
+					textArea.setText(this.app.buscarPorGenero_EnObrasImpresas(genero).listar().toString());
+					miNuevo();
+				}
 			}
 			if (e.getSource() == miPorGenero)
 			{
-				// trabajo - busco
+				if (textGenero.equals(""))
+				{
+					JOptionPane.showMessageDialog(null, "ERROR - Debes llenar el campos necesario para la busqueda");
+				}
+				if (!textGenero.equals(""))
+				{
+					textArea.setText(this.app.buscarPorGenero_EnObrasImpresas(genero).toString());
+					miNuevo();
+				}
 			}
 			if (e.getSource() == miPorAutor)
 			{
-				// trabajo - busco
+				if (textAutor.equals(""))
+				{
+					JOptionPane.showMessageDialog(null, "ERROR - Debes llenar el campos necesario para la busqueda");
+				}
+				if (!textAutor.equals(""))
+				{
+					textArea.setText(this.app.buscarPorAutor_EnObrasImpresas(autor).toString());
+					miNuevo();
+				}
 			}
 		}
 		if (e.getSource() == miPorUsuario || e.getSource() == miPorEmail)
@@ -322,5 +398,15 @@ public class IG_Admin_BuscarLibro extends JFrame implements ActionListener
 			creadores.setLocationRelativeTo(null);
 			this.setVisible(false);
 		}
+	}
+	
+	public void miNuevo()
+	{
+		textId.setText("");
+		textTitulo.setText("");
+		textAnio.setText("");
+		textGenero.setText("");
+		textAutor.setText("");
+		textAreaDes.setText("");
 	}
 }

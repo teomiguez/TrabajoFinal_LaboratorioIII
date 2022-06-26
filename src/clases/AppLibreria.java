@@ -40,61 +40,37 @@ public class AppLibreria implements Serializable
 	// 	M�TODOS: 
 	//	LOG IN USUARIO. 
 	
-	public boolean loginUsuario(String usuario, String password)
+	public boolean loginUsuario(String usuario, String password) throws E_UsuarioInvalido, E_ContraseniaInvalida 
 	{
 		boolean rta = false;
 		int intentos = 0;
 		
-		if(usuario.equals("admin") && password.equals("admin")) //	Si es un usuario admin entra.
+		if(this.buscarUsuario_EnClientes(usuario) != null)
 		{
-			rta = true;
-		}
-		else //	Si no es usuario admin busca entre los usuarios cliente.
-		{
-			try 
+			UsuarioCliente user = this.buscarUsuario_EnClientes(usuario);
+				
+			if(this.verificarPassword(user, password, intentos));
 			{
-				if(this.buscarUsuario_EnClientes(usuario) != null)
-				{
-					UsuarioCliente user = this.buscarUsuario_EnClientes(usuario);
-					
-					if(this.verificarPassword(user, password, intentos));
-					{
-						rta = true;
-					}
-				}
-			}
-			catch(E_UsuarioInvalido e) 
-			{
-				System.out.println(e.getMessage());
-			} 
-			catch(E_ContraseniaInvalida e) 
-			{
-				System.out.println(e.getMessage());
+				rta = true;
 			}
 		}
 		
 		return rta;
 	}
+		
 	
 	//	REGISTRAR USUARIO.
 	
-	public boolean registerUsuario(String email, String usuario, String password)
+	public boolean registerUsuario(String email, String usuario, String password) throws E_UsuarioExistente
 	{
 		boolean rta = false;
 		
 		UsuarioCliente user = this.crearUsuario(email, usuario, password);
 		
-		try 
+		if(!this.buscarUsuarioParaAgregar(usuario))
 		{
-			if(!this.buscarUsuarioParaAgregar(usuario))
-			{
-				this.agregarUsuario(user);
-				rta = true;
-			}
-		} 
-		catch(E_UsuarioExistente e) 
-		{
-			System.out.println(e.getMessage());
+			this.agregarUsuario(user);
+			rta = true;
 		}
 		
 		return rta;
@@ -111,9 +87,9 @@ public class AppLibreria implements Serializable
 	
 	//	CREAR LIBRO.
 	
-	public Libro crearLibro(int id, int stock, String titulo, int anioEdicion, String genero, String autor, String descripcion)
+	public Libro crearLibro(int stock, String titulo, int anioEdicion, String genero, String autor, String descripcion)
 	{
-		Libro libro = new Libro(id, stock, titulo, anioEdicion, genero, autor, descripcion);
+		Libro libro = new Libro(stock, titulo, anioEdicion, genero, autor, descripcion);
 		
 		return libro;
 	}

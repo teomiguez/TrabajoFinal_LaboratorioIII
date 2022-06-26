@@ -20,6 +20,8 @@ import clases.AppLibreria;
 public class IG_Admin_BuscarUsuario extends JFrame implements ActionListener
 {
 	// ATRIBUTOS
+	private AppLibreria app;
+	
 	private String usuario;
 	private String email;
 	
@@ -43,6 +45,8 @@ public class IG_Admin_BuscarUsuario extends JFrame implements ActionListener
 	// CONSTRUCTOR
 	public IG_Admin_BuscarUsuario ()
 	{
+		this.app = IG_Bienvenida.app;
+		
 		setLayout(null);
 		setTitle("Ventana Principal Buscar Usuario - Admin");
 		getContentPane().setBackground(new Color(230, 178, 99));
@@ -201,8 +205,7 @@ public class IG_Admin_BuscarUsuario extends JFrame implements ActionListener
 		textArea.setText(""); // LO QUE CONTIENE EL TEXTAREA → MODIFICA CON LOS != BOTONES (BUSQUEDA)
 		scrollPane = new JScrollPane(textArea);
 		scrollPane.setBounds(300,15,570,410);
-		add(scrollPane);
-		
+		add(scrollPane);	
 		
 	}
 
@@ -219,7 +222,7 @@ public class IG_Admin_BuscarUsuario extends JFrame implements ActionListener
 		}
 		if (e.getSource() == miSalir)
 		{
-			IG_Bienvenida bienvenida = new IG_Bienvenida();
+			IG_Bienvenida bienvenida = new IG_Bienvenida(this.app);
 			
 			bienvenida.setBounds(0, 0, 350, 300);
 			bienvenida.setVisible(true);
@@ -244,18 +247,6 @@ public class IG_Admin_BuscarUsuario extends JFrame implements ActionListener
 				// trabajo - busco
 			}
 			if (e.getSource() == miPorTitulo)
-			{
-				// trabajo - busco
-			}
-			if (e.getSource() == miPorAnio)
-			{
-				// trabajo - busco
-			}
-			if (e.getSource() == miPorGenero)
-			{
-				// trabajo - busco
-			}
-			if (e.getSource() == miPorAutor)
 			{
 				// trabajo - busco
 			}

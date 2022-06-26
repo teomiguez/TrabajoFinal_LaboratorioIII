@@ -20,6 +20,9 @@ import clases.AppLibreria;
 public class IG_VentanaPrincipalCliente extends JFrame implements ActionListener
 {
 	// ATRIBUTOS	
+	private AppLibreria app;
+	
+	private String usuario;
 	private String id;
 	private String titulo;
 	private String anioEdicion;
@@ -45,6 +48,9 @@ public class IG_VentanaPrincipalCliente extends JFrame implements ActionListener
 	// CONSTRUCTOR
 	public IG_VentanaPrincipalCliente ()
 	{	
+		this.app = IG_Bienvenida.app;
+		usuario = IG_Bienvenida.usuario;
+		
 		setLayout(null);
 		setTitle("Ventana Principal Buscar Libro - Usuario");
 		getContentPane().setBackground(new Color(230, 178, 99));
@@ -238,7 +244,7 @@ public class IG_VentanaPrincipalCliente extends JFrame implements ActionListener
 		}
 		if (e.getSource() == miSalir)
 		{
-			IG_Bienvenida bienvenida = new IG_Bienvenida();
+			IG_Bienvenida bienvenida = new IG_Bienvenida(this.app);
 			
 			bienvenida.setBounds(0, 0, 350, 300);
 			bienvenida.setVisible(true);

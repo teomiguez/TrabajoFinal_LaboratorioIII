@@ -13,6 +13,8 @@ import clases.AppLibreria;
 
 public class IG_Creadores extends JFrame implements ActionListener
 {		
+	private AppLibreria app;
+	
 	private JLabel label1;
 	private JLabel label2;
 	private JLabel label3;
@@ -21,6 +23,8 @@ public class IG_Creadores extends JFrame implements ActionListener
 	
 	public IG_Creadores()
 	{
+		this.app = IG_Bienvenida.app;
+		
 		setLayout(null);
 		setTitle("Los Creadores");
 		getContentPane().setBackground(new Color(230, 178, 99));
@@ -57,7 +61,7 @@ public class IG_Creadores extends JFrame implements ActionListener
 	{
 		if (e.getSource() == boton1)
 		{
-			IG_Bienvenida bienvenida = new IG_Bienvenida();
+			IG_Bienvenida bienvenida = new IG_Bienvenida(this.app);
 			
 			bienvenida.setBounds(0, 0, 350, 300);
 			bienvenida.setVisible(true);

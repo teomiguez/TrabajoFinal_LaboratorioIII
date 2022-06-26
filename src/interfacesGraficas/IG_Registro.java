@@ -9,15 +9,19 @@ import javax.swing.JButton;
 import javax.swing.JCheckBox;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
+import javax.swing.JOptionPane;
 import javax.swing.JTextField;
 import javax.swing.event.ChangeEvent;
 import javax.swing.event.ChangeListener;
 
 import clases.AppLibreria;
+import excepciones.E_UsuarioExistente;
 
 public class IG_Registro extends JFrame implements ActionListener, ChangeListener
 {
 	// ATRIBUTOS
+	private AppLibreria app;
+	
 	private String usuario;
 	private String email;
 	private String password;
@@ -43,6 +47,8 @@ public class IG_Registro extends JFrame implements ActionListener, ChangeListene
 	// CONSTRUCTOR
 	public IG_Registro ()
 	{
+		this.app = IG_Bienvenida.app;
+		
 		setLayout(null);
 		setTitle("Registro");
 		getContentPane().setBackground(new Color(230, 178, 99));
@@ -122,19 +128,22 @@ public class IG_Registro extends JFrame implements ActionListener, ChangeListene
 			textoEmail = textField2.getText().trim();
 			textoPassword = textField3.getText().trim();
 			
-			if (textoUsuario.equals("") & textoEmail.equals("") & textoPassword.equals(""))
+			if (!textoUsuario.equals("") & !textoEmail.equals("") & !textoPassword.equals(""))
 			{
-				boolean esta = true;
+				boolean registro = false;
 				
-				// VERIFICO QUE NO ESTE EL USUARIO YA REGISTRADO
-				
-				if (esta == false)
+				try 
 				{
-					// lo agrego
-					
-					// cuando termino de agregarlo vuelve a la pantalla principal para inciar sesion
-					
-					IG_Bienvenida bienvenida = new IG_Bienvenida();
+					registro = this.app.registerUsuario(textoEmail, textoUsuario, textoPassword);
+				} 
+				catch (E_UsuarioExistente e1) 
+				{
+					JOptionPane.showMessageDialog(null, e1.getMessage());
+				}
+				
+				if (registro == true)
+				{	
+					IG_Bienvenida bienvenida = new IG_Bienvenida(this.app);
 					
 					bienvenida.setBounds(0, 0, 350, 300);
 					bienvenida.setVisible(true);
@@ -142,19 +151,16 @@ public class IG_Registro extends JFrame implements ActionListener, ChangeListene
 					bienvenida.setLocationRelativeTo(null);
 					this.setVisible(false);
 				}
-				else
-				{
-					// mando excepcion
-				}
+				
 			}
-			else
+			if (textoUsuario.equals("") || textoEmail.equals("") || textoPassword.equals(""))
 			{
-				// mando excepcion
+				JOptionPane.showMessageDialog(null, "ERROR - Llenar los campos de texto para ingresar");
 			}
 		}
 		if (e.getSource() == boton2)
 		{
-			IG_Bienvenida bienvenida = new IG_Bienvenida();
+			IG_Bienvenida bienvenida = new IG_Bienvenida(this.app);
 			
 			bienvenida.setBounds(0, 0, 350, 300);
 			bienvenida.setVisible(true);

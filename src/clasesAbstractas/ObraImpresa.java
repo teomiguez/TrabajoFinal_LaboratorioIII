@@ -13,6 +13,10 @@ public abstract class ObraImpresa implements Serializable
 	private int inAlquiler;
 	
 	// CONSTRUCTOR.
+	public ObraImpresa()
+	{
+		
+	}
 	
 	public ObraImpresa (int stock)
 	{
@@ -85,6 +89,7 @@ public abstract class ObraImpresa implements Serializable
 	{	
 		return "Obra Impresa {" + "\n" + 
 				"ID: " + this.getId() + "\n" + 
+				"De Baja: " + this.getBajaLogica() + "\n" +
 				"En Stock: " + this.getInStock() + "\n" + 
 				"En Alquiler:" + this.getInAlquiler() + "\n" + 
 				"}";

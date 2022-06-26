@@ -11,11 +11,18 @@ import javax.swing.JLabel;
 import javax.swing.JMenu;
 import javax.swing.JMenuBar;
 import javax.swing.JMenuItem;
+import javax.swing.JOptionPane;
 import javax.swing.JScrollPane;
 import javax.swing.JTextArea;
 import javax.swing.JTextField;
 
+import org.w3c.dom.UserDataHandler;
+
 import clases.AppLibreria;
+import clases.Libro;
+import clases.UsuarioCliente;
+import clasesAbstractas.Usuario;
+import excepciones.E_UsuarioInvalido;
 
 public class IG_VentanaPrincipalCliente extends JFrame implements ActionListener
 {
@@ -23,9 +30,8 @@ public class IG_VentanaPrincipalCliente extends JFrame implements ActionListener
 	private AppLibreria app;
 	
 	private String usuario;
-	private String id;
 	private String titulo;
-	private String anioEdicion;
+	private int anioEdicion;
 	private String genero;
 	private String autor;
 	
@@ -33,11 +39,11 @@ public class IG_VentanaPrincipalCliente extends JFrame implements ActionListener
 	private JMenu menuOpciones, menuAcercaDe; // cada campo que hay en la barra
 	private JMenu menuBuscarLibro; // cada submenu dentro de menuOpciones
 	private JMenuItem miDevolver, miNuevo, miSalir; // cada opcion dentro de menuOpciones
-	private JMenuItem miPorId, miPorTitulo, miPorAnio, miPorGenero, miPorAutor; // cada opcion dentro de menuBuscarLibro
+	private JMenuItem miPorTitulo, miPorAnio, miPorGenero, miPorAutor; // cada opcion dentro de menuBuscarLibro
 	private JMenuItem miCreadores; // cada opcion dentro de menuAcercaDe
 	
-	private JLabel labelId, labelTitulo, labelAnio, labelGenero, labelAutor;
-	private JTextField textId, textTitulo, textAnio, textGenero, textAutor;
+	private JLabel labelTitulo, labelAnio, labelGenero, labelAutor;
+	private JTextField textTitulo, textAnio, textGenero, textAutor;
 	
 	JButton botonAlquilar;
 	
@@ -100,14 +106,7 @@ public class IG_VentanaPrincipalCliente extends JFrame implements ActionListener
 		menuOpciones.add(miSalir);
 		miSalir.addActionListener(this);
 				
-		// MENU_BUSCARLIBRO
-				
-		miPorId = new JMenuItem("Por Id");
-		miPorId.setFont(new Font("Andale Mono", 1, 14));
-		miPorId.setForeground(new Color(0,0,0));
-		menuBuscarLibro.add(miPorId);
-		miPorId.addActionListener(this);
-				
+		// MENU_BUSCARLIBRO		
 		miPorTitulo = new JMenuItem("Por Titulo");
 		miPorTitulo.setFont(new Font("Andale Mono", 1, 14));
 		miPorTitulo.setForeground(new Color(0,0,0));
@@ -140,17 +139,10 @@ public class IG_VentanaPrincipalCliente extends JFrame implements ActionListener
 		miCreadores.addActionListener(this);
 		
 		// ETIQUETAS.-
-			
-		labelId = new JLabel("ID");
 		labelTitulo = new JLabel("Titulo");
 		labelAnio = new JLabel("Año");
 		labelGenero = new JLabel("Genero");
 		labelAutor = new JLabel("Autor");
-				
-		labelId.setBounds(40,-10,200,100);
-		labelId.setFont(new Font("Andale Mono", 3, 18));
-		labelId.setForeground(new Color(0,0,0));
-		add(labelId);
 		
 		labelTitulo.setBounds(25,30,200,100);
 		labelTitulo.setFont(new Font("Andale Mono", 3, 18));
@@ -173,17 +165,10 @@ public class IG_VentanaPrincipalCliente extends JFrame implements ActionListener
 		add(labelAutor);
 				
 		// CUADROS DE TEXTO.-
-				
-		textId = new JTextField();
 		textTitulo = new JTextField();
 		textAnio = new JTextField();
 		textGenero = new JTextField();
 		textAutor = new JTextField();
-				
-		textId.setBounds(90,25,150,30);
-		textId.setBackground(new Color(254,254,254));
-		textId.setFont(new Font("Verdana", 0, 14));
-		add(textId);
 		
 		textTitulo.setBounds(90,65,150,30);
 		textTitulo.setBackground(new Color(254,254,254));
@@ -230,49 +215,93 @@ public class IG_VentanaPrincipalCliente extends JFrame implements ActionListener
 	@Override
 	public void actionPerformed(ActionEvent e) 
 	{
+		if ((textAnio.getText().trim().length()) != 0)
+		{
+			anioEdicion = Integer.parseInt(textAnio.getText().trim());
+		}
+		
+		titulo = textTitulo.getText().trim();
+		genero = textGenero.getText().trim();
+		autor = textAutor.getText().trim();
+		
 		if (e.getSource() == miDevolver)
 		{
 			// listar librosAlquilados - seleccionar para devolver
 		}
 		if (e.getSource() == miNuevo)
 		{
-			textId.setText("");
-			textTitulo.setText("");
-			textAnio.setText("");
-			textGenero.setText("");
-			textAutor.setText("");
+			miNuevo();
 		}
 		if (e.getSource() == miSalir)
 		{
 			IG_Bienvenida bienvenida = new IG_Bienvenida(this.app);
 			
-			bienvenida.setBounds(0, 0, 350, 300);
+			bienvenida.setBounds(0, 0, 350, 350);
 			bienvenida.setVisible(true);
 			bienvenida.setResizable(false);
 			bienvenida.setLocationRelativeTo(null);
 			this.setVisible(false);
 		}
-		if (e.getSource() == miPorId || e.getSource() == miPorTitulo || e.getSource() == miPorAnio || e.getSource() == miPorGenero || e.getSource() == miPorAutor)
+		if (e.getSource() == miPorTitulo || e.getSource() == miPorAnio || e.getSource() == miPorGenero || e.getSource() == miPorAutor)
 		{
-			if (e.getSource() == miPorId)
-			{
-				// trabajo - busco
-			}
 			if (e.getSource() == miPorTitulo)
-			{
-				// trabajo - busco
+			{	
+				if (!textTitulo.equals(""))
+				{
+					Libro lib = this.app.buscarPorTitulo_EnObrasImpresas(titulo);
+					textArea.setText(lib.toString());		
+					miNuevo();
+					
+					botonAlquilar.setEnabled(true);
+					
+					if (e.getSource() == botonAlquilar)
+					{
+						this.app.alquilarLibro(lib.getId(), usuario);
+					}
+				}
+				if (textTitulo.equals(""))
+				{
+					JOptionPane.showMessageDialog(null, "ERROR - Debes llenar el campos necesario para la busqueda");
+				}
 			}
 			if (e.getSource() == miPorAnio)
 			{
-				// trabajo - busco
+				if (textAnio.equals(""))
+				{
+					JOptionPane.showMessageDialog(null, "ERROR - Debes llenar el campos necesario para la busqueda");
+				}
+				if (!textAnio.equals(""))
+				{
+					textArea.setText(this.app.buscarPorGenero_EnObrasImpresas(genero).listar().toString());
+					System.out.println(this.app.buscarPorGenero_EnObrasImpresas(genero).listar());
+					miNuevo();
+				}
 			}
 			if (e.getSource() == miPorGenero)
 			{
-				// trabajo - busco
+				if (textGenero.equals(""))
+				{
+					JOptionPane.showMessageDialog(null, "ERROR - Debes llenar el campos necesario para la busqueda");
+				}
+				if (!textGenero.equals(""))
+				{
+					textArea.setText(this.app.buscarPorGenero_EnObrasImpresas(genero).toString());
+					System.out.println(this.app.buscarPorGenero_EnObrasImpresas(genero).toString());
+					miNuevo();
+				}
 			}
 			if (e.getSource() == miPorAutor)
 			{
-				// trabajo - busco
+				if (textAutor.equals(""))
+				{
+					JOptionPane.showMessageDialog(null, "ERROR - Debes llenar el campos necesario para la busqueda");
+				}
+				if (!textAutor.equals(""))
+				{
+					textArea.setText(this.app.buscarPorAutor_EnObrasImpresas(autor).listar().toString());
+					System.out.println(this.app.buscarPorAutor_EnObrasImpresas(autor).listar());
+					miNuevo();
+				}
 			}
 		}
 		if (e.getSource() == miCreadores)
@@ -285,5 +314,13 @@ public class IG_VentanaPrincipalCliente extends JFrame implements ActionListener
 			creadores.setLocationRelativeTo(null);
 			this.setVisible(false);
 		}
+	}
+	
+	public void miNuevo()
+	{
+		textTitulo.setText("");
+		textAnio.setText("");
+		textGenero.setText("");
+		textAutor.setText("");
 	}
 }

@@ -254,24 +254,32 @@ public class AppLibreria implements Serializable
 			//	Trabajo en obrasImpresas.
 			
 			stock = libro.getInStock();
-			alquiler = libro.getInAlquiler();
-			libro.setInStock(stock--);
-			libro.setInAlquiler(alquiler++);
-			ListaGenerica <Libro> lista = this.buscarPorGenero_EnObrasImpresas(libro.getGenero());
-			lista.agregarObra(libro);
-			this.obrasImpresas.replace(libro.getGenero(), lista);
 			
-			//	Trabajo en librosAlquilados.
-			
-			this.librosAlquilados.add(libro);
-			
-			//	Trabajo en el usuario.
-			
-			ListaGenerica<Libro> listaUser = user.getAlquilados();
-			listaUser.agregarObra(libro);
-			user.setAlquilados(listaUser);
-			
-			rta = true;
+			if (stock > 0)
+			{
+				alquiler = libro.getInAlquiler();
+				libro.setInStock(stock--);
+				libro.setInAlquiler(alquiler++);
+				ListaGenerica <Libro> lista = this.buscarPorGenero_EnObrasImpresas(libro.getGenero());
+				lista.agregarObra(libro);
+				this.obrasImpresas.replace(libro.getGenero(), lista);
+				
+				//	Trabajo en librosAlquilados.
+				
+				this.librosAlquilados.add(libro);
+				
+				//	Trabajo en el usuario.
+				
+				ListaGenerica<Libro> listaUser = user.getAlquilados();
+				listaUser.agregarObra(libro);
+				user.setAlquilados(listaUser);
+				
+				return true;
+			}
+			else
+			{
+				return false;
+			}
 		}
 		
 		return rta;

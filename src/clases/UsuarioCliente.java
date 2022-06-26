@@ -46,6 +46,7 @@ public class UsuarioCliente extends Usuario implements Serializable
 	}
 
 	// 	M�TODOS: 
+	
 	//	OVERRIDERS NECESARIOS.
 	
 	@Override

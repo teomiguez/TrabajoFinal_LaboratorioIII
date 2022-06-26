@@ -1,10 +1,11 @@
 package genericidad;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 import clases.Libro;
 import interfaces.I_BuscarLibro;
 
-public class ListaGenerica <E extends Libro> implements I_BuscarLibro
+public class ListaGenerica <E extends Libro> implements I_BuscarLibro, Serializable
 {
 	//	ATRIBUTOS.
 	
@@ -76,7 +77,7 @@ public class ListaGenerica <E extends Libro> implements I_BuscarLibro
 		{
 			lista.append(this.lista.get(i).toString());	
 		}
-		
+
 		return lista;
 	}
 	

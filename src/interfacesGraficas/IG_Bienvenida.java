@@ -2,6 +2,7 @@ package interfacesGraficas;
 
 import javax.swing.*;
 
+import archivos.ControladorArchivos;
 import clases.AppLibreria;
 import excepciones.E_ContraseniaInvalida;
 import excepciones.E_UsuarioInvalido;
@@ -26,6 +27,7 @@ public class IG_Bienvenida extends JFrame implements ActionListener
 	
 	private JButton boton1;
 	private JButton boton2;
+	private JButton botonFin;
 	
 	// CONSTRUCTOR
 	public IG_Bienvenida (AppLibreria appLibreria) 
@@ -80,6 +82,13 @@ public class IG_Bienvenida extends JFrame implements ActionListener
 		boton2.setBounds(180,200,120,40);
 		boton2.addActionListener(this);
 		add(boton2);
+		
+		botonFin = new JButton("Terminar");
+		botonFin.setBackground(new Color(254,254,254));
+		botonFin.setFont(new Font("Andale Mono", 1, 14));
+		botonFin.setBounds(100,250,120,40);
+		botonFin.addActionListener(this);
+		add(botonFin);
 		
 	}
 	
@@ -147,6 +156,12 @@ public class IG_Bienvenida extends JFrame implements ActionListener
 					}
 				}
 			}
+		}
+		if (e.getSource() == botonFin)
+		{
+			ControladorArchivos.guardarArchivo("file.dat", this.app);
+			//System.out.println(ControladoraJson.generarJson_obrasImpresas(app.getObrasImpresas()).toString());
+			this.setVisible(false);
 		}
 	}
 	

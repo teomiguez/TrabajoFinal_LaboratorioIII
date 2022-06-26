@@ -23,21 +23,16 @@ public class Main
 	public static void main(String[] args) 
 	{
 		AppLibreria app = new AppLibreria();
-		
 		app = ControladorArchivos.leerArchivo("file.dat");
 		
 		ventanaBienvenida(app);
-		
-		ControladorArchivos.guardarArchivo("file.dat", app);
-		
-		System.out.println(ControladoraJson.generarJson_obrasImpresas(app.getObrasImpresas()).toString());
 	}
 	
 	public static void ventanaBienvenida(AppLibreria app)
 	{
 		IG_Bienvenida bienvenida = new IG_Bienvenida(app);
 		
-		bienvenida.setBounds(0, 0, 350, 300);
+		bienvenida.setBounds(0, 0, 350, 350);
 		bienvenida.setVisible(true);
 		bienvenida.setResizable(false);
 		bienvenida.setLocationRelativeTo(null);

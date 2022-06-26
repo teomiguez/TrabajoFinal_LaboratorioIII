@@ -276,9 +276,17 @@ public class IG_Admin_BuscarLibro extends JFrame implements ActionListener
 	@Override
 	public void actionPerformed(ActionEvent e) 
 	{
-		// LLENAR TODOS LOS CAMPOS O TIRA ERROR CON ALGO DE INTEGER → VER
-		id = Integer.parseInt(textId.getText().trim());
-		anioEdicion = Integer.parseInt(textAnio.getText().trim());
+		Libro lib = new Libro();
+		
+		if ((textId.getText().trim().length()) != 0)
+		{
+			id = Integer.parseInt(textId.getText().trim());
+		}
+		
+		if ((textAnio.getText().trim().length()) != 0)
+		{
+			anioEdicion = Integer.parseInt(textAnio.getText().trim());
+		}
 		
 		titulo = textTitulo.getText().trim();
 		genero = textGenero.getText().trim();
@@ -309,14 +317,14 @@ public class IG_Admin_BuscarLibro extends JFrame implements ActionListener
 		{
 			IG_Bienvenida bienvenida = new IG_Bienvenida(this.app);
 			
-			bienvenida.setBounds(0, 0, 350, 300);
+			bienvenida.setBounds(0, 0, 350, 350);
 			bienvenida.setVisible(true);
 			bienvenida.setResizable(false);
 			bienvenida.setLocationRelativeTo(null);
 			this.setVisible(false);
 		}
 		if (e.getSource() == miPorId || e.getSource() == miPorTitulo || e.getSource() == miPorAnio || e.getSource() == miPorGenero || e.getSource() == miPorAutor)
-		{
+		{			
 			if (e.getSource() == miPorId)
 			{
 				if (textId.equals(""))
@@ -324,21 +332,47 @@ public class IG_Admin_BuscarLibro extends JFrame implements ActionListener
 					JOptionPane.showMessageDialog(null, "ERROR - Debes llenar el campos necesario para la busqueda");
 				}
 				if (!textId.equals(""))
-				{
-					textArea.setText(this.app.buscarPorID_EnObrasImpresas(id).toString());
+				{	
+					lib = this.app.buscarPorID_EnObrasImpresas(id);
+					textArea.setText(lib.toString());
+					
+					if (lib.getBajaLogica() == true)
+						botonAlta.setEnabled(true);
+					if (lib.getBajaLogica() == false)
+						botonBaja.setEnabled(true);
+					
 					miNuevo();
 				}
 			}
 			if (e.getSource() == miPorTitulo)
-			{
+			{	
 				if (textTitulo.equals(""))
 				{
 					JOptionPane.showMessageDialog(null, "ERROR - Debes llenar el campos necesario para la busqueda");
 				}
 				if (!textTitulo.equals(""))
 				{
-					textArea.setText(this.app.buscarPorTitulo_EnObrasImpresas(titulo).toString());
+					lib = this.app.buscarPorTitulo_EnObrasImpresas(titulo);
+					textArea.setText(lib.toString());
+					
+					if (lib.getBajaLogica() == true)
+						botonAlta.setEnabled(true);
+					if (lib.getBajaLogica() == false)
+						botonBaja.setEnabled(true);
+					
+					// NO PUEDO HACER QUE EL PROGRAMA ESPERE A QUE SE PULSE ALGO...
+					
+					if (e.getSource() == botonAlta)
+					{
+						this.app.darDeAlta_Libro(lib.getId());
+					}
+					if (e.getSource() == botonAlta)
+					{
+						this.app.darDeBaja_Libro(lib.getId());
+					}
+					
 					miNuevo();
+					
 				}
 			}
 			if (e.getSource() == miPorAnio)
@@ -348,8 +382,9 @@ public class IG_Admin_BuscarLibro extends JFrame implements ActionListener
 					JOptionPane.showMessageDialog(null, "ERROR - Debes llenar el campos necesario para la busqueda");
 				}
 				if (!textAnio.equals(""))
-				{
+				{	
 					textArea.setText(this.app.buscarPorGenero_EnObrasImpresas(genero).listar().toString());
+					System.out.println(this.app.buscarPorGenero_EnObrasImpresas(genero).listar());
 					miNuevo();
 				}
 			}
@@ -361,7 +396,8 @@ public class IG_Admin_BuscarLibro extends JFrame implements ActionListener
 				}
 				if (!textGenero.equals(""))
 				{
-					textArea.setText(this.app.buscarPorGenero_EnObrasImpresas(genero).toString());
+					textArea.setText(this.app.buscarPorGenero_EnObrasImpresas(genero).listar().toString());
+					System.out.println(this.app.buscarPorGenero_EnObrasImpresas(genero).listar());
 					miNuevo();
 				}
 			}
@@ -377,6 +413,17 @@ public class IG_Admin_BuscarLibro extends JFrame implements ActionListener
 					miNuevo();
 				}
 			}
+			
+		}
+		if (e.getSource() == botonAlta)
+		{
+			if (lib != null)
+				this.app.darDeAlta_Libro(lib.getId());
+		}
+		if (e.getSource() == botonAlta)
+		{
+			if (lib != null)
+				this.app.darDeBaja_Libro(lib.getId());
 		}
 		if (e.getSource() == miPorUsuario || e.getSource() == miPorEmail)
 		{

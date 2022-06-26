@@ -293,13 +293,13 @@ public class IG_Admin_BuscarLibro extends JFrame implements ActionListener
 		
 		if (e.getSource() == miCrearLibro)
 		{
-			if (!textTitulo.equals("") & !textAnio.equals("") & !textGenero.equals("") & !textAutor.equals("") & !textAreaDes.equals(""))
+			if ((textTitulo.getText().trim().length() != 0) & (textAnio.getText().trim().length() != 0) & (textGenero.getText().trim().length() != 0) & (textAutor.getText().trim().length() != 0) & (textAreaDes.getText().trim().length() != 0))
 			{
 				this.app.agregarLibro(this.app.crearLibro(50, titulo, anioEdicion, genero, autor, descripcion));
 				
 				miNuevo();
 			}
-			if (textTitulo.equals("") || textAnio.equals("") || textGenero.equals("") || textAutor.equals("") || textAreaDes.equals(""))
+			if ((textTitulo.getText().trim().length() == 0) || (textAnio.getText().trim().length() == 0) || (textGenero.getText().trim().length() == 0) || (textAutor.getText().trim().length() == 0) || (textAreaDes.getText().trim().length() == 0))
 			{
 				JOptionPane.showMessageDialog(null, "ERROR - Debes llenar los campos necesarios para crear un libro");
 			}
@@ -325,11 +325,11 @@ public class IG_Admin_BuscarLibro extends JFrame implements ActionListener
 		{			
 			if (e.getSource() == miPorId)
 			{
-				if (textId.equals(""))
+				if (textId.getText().trim().length() == 0)
 				{
 					JOptionPane.showMessageDialog(null, "ERROR - Debes llenar el campos necesario para la busqueda");
 				}
-				if (!textId.equals(""))
+				if (textId.getText().trim().length() != 0)
 				{	
 					Libro lib = this.app.buscarPorID_EnObrasImpresas(id);
 					textArea.setText(lib.toString());
@@ -344,72 +344,73 @@ public class IG_Admin_BuscarLibro extends JFrame implements ActionListener
 			}
 			if (e.getSource() == miPorTitulo)
 			{	
-				if (textTitulo.equals(""))
+				if (textTitulo.getText().trim().length() == 0)
 				{
 					JOptionPane.showMessageDialog(null, "ERROR - Debes llenar el campos necesario para la busqueda");
 				}
-				if (!textTitulo.equals(""))
+				if (textTitulo.getText().trim().length() != 0)
 				{
 					Libro lib = this.app.buscarPorTitulo_EnObrasImpresas(titulo);
-					textArea.setText(lib.toString());
 					
-					if (lib.getBajaLogica() == true)
-						botonAlta.setEnabled(true);
-					if (lib.getBajaLogica() == false)
-						botonBaja.setEnabled(true);
-					
-					// NO PUEDO HACER QUE EL PROGRAMA ESPERE A QUE SE PULSE ALGO...
-					
-					if (e.getSource() == botonAlta)
+					if (lib != null)
 					{
-						this.app.darDeAlta_Libro(lib.getId());
+						textArea.setText(lib.toString());
+						
+						if (lib.getBajaLogica() == true)
+							botonAlta.setEnabled(true);
+						if (lib.getBajaLogica() == false)
+							botonBaja.setEnabled(true);
+						
+						// NO PUEDO HACER QUE EL PROGRAMA ESPERE A QUE SE PULSE ALGO...
+						
+						if (e.getSource() == botonAlta)
+						{
+							this.app.darDeAlta_Libro(lib.getId());
+						}
+						if (e.getSource() == botonAlta)
+						{
+							this.app.darDeBaja_Libro(lib.getId());
+						}
 					}
-					if (e.getSource() == botonAlta)
+					else
 					{
-						this.app.darDeBaja_Libro(lib.getId());
+						JOptionPane.showMessageDialog(null, "ERROR - El libro no esta");
 					}
-					
 					miNuevo();
 					
 				}
 			}
 			if (e.getSource() == miPorAnio)
 			{
-				if (textAnio.equals(""))
-				{
-					JOptionPane.showMessageDialog(null, "ERROR - Debes llenar el campos necesario para la busqueda");
-				}
-				if (!textAnio.equals(""))
+				if (textAnio.getText().trim().length() != 0)
 				{	
 					textArea.setText(this.app.buscarPorGenero_EnObrasImpresas(genero).listar().toString());
 					System.out.println(this.app.buscarPorGenero_EnObrasImpresas(genero).listar());
 					miNuevo();
 				}
+				else
+					JOptionPane.showMessageDialog(null, "ERROR - Debes llenar el campos necesario para la busqueda");
 			}
 			if (e.getSource() == miPorGenero)
 			{
-				if (textGenero.equals(""))
-				{
-					JOptionPane.showMessageDialog(null, "ERROR - Debes llenar el campos necesario para la busqueda");
-				}
-				if (!textGenero.equals(""))
+				if (textGenero.getText().trim().length() != 0)
 				{
 					textArea.setText(this.app.buscarPorGenero_EnObrasImpresas(genero).listar().toString());
 					System.out.println(this.app.buscarPorGenero_EnObrasImpresas(genero).listar());
 					miNuevo();
 				}
+				else
+					JOptionPane.showMessageDialog(null, "ERROR - Debes llenar el campos necesario para la busqueda");
 			}
 			if (e.getSource() == miPorAutor)
 			{
-				if (textAutor.equals(""))
-				{
-					JOptionPane.showMessageDialog(null, "ERROR - Debes llenar el campos necesario para la busqueda");
-				}
-				if (!textAutor.equals(""))
+				if (textAutor.getText().trim().length() != 0)
 				{
 					textArea.setText(this.app.buscarPorAutor_EnObrasImpresas(autor).toString());
 					miNuevo();
 				}
+				else
+					JOptionPane.showMessageDialog(null, "ERROR - Debes llenar el campos necesario para la busqueda");
 			}
 			
 		}

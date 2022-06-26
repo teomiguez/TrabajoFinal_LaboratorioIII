@@ -46,9 +46,17 @@ public class ControladoraJson
 			}
 		}
 
-		// Cuerpo.
-
 		return json;
+	}
+	
+	public static void generarArchivo (JSONObject obj)
+	{
+		JsonUtiles.grabar(obj);
+	}
+	
+	public static String leerArchivo()
+	{
+		return JsonUtiles.leer("test.json");
 	}
 	
 }

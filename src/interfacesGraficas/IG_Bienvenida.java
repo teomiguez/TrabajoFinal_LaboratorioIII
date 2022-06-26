@@ -6,6 +6,7 @@ import archivos.ControladorArchivos;
 import clases.AppLibreria;
 import excepciones.E_ContraseniaInvalida;
 import excepciones.E_UsuarioInvalido;
+import json.ControladoraJson;
 
 import java.awt.event.*;
 import java.awt.*;
@@ -160,7 +161,14 @@ public class IG_Bienvenida extends JFrame implements ActionListener
 		if (e.getSource() == botonFin)
 		{
 			ControladorArchivos.guardarArchivo("file.dat", this.app);
-			//System.out.println(ControladoraJson.generarJson_obrasImpresas(app.getObrasImpresas()).toString());
+			ControladoraJson.generarArchivo(ControladoraJson.generarJson_obrasImpresas(this.app.getObrasImpresas()));
+			
+			IG_MostrarJson json = new IG_MostrarJson();
+			
+			json.setBounds(0, 0, 700, 700);
+			json.setVisible(true);
+			json.setResizable(false);
+			json.setLocationRelativeTo(null);
 			this.setVisible(false);
 		}
 	}

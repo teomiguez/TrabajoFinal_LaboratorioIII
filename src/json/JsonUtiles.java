@@ -13,7 +13,7 @@ public class JsonUtiles
 	{
         try 
         {
-            FileWriter file = new FileWriter("file.json");
+            FileWriter file = new FileWriter("test.json");
             file.write(json.toString());
             file.flush();
             file.close();

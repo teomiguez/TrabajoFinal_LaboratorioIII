@@ -251,31 +251,57 @@ public class IG_Admin_BuscarUsuario extends JFrame implements ActionListener
 		{
 			if (e.getSource() == miPorUsuario)
 			{
-				try 
+				if (textUsuario.getText().trim().length() != 0)
 				{
-					UsuarioCliente user = this.app.buscarUsuario_EnClientes(usuario);
-					textArea.setText(user.toString());
-					
-					if (user.isBajaLogica() == true)
-						botonAlta.setEnabled(true);
-					if (user.isBajaLogica() == false)
-						botonBaja.setEnabled(true);
+					try 
+					{
+						UsuarioCliente user = this.app.buscarUsuario_EnClientes(usuario);
+						
+						if (user != null)
+						{
+							textArea.setText(user.toString());
+						
+							if (user.isBajaLogica() == true)
+								botonAlta.setEnabled(true);
+							if (user.isBajaLogica() == false)
+								botonBaja.setEnabled(true);
+						}
+					}
+					catch (E_UsuarioInvalido ex) 
+					{
+						JOptionPane.showMessageDialog(null, ex.getMessage());
+					}
 				}
-				catch (E_UsuarioInvalido ex) 
-				{
-					JOptionPane.showMessageDialog(null, ex.getMessage());
-				}
+				else
+					JOptionPane.showMessageDialog(null, "ERROR - Debes llenar los campos necesarios para la busqueda");
+				
 			}
 			if (e.getSource() == miPorEmail)
 			{
-				try 
+				if (textUsuario.getText().trim().length() != 0)
 				{
-					textArea.setText(this.app.buscarUsuarioPorEmail_EnClientes(email).toString());
-				} 
-				catch (E_EmailInvalido ex) 
-				{
-					JOptionPane.showMessageDialog(null, ex.getMessage());
+					try 
+					{
+						UsuarioCliente user = this.app.buscarUsuarioPorEmail_EnClientes(email);
+						
+						if (user != null)
+						{
+							textArea.setText(user.toString());
+						
+							if (user.isBajaLogica() == true)
+								botonAlta.setEnabled(true);
+							if (user.isBajaLogica() == false)
+								botonBaja.setEnabled(true);
+						}
+					} 
+					catch (E_EmailInvalido ex) 
+					{
+						JOptionPane.showMessageDialog(null, ex.getMessage());
+					}
 				}
+				else
+					JOptionPane.showMessageDialog(null, "ERROR - Debes llenar los campos necesarios para la busqueda");
+				
 			}
 		}
 		if (e.getSource() == miCreadores)

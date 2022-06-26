@@ -246,16 +246,16 @@ public class IG_VentanaPrincipalCliente extends JFrame implements ActionListener
 		{
 			if (e.getSource() == miPorTitulo)
 			{	
-				if (!textTitulo.equals(""))
+				if (textTitulo.getText().trim().length() != 0)
 				{
 					Libro lib = this.app.buscarPorTitulo_EnObrasImpresas(titulo);
 					
-					if (lib.getBajaLogica() == false)
+					if (lib != null)
 					{
 						textArea.setText(lib.toString());		
-						miNuevo();
 						
-						botonAlquilar.setEnabled(true);
+						if (lib.getBajaLogica() == false)
+							botonAlquilar.setEnabled(true);
 						
 						if (e.getSource() == botonAlquilar)
 						{
@@ -266,52 +266,44 @@ public class IG_VentanaPrincipalCliente extends JFrame implements ActionListener
 					{
 						JOptionPane.showMessageDialog(null, "ERROR - El libro no esta");
 					}
-					
+					miNuevo();
 					
 				}
-				if (textTitulo.equals(""))
-				{
+				else
 					JOptionPane.showMessageDialog(null, "ERROR - Debes llenar el campos necesario para la busqueda");
-				}
 			}
 			if (e.getSource() == miPorAnio)
 			{
-				if (textAnio.equals(""))
-				{
-					JOptionPane.showMessageDialog(null, "ERROR - Debes llenar el campos necesario para la busqueda");
-				}
-				if (!textAnio.equals(""))
+				if (textAnio.getText().trim().length() != 0)
 				{
 					textArea.setText(this.app.buscarPorGenero_EnObrasImpresas(genero).listar().toString());
 					System.out.println(this.app.buscarPorGenero_EnObrasImpresas(genero).listar());
 					miNuevo();
 				}
+				else
+					JOptionPane.showMessageDialog(null, "ERROR - Debes llenar el campos necesario para la busqueda");
 			}
 			if (e.getSource() == miPorGenero)
 			{
-				if (textGenero.equals(""))
-				{
-					JOptionPane.showMessageDialog(null, "ERROR - Debes llenar el campos necesario para la busqueda");
-				}
-				if (!textGenero.equals(""))
+				if (textGenero.getText().trim().length() != 0)
 				{
 					textArea.setText(this.app.buscarPorGenero_EnObrasImpresas(genero).toString());
 					System.out.println(this.app.buscarPorGenero_EnObrasImpresas(genero).toString());
 					miNuevo();
 				}
+				else
+					JOptionPane.showMessageDialog(null, "ERROR - Debes llenar el campos necesario para la busqueda");
 			}
 			if (e.getSource() == miPorAutor)
 			{
-				if (textAutor.equals(""))
-				{
-					JOptionPane.showMessageDialog(null, "ERROR - Debes llenar el campos necesario para la busqueda");
-				}
-				if (!textAutor.equals(""))
+				if (textAutor.getText().trim().length() != 0)
 				{
 					textArea.setText(this.app.buscarPorAutor_EnObrasImpresas(autor).listar().toString());
 					System.out.println(this.app.buscarPorAutor_EnObrasImpresas(autor).listar());
 					miNuevo();
 				}
+				else
+					JOptionPane.showMessageDialog(null, "ERROR - Debes llenar el campos necesario para la busqueda");
 			}
 		}
 		if (e.getSource() == miCreadores)

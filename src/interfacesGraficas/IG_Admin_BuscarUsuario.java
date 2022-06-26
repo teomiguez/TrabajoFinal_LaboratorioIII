@@ -11,11 +11,15 @@ import javax.swing.JLabel;
 import javax.swing.JMenu;
 import javax.swing.JMenuBar;
 import javax.swing.JMenuItem;
+import javax.swing.JOptionPane;
 import javax.swing.JScrollPane;
 import javax.swing.JTextArea;
 import javax.swing.JTextField;
 
 import clases.AppLibreria;
+import clases.UsuarioCliente;
+import excepciones.E_EmailInvalido;
+import excepciones.E_UsuarioInvalido;
 
 public class IG_Admin_BuscarUsuario extends JFrame implements ActionListener
 {
@@ -212,6 +216,9 @@ public class IG_Admin_BuscarUsuario extends JFrame implements ActionListener
 	@Override
 	public void actionPerformed(ActionEvent e) 
 	{
+		usuario = textUsuario.getText().trim();
+		email = textEmail.getText().trim();
+		
 		if (e.getSource() == miNuevo)
 		{
 			if (this.getTitle().equals("Ventana Principal Buscar Usuario - Admin"))
@@ -242,13 +249,33 @@ public class IG_Admin_BuscarUsuario extends JFrame implements ActionListener
 		}
 		if (e.getSource() == miPorUsuario || e.getSource() == miPorEmail)
 		{
-			if (e.getSource() == miPorId)
+			if (e.getSource() == miPorUsuario)
 			{
-				// trabajo - busco
+				try 
+				{
+					UsuarioCliente user = this.app.buscarUsuario_EnClientes(usuario);
+					textArea.setText(user.toString());
+					
+					if (user.isBajaLogica() == true)
+						botonAlta.setEnabled(true);
+					if (user.isBajaLogica() == false)
+						botonBaja.setEnabled(true);
+				}
+				catch (E_UsuarioInvalido ex) 
+				{
+					JOptionPane.showMessageDialog(null, ex.getMessage());
+				}
 			}
-			if (e.getSource() == miPorTitulo)
+			if (e.getSource() == miPorEmail)
 			{
-				// trabajo - busco
+				try 
+				{
+					textArea.setText(this.app.buscarUsuarioPorEmail_EnClientes(email).toString());
+				} 
+				catch (E_EmailInvalido ex) 
+				{
+					JOptionPane.showMessageDialog(null, ex.getMessage());
+				}
 			}
 		}
 		if (e.getSource() == miCreadores)

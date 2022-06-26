@@ -75,9 +75,9 @@ public abstract class Usuario implements Serializable
 	public String toString()
 	{	
 		return "Usuario {" + "\n" +
-				"name: " + this.getName() + "\n" +
-				"password=" + this.getPassword() + "\n" +
-				"email=" + this.getEmail() + "\n" +
+				"usuario: " + this.getName() + "\n" +
+				"email: " + this.getEmail() + "\n" +
+				"password: " + this.getPassword() + "\n" +
 				"}";
 	}	
 }

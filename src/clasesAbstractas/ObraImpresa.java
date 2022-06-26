@@ -13,10 +13,6 @@ public abstract class ObraImpresa implements Serializable
 	private int inAlquiler;
 	
 	// CONSTRUCTOR.
-	public ObraImpresa()
-	{
-		
-	}
 	
 	public ObraImpresa (int stock)
 	{

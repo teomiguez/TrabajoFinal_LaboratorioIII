@@ -275,9 +275,7 @@ public class IG_Admin_BuscarLibro extends JFrame implements ActionListener
 
 	@Override
 	public void actionPerformed(ActionEvent e) 
-	{
-		Libro lib = new Libro();
-		
+	{	
 		if ((textId.getText().trim().length()) != 0)
 		{
 			id = Integer.parseInt(textId.getText().trim());
@@ -333,7 +331,7 @@ public class IG_Admin_BuscarLibro extends JFrame implements ActionListener
 				}
 				if (!textId.equals(""))
 				{	
-					lib = this.app.buscarPorID_EnObrasImpresas(id);
+					Libro lib = this.app.buscarPorID_EnObrasImpresas(id);
 					textArea.setText(lib.toString());
 					
 					if (lib.getBajaLogica() == true)
@@ -352,7 +350,7 @@ public class IG_Admin_BuscarLibro extends JFrame implements ActionListener
 				}
 				if (!textTitulo.equals(""))
 				{
-					lib = this.app.buscarPorTitulo_EnObrasImpresas(titulo);
+					Libro lib = this.app.buscarPorTitulo_EnObrasImpresas(titulo);
 					textArea.setText(lib.toString());
 					
 					if (lib.getBajaLogica() == true)
@@ -414,16 +412,6 @@ public class IG_Admin_BuscarLibro extends JFrame implements ActionListener
 				}
 			}
 			
-		}
-		if (e.getSource() == botonAlta)
-		{
-			if (lib != null)
-				this.app.darDeAlta_Libro(lib.getId());
-		}
-		if (e.getSource() == botonAlta)
-		{
-			if (lib != null)
-				this.app.darDeBaja_Libro(lib.getId());
 		}
 		if (e.getSource() == miPorUsuario || e.getSource() == miPorEmail)
 		{

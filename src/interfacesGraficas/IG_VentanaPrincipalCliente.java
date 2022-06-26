@@ -249,15 +249,25 @@ public class IG_VentanaPrincipalCliente extends JFrame implements ActionListener
 				if (!textTitulo.equals(""))
 				{
 					Libro lib = this.app.buscarPorTitulo_EnObrasImpresas(titulo);
-					textArea.setText(lib.toString());		
-					miNuevo();
 					
-					botonAlquilar.setEnabled(true);
-					
-					if (e.getSource() == botonAlquilar)
+					if (lib.getBajaLogica() == false)
 					{
-						this.app.alquilarLibro(lib.getId(), usuario);
+						textArea.setText(lib.toString());		
+						miNuevo();
+						
+						botonAlquilar.setEnabled(true);
+						
+						if (e.getSource() == botonAlquilar)
+						{
+							this.app.alquilarLibro(lib.getId(), usuario);
+						}
 					}
+					else
+					{
+						JOptionPane.showMessageDialog(null, "ERROR - El libro no esta");
+					}
+					
+					
 				}
 				if (textTitulo.equals(""))
 				{

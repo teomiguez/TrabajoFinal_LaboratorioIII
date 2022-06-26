@@ -84,7 +84,7 @@ public class IG_Admin_BuscarUsuario extends JFrame implements ActionListener
 		//	LAS OPCIONIES DENTRO DE CADA MENU DE LA BARRA.
 		// 	MENU_OPCIONES.
 		
-		miNuevo = new JMenuItem("Nuevo");
+		miNuevo = new JMenuItem("Limpiar Celda");
 		miNuevo.setFont(new Font("Andale Mono", 1, 14));
 		miNuevo.setForeground(new Color(0,0,0));
 		menuOpciones.add(miNuevo);

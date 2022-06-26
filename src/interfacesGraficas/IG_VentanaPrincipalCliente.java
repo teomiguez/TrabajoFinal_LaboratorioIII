@@ -102,7 +102,7 @@ public class IG_VentanaPrincipalCliente extends JFrame implements ActionListener
 		menuDevolver.add(miDevolverLibro);
 		miDevolverLibro.addActionListener(this);
 		
-		miNuevo = new JMenuItem("Nuevo");
+		miNuevo = new JMenuItem("Limpiar Celda");
 		miNuevo.setFont(new Font("Andale Mono", 1, 14));
 		miNuevo.setForeground(new Color(0,0,0));
 		menuOpciones.add(miNuevo);

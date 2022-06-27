@@ -50,6 +50,7 @@ public class IG_Registro extends JFrame implements ActionListener, ChangeListene
 		this.app = IG_Bienvenida.app;
 		
 		setLayout(null);
+		setDefaultCloseOperation(EXIT_ON_CLOSE);
 		setTitle("Registro");
 		getContentPane().setBackground(new Color(230, 178, 99));
 		

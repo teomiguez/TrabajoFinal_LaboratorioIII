@@ -36,6 +36,7 @@ public class IG_Bienvenida extends JFrame implements ActionListener
 		this.app = appLibreria;
 		
 		setLayout(null);
+		setDefaultCloseOperation(EXIT_ON_CLOSE);
 		setTitle("Bienvenida - login");
 		getContentPane().setBackground(new Color(230, 178, 99));
 		

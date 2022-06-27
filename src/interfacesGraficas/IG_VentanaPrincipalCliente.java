@@ -66,6 +66,7 @@ public class IG_VentanaPrincipalCliente extends JFrame implements ActionListener
 		}
 		
 		setLayout(null);
+		setDefaultCloseOperation(EXIT_ON_CLOSE);
 		setTitle("Ventana Principal Buscar Libro - Usuario");
 		getContentPane().setBackground(new Color(230, 178, 99));
 		

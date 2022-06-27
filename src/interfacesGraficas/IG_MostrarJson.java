@@ -24,6 +24,7 @@ public class IG_MostrarJson extends JFrame
 		this.app = IG_Bienvenida.app;
 		
 		setLayout(null);
+		setDefaultCloseOperation(EXIT_ON_CLOSE);
 		setTitle("Mostrar Json");
 		getContentPane().setBackground(new Color(230, 178, 99));
 		

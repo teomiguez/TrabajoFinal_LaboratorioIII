@@ -26,6 +26,7 @@ public class IG_Creadores extends JFrame implements ActionListener
 		this.app = IG_Bienvenida.app;
 		
 		setLayout(null);
+		setDefaultCloseOperation(EXIT_ON_CLOSE);
 		setTitle("Los Creadores");
 		getContentPane().setBackground(new Color(230, 178, 99));
 		

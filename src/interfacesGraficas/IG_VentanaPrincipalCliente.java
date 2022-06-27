@@ -29,7 +29,7 @@ public class IG_VentanaPrincipalCliente extends JFrame implements ActionListener
 	// ATRIBUTOS	
 	private AppLibreria app;
 	
-	private String usuario;
+	private UsuarioCliente usuario;
 	private String titulo;
 	private int anioEdicion;
 	private String genero;
@@ -38,7 +38,7 @@ public class IG_VentanaPrincipalCliente extends JFrame implements ActionListener
 	private JMenuBar menuBar; // creo la barra
 	private JMenu menuOpciones, menuAcercaDe; // cada campo que hay en la barra
 	private JMenu menuBuscarLibro, menuDevolver; // cada submenu dentro de menuOpciones
-	private JMenuItem miDevolverLista, miDevolverLibro, miNuevo, miSalir; // cada opcion dentro de menuOpciones
+	private JMenuItem miDevolverLista, miNuevo, miSalir; // cada opcion dentro de menuOpciones
 	private JMenuItem miPorTitulo, miPorAnio, miPorGenero, miPorAutor; // cada opcion dentro de menuBuscarLibro
 	private JMenuItem miCreadores; // cada opcion dentro de menuAcercaDe
 	
@@ -46,6 +46,7 @@ public class IG_VentanaPrincipalCliente extends JFrame implements ActionListener
 	private JTextField textTitulo, textAnio, textGenero, textAutor;
 	
 	JButton botonAlquilar;
+	JButton botonDevolver;
 	
 	private JScrollPane scrollPane;
 	private JTextArea textArea;
@@ -55,7 +56,14 @@ public class IG_VentanaPrincipalCliente extends JFrame implements ActionListener
 	public IG_VentanaPrincipalCliente ()
 	{	
 		this.app = IG_Bienvenida.app;
-		usuario = IG_Bienvenida.usuario;
+		try 
+		{
+			usuario = this.app.buscarUsuario_EnClientes(IG_Bienvenida.usuario);
+		} 
+		catch (E_UsuarioInvalido e)
+		{
+			e.getMessage();
+		}
 		
 		setLayout(null);
 		setTitle("Ventana Principal Buscar Libro - Usuario");
@@ -100,13 +108,7 @@ public class IG_VentanaPrincipalCliente extends JFrame implements ActionListener
 		menuDevolver.add(miDevolverLista);
 		miDevolverLista.addActionListener(this);
 		
-		miDevolverLibro = new JMenuItem("Devolver Libro");
-		miDevolverLibro.setFont(new Font("Andale Mono", 1, 14));
-		miDevolverLibro.setForeground(new Color(0,0,0));
-		menuDevolver.add(miDevolverLibro);
-		miDevolverLibro.addActionListener(this);
-		
-		miNuevo = new JMenuItem("Nuevo");
+		miNuevo = new JMenuItem("Limpiar");
 		miNuevo.setFont(new Font("Andale Mono", 1, 14));
 		miNuevo.setForeground(new Color(0,0,0));
 		menuOpciones.add(miNuevo);
@@ -207,10 +209,18 @@ public class IG_VentanaPrincipalCliente extends JFrame implements ActionListener
 		botonAlquilar = new JButton("Alquilar");
 		botonAlquilar.setBackground(new Color(255,255,255));
 		botonAlquilar.setFont(new Font("Andale Mono", 1, 14));
-		botonAlquilar.setBounds(90,270,120,40);
+		botonAlquilar.setBounds(150,270,120,40);
 		botonAlquilar.addActionListener(this);
 		botonAlquilar.setEnabled(false);
 		add(botonAlquilar);
+		
+		botonDevolver = new JButton("Devolver");
+		botonDevolver.setBackground(new Color(255,255,255));
+		botonDevolver.setFont(new Font("Andale Mono", 1, 14));
+		botonDevolver.setBounds(15,270,120,40);
+		botonDevolver.addActionListener(this);
+		botonDevolver.setEnabled(false);
+		add(botonDevolver);
 				
 		// TEXTAREA Y SCROLLPANE.-
 			
@@ -238,15 +248,8 @@ public class IG_VentanaPrincipalCliente extends JFrame implements ActionListener
 		
 		if (e.getSource() == miDevolverLista)
 		{
-			try 
-			{
-				textArea.setText((this.app.buscarUsuario_EnClientes(usuario)).getAlquilados().listar().toString());
-				System.out.println((this.app.buscarUsuario_EnClientes(usuario)).getAlquilados().listar());
-			}
-			catch (E_UsuarioInvalido ex) 
-			{
-				JOptionPane.showMessageDialog(null, ex.getMessage());
-			}
+			textArea.setText((usuario.getAlquilados().listar()).toString());
+			System.out.println(usuario.getAlquilados().listar());
 			
 		}
 		if (e.getSource() == miNuevo)
@@ -263,29 +266,6 @@ public class IG_VentanaPrincipalCliente extends JFrame implements ActionListener
 			bienvenida.setLocationRelativeTo(null);
 			this.setVisible(false);
 		}
-		if (e.getSource() == miDevolverLibro)
-		{
-			if (textTitulo.getText().trim().length() != 0)
-			{
-				try 
-				{
-					UsuarioCliente user = this.app.buscarUsuario_EnClientes(usuario);
-					
-					if(user.getAlquilados().buscarLibroPor_Titulo(titulo) != null)
-					{
-						// terminar
-					}
-				}
-				catch (E_UsuarioInvalido ex) 
-				{
-					JOptionPane.showMessageDialog(null, ex.getMessage());
-				}
-			}
-			else
-			{
-				JOptionPane.showMessageDialog(null, "ERROR - Debes llenar el campos necesario para la busqueda");
-			}
-		}
 		if (e.getSource() == miPorTitulo || e.getSource() == miPorAnio || e.getSource() == miPorGenero || e.getSource() == miPorAutor)
 		{
 			if (e.getSource() == miPorTitulo)
@@ -298,20 +278,15 @@ public class IG_VentanaPrincipalCliente extends JFrame implements ActionListener
 					{
 						textArea.setText(lib.toString());		
 						
-						if (lib.getBajaLogica() == false)
-							botonAlquilar.setEnabled(true);
-						
-						if (e.getSource() == botonAlquilar)
+						if (lib.getInStock() > 0)
 						{
-							this.app.alquilarLibro(lib.getId(), usuario);
+							botonAlquilar.setEnabled(true);
+						}
+						if (usuario.getAlquilados().buscarLibroPor_Titulo(lib.getTitulo()) != null)
+						{
+							botonDevolver.setEnabled(true);
 						}
 					}
-					else
-					{
-						JOptionPane.showMessageDialog(null, "ERROR - El libro no esta");
-					}
-					miNuevo();
-					
 				}
 				else
 					JOptionPane.showMessageDialog(null, "ERROR - Debes llenar el campos necesario para la busqueda");
@@ -320,7 +295,7 @@ public class IG_VentanaPrincipalCliente extends JFrame implements ActionListener
 			{
 				if (textAnio.getText().trim().length() != 0)
 				{
-					textArea.setText(this.app.buscarPorGenero_EnObrasImpresas(genero).listar().toString());
+					textArea.setText((this.app.buscarPorGenero_EnObrasImpresas(genero).listar()).toString());
 					System.out.println(this.app.buscarPorGenero_EnObrasImpresas(genero).listar());
 					miNuevo();
 				}
@@ -331,7 +306,7 @@ public class IG_VentanaPrincipalCliente extends JFrame implements ActionListener
 			{
 				if (textGenero.getText().trim().length() != 0)
 				{
-					textArea.setText(this.app.buscarPorGenero_EnObrasImpresas(genero).toString());
+					textArea.setText((this.app.buscarPorGenero_EnObrasImpresas(genero).listar()).toString());
 					System.out.println(this.app.buscarPorGenero_EnObrasImpresas(genero).toString());
 					miNuevo();
 				}
@@ -342,7 +317,7 @@ public class IG_VentanaPrincipalCliente extends JFrame implements ActionListener
 			{
 				if (textAutor.getText().trim().length() != 0)
 				{
-					textArea.setText(this.app.buscarPorAutor_EnObrasImpresas(autor).listar().toString());
+					textArea.setText((this.app.buscarPorAutor_EnObrasImpresas(autor).listar()).toString());
 					System.out.println(this.app.buscarPorAutor_EnObrasImpresas(autor).listar());
 					miNuevo();
 				}
@@ -359,6 +334,26 @@ public class IG_VentanaPrincipalCliente extends JFrame implements ActionListener
 			creadores.setResizable(false);
 			creadores.setLocationRelativeTo(null);
 			this.setVisible(false);
+		}
+		if (e.getSource() == botonAlquilar)
+		{
+			Libro lib = this.app.buscarPorTitulo_EnObrasImpresas(titulo);
+			int id = lib.getId();
+			
+			this.app.alquilarLibro(id, usuario.getName());
+			
+			miNuevo();
+			textArea.setText("");
+		}
+		if (e.getSource() == botonDevolver)
+		{
+			Libro lib = this.app.buscarPorTitulo_EnObrasImpresas(titulo);
+			int id = lib.getId();
+			
+			this.app.devolverLibro(id, usuario.getName());
+			
+			miNuevo();
+			textArea.setText("");
 		}
 	}
 	

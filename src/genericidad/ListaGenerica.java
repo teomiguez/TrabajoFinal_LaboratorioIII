@@ -75,7 +75,7 @@ public class ListaGenerica <E extends Libro> implements I_BuscarLibro, Serializa
 		
 		for(int i = 0; i < this.lista.size(); i++) 
 		{
-			lista.append(this.lista.get(i).toString());	
+			lista.append((this.lista.get(i)).toString());	
 		}
 
 		return lista;

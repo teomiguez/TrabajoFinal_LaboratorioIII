@@ -6,7 +6,6 @@ import java.util.concurrent.atomic.AtomicInteger;
 public abstract class ObraImpresa implements Serializable
 {
 	// ATRIBUTOS.
-	private static AtomicInteger count = new AtomicInteger(0);
 	private int id;
 	private boolean bajaLogica;
 	private int inStock;
@@ -14,9 +13,9 @@ public abstract class ObraImpresa implements Serializable
 	
 	// CONSTRUCTOR.
 	
-	public ObraImpresa (int stock)
+	public ObraImpresa (int id, int stock)
 	{
-		this.id = count.incrementAndGet();
+		this.id = id;
 		this.bajaLogica = false;
 		this.inStock = stock;
 		this.inAlquiler = 0;

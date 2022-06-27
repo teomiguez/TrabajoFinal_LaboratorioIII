@@ -1,23 +1,11 @@
 package excepciones;
 
 public class E_ContraseniaInvalida extends Exception 
-{
-	// ATRIBUTOS
-
-	private int cantIntentos;
-	
+{	
 	// CONSTRUCTOR.
 	
-	public E_ContraseniaInvalida(String message, int cantIntentos) 
+	public E_ContraseniaInvalida(String message) 
 	{	
 		super(message);
-		this.cantIntentos = cantIntentos;
-	}
-	
-	//GETTERS. 
-	
-	public int getCantIntentos() 
-	{  
-		return cantIntentos;  
 	}
 }

@@ -17,6 +17,7 @@ import javax.swing.JTextArea;
 import javax.swing.JTextField;
 
 import clases.AppLibreria;
+import clases.Libro;
 import clases.UsuarioCliente;
 import excepciones.E_EmailInvalido;
 import excepciones.E_UsuarioInvalido;
@@ -88,7 +89,7 @@ public class IG_Admin_BuscarUsuario extends JFrame implements ActionListener
 		
 		// LAS OPCIONIES DENTRO DE CADA MENU DE LA BARRA
 		// MENU_OPCIONES
-		miNuevo = new JMenuItem("Nuevo");
+		miNuevo = new JMenuItem("Limpiar");
 		miNuevo.setFont(new Font("Andale Mono", 1, 14));
 		miNuevo.setForeground(new Color(0,0,0));
 		menuOpciones.add(miNuevo);
@@ -225,6 +226,7 @@ public class IG_Admin_BuscarUsuario extends JFrame implements ActionListener
 			{
 				textUsuario.setText("");
 				textEmail.setText("");
+				textArea.setText("");
 			}
 		}
 		if (e.getSource() == miSalir)
@@ -262,9 +264,17 @@ public class IG_Admin_BuscarUsuario extends JFrame implements ActionListener
 							textArea.setText(user.toString());
 						
 							if (user.isBajaLogica() == true)
+							{
 								botonAlta.setEnabled(true);
+								botonBaja.setEnabled(false);
+							}
+								
 							if (user.isBajaLogica() == false)
+							{
 								botonBaja.setEnabled(true);
+								botonAlta.setEnabled(false);
+							}
+								
 						}
 					}
 					catch (E_UsuarioInvalido ex) 
@@ -313,6 +323,72 @@ public class IG_Admin_BuscarUsuario extends JFrame implements ActionListener
 			creadores.setResizable(false);
 			creadores.setLocationRelativeTo(null);
 			this.setVisible(false);
+		}
+		if (e.getSource() == botonAlta)
+		{
+			if (textUsuario.getText().trim().length() != 0)
+			{
+				UsuarioCliente aux;
+				try 
+				{
+					aux = this.app.buscarUsuario_EnClientes(usuario);
+					aux.setBajaLogica(false);
+				}
+				catch (E_UsuarioInvalido ex) 
+				{
+					ex.getMessage();
+				}
+				
+			}
+			if (textEmail.getText().trim().length() != 0)
+			{
+				UsuarioCliente aux;
+				try 
+				{
+					aux = this.app.buscarUsuarioPorEmail_EnClientes(email);
+					aux.setBajaLogica(false);
+				} 
+				catch (E_EmailInvalido ex)
+				{
+					ex.getMessage();
+				}
+				
+				
+			}
+				
+		}
+		if (e.getSource() == botonBaja)
+		{
+			if (textUsuario.getText().trim().length() != 0)
+			{
+				UsuarioCliente aux;
+				try 
+				{
+					aux = this.app.buscarUsuario_EnClientes(usuario);
+					aux.setBajaLogica(true);
+					
+					textArea.setText("");
+				} 
+				catch (E_UsuarioInvalido ex) 
+				{
+					ex.getMessage();
+				}
+			}
+			if (textEmail.getText().trim().length() != 0)
+			{
+				UsuarioCliente aux;
+				try 
+				{
+					aux = this.app.buscarUsuarioPorEmail_EnClientes(email);
+					aux.setBajaLogica(true);
+					
+					textArea.setText("");
+				} 
+				catch (E_EmailInvalido ex) 
+				{
+					ex.getMessage();
+				}
+			}
 		}
 	}
 }

@@ -145,7 +145,7 @@ public class IG_Registro extends JFrame implements ActionListener, ChangeListene
 				{	
 					IG_Bienvenida bienvenida = new IG_Bienvenida(this.app);
 					
-					bienvenida.setBounds(0, 0, 350, 300);
+					bienvenida.setBounds(0, 0, 350, 350);
 					bienvenida.setVisible(true);
 					bienvenida.setResizable(false);
 					bienvenida.setLocationRelativeTo(null);

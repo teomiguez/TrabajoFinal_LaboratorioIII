@@ -98,7 +98,7 @@ public class IG_Admin_BuscarLibro extends JFrame implements ActionListener
 		menuOpciones.add(miCrearLibro);
 		miCrearLibro.addActionListener(this);
 		
-		miNuevo = new JMenuItem("Nuevo");
+		miNuevo = new JMenuItem("Limiar");
 		miNuevo.setFont(new Font("Andale Mono", 1, 14));
 		miNuevo.setForeground(new Color(0,0,0));
 		menuOpciones.add(miNuevo);
@@ -276,6 +276,7 @@ public class IG_Admin_BuscarLibro extends JFrame implements ActionListener
 	@Override
 	public void actionPerformed(ActionEvent e) 
 	{	
+		
 		if ((textId.getText().trim().length()) != 0)
 		{
 			id = Integer.parseInt(textId.getText().trim());
@@ -295,11 +296,11 @@ public class IG_Admin_BuscarLibro extends JFrame implements ActionListener
 		{
 			if ((textTitulo.getText().trim().length() != 0) & (textAnio.getText().trim().length() != 0) & (textGenero.getText().trim().length() != 0) & (textAutor.getText().trim().length() != 0) & (textAreaDes.getText().trim().length() != 0))
 			{
-				this.app.agregarLibro(this.app.crearLibro(50, titulo, anioEdicion, genero, autor, descripcion));
-				
+				this.app.crearYagregarLibro(20, titulo, anioEdicion, genero, autor, descripcion);
+				JOptionPane.showMessageDialog(null, "Libro agregado!");
 				miNuevo();
 			}
-			if ((textTitulo.getText().trim().length() == 0) || (textAnio.getText().trim().length() == 0) || (textGenero.getText().trim().length() == 0) || (textAutor.getText().trim().length() == 0) || (textAreaDes.getText().trim().length() == 0))
+			else
 			{
 				JOptionPane.showMessageDialog(null, "ERROR - Debes llenar los campos necesarios para crear un libro");
 			}
@@ -332,14 +333,28 @@ public class IG_Admin_BuscarLibro extends JFrame implements ActionListener
 				if (textId.getText().trim().length() != 0)
 				{	
 					Libro lib = this.app.buscarPorID_EnObrasImpresas(id);
-					textArea.setText(lib.toString());
 					
-					if (lib.getBajaLogica() == true)
-						botonAlta.setEnabled(true);
-					if (lib.getBajaLogica() == false)
-						botonBaja.setEnabled(true);
+					if (lib == null)
+					{
+						JOptionPane.showMessageDialog(null, "ERROR - El libro no esta registrado");
+					}
+					else
+					{
+						textArea.setText(lib.toString());
+						
+						if (lib.getBajaLogica() == true)
+						{
+							botonAlta.setEnabled(true);
+							botonBaja.setEnabled(false);
+						}
+						if (lib.getBajaLogica() == false)
+						{
+							botonBaja.setEnabled(true);
+							botonAlta.setEnabled(false);
+						}
+					}
 					
-					miNuevo();
+					//miNuevo();
 				}
 			}
 			if (e.getSource() == miPorTitulo)
@@ -357,26 +372,24 @@ public class IG_Admin_BuscarLibro extends JFrame implements ActionListener
 						textArea.setText(lib.toString());
 						
 						if (lib.getBajaLogica() == true)
+						{
 							botonAlta.setEnabled(true);
+							botonBaja.setEnabled(false);
+						}
+							
 						if (lib.getBajaLogica() == false)
+						{
 							botonBaja.setEnabled(true);
-						
-						// NO PUEDO HACER QUE EL PROGRAMA ESPERE A QUE SE PULSE ALGO...
-						
-						if (e.getSource() == botonAlta)
-						{
-							this.app.darDeAlta_Libro(lib.getId());
+							botonAlta.setEnabled(false);
 						}
-						if (e.getSource() == botonAlta)
-						{
-							this.app.darDeBaja_Libro(lib.getId());
-						}
+							
+						
 					}
 					else
 					{
 						JOptionPane.showMessageDialog(null, "ERROR - El libro no esta");
 					}
-					miNuevo();
+					//miNuevo();
 					
 				}
 			}
@@ -384,7 +397,7 @@ public class IG_Admin_BuscarLibro extends JFrame implements ActionListener
 			{
 				if (textAnio.getText().trim().length() != 0)
 				{	
-					textArea.setText(this.app.buscarPorGenero_EnObrasImpresas(genero).listar().toString());
+					textArea.setText((this.app.buscarPorGenero_EnObrasImpresas(genero).listar()).toString());
 					System.out.println(this.app.buscarPorGenero_EnObrasImpresas(genero).listar());
 					miNuevo();
 				}
@@ -395,7 +408,7 @@ public class IG_Admin_BuscarLibro extends JFrame implements ActionListener
 			{
 				if (textGenero.getText().trim().length() != 0)
 				{
-					textArea.setText(this.app.buscarPorGenero_EnObrasImpresas(genero).listar().toString());
+					textArea.setText((this.app.buscarPorGenero_EnObrasImpresas(genero).listar()).toString());
 					System.out.println(this.app.buscarPorGenero_EnObrasImpresas(genero).listar());
 					miNuevo();
 				}
@@ -406,7 +419,8 @@ public class IG_Admin_BuscarLibro extends JFrame implements ActionListener
 			{
 				if (textAutor.getText().trim().length() != 0)
 				{
-					textArea.setText(this.app.buscarPorAutor_EnObrasImpresas(autor).toString());
+					textArea.setText((this.app.buscarPorAutor_EnObrasImpresas(autor)).toString());
+					System.out.println(this.app.buscarPorAutor_EnObrasImpresas(autor).listar());
 					miNuevo();
 				}
 				else
@@ -434,6 +448,33 @@ public class IG_Admin_BuscarLibro extends JFrame implements ActionListener
 			creadores.setLocationRelativeTo(null);
 			this.setVisible(false);
 		}
+		if (e.getSource() == botonAlta)
+		{
+			if (textId.getText().trim().length() != 0)
+			{
+				Libro aux = this.app.buscarPorID_EnObrasImpresas(id);
+				aux.setBajaLogica(false);
+			}
+			if (textTitulo.getText().trim().length() != 0)
+			{
+				Libro aux = this.app.buscarPorTitulo_EnObrasImpresas(titulo);
+				aux.setBajaLogica(false);
+			}
+				
+		}
+		if (e.getSource() == botonBaja)
+		{
+			if (textId.getText().trim().length() != 0)
+			{
+				Libro aux = this.app.buscarPorID_EnObrasImpresas(id);
+				aux.setBajaLogica(true);
+			}
+			if (textTitulo.getText().trim().length() != 0)
+			{
+				Libro aux = this.app.buscarPorTitulo_EnObrasImpresas(titulo);
+				aux.setBajaLogica(true);
+			}
+		}
 	}
 	
 	public void miNuevo()
@@ -444,5 +485,8 @@ public class IG_Admin_BuscarLibro extends JFrame implements ActionListener
 		textGenero.setText("");
 		textAutor.setText("");
 		textAreaDes.setText("");
+		textArea.setText("");
+		botonAlta.setEnabled(false);
+		botonBaja.setEnabled(false);
 	}
 }

@@ -1,6 +1,7 @@
 package app;
 
 import archivos.ControladorArchivos;
+
 import clases.AppLibreria;
 import interfacesGraficas.IG_Bienvenida;
 import json.ControladoraJson;
@@ -23,7 +24,7 @@ public class Main
 	public static void main(String[] args) 
 	{
 		AppLibreria app = new AppLibreria();
-		app = ControladorArchivos.leerArchivo("file.dat");
+		//app = ControladorArchivos.leerArchivo("file.dat");
 		
 		ventanaBienvenida(app);
 	}

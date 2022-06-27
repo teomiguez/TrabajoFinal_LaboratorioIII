@@ -38,7 +38,7 @@ public class AppLibreria implements Serializable
 	}
 	
 	// 	M�TODOS: 
-	//	LOG IN USUARIO. 
+	//	LOGIN USUARIO. 
 	
 	public boolean loginUsuario(String usuario, String password) throws E_UsuarioInvalido, E_ContraseniaInvalida 
 	{
@@ -49,9 +49,12 @@ public class AppLibreria implements Serializable
 		{
 			UsuarioCliente user = this.buscarUsuario_EnClientes(usuario);
 				
-			if(this.verificarPassword(user, password, intentos));
+			if (this.verificarBajaLogica(user)) 
 			{
-				rta = true;
+				if(this.verificarPassword(user, password, intentos));
+				{
+					rta = true;
+				}
 			}
 		}
 		
@@ -76,6 +79,23 @@ public class AppLibreria implements Serializable
 		return rta;
 	}
 	
+	// BUSCAR MAYOR ID
+	
+	public int buscarMayorId()
+	{
+		int idex = 0;
+		
+		for (int i = 1; i < 100000000; i++) // LA CHANCHADA DEL DIA
+		{
+			Libro lib = this.buscarPorID_EnObrasImpresas(i);
+			
+			if (lib == null)
+				return i;
+		}
+		
+		return idex;
+	}
+	
 	//	CREAR USUARIO.
 
 	public UsuarioCliente crearUsuario(String email, String usuario, String password)
@@ -87,9 +107,9 @@ public class AppLibreria implements Serializable
 	
 	//	CREAR LIBRO.
 	
-	public Libro crearLibro(int stock, String titulo, int anioEdicion, String genero, String autor, String descripcion)
+	public Libro crearLibro(int id, int stock, String titulo, int anioEdicion, String genero, String autor, String descripcion)
 	{
-		Libro libro = new Libro(stock, titulo, anioEdicion, genero, autor, descripcion);
+		Libro libro = new Libro(id, stock, titulo, anioEdicion, genero, autor, descripcion);
 		
 		return libro;
 	}
@@ -122,7 +142,7 @@ public class AppLibreria implements Serializable
 		
 		if(this.buscarPorID_EnObrasImpresas(libro.getId()) == null)
 		{
-			if(this.obrasImpresas.containsValue(libro.getGenero())) //	Si contiene el g�nero.
+			if(this.obrasImpresas.containsValue(libro.getGenero())) //	Si contiene el genero.
 			{
 				ListaGenerica <Libro> lista = this.buscarPorGenero_EnObrasImpresas(libro.getGenero());
 				lista.agregarObra(libro);
@@ -137,6 +157,19 @@ public class AppLibreria implements Serializable
 				rta = true;
 			}
 		}
+		
+		return rta;
+	}
+	
+	// CREAR Y AGREGAR LIBRO
+	
+	public boolean crearYagregarLibro (int stock, String titulo, int anioEdicion, String genero, String autor, String descripcion)
+	{
+		boolean rta = false;
+		
+		Libro lib = this.crearLibro(this.buscarMayorId(), stock, titulo, anioEdicion, genero, autor, descripcion);
+		
+		rta = this.agregarLibro(lib);
 		
 		return rta;
 	}
@@ -602,7 +635,20 @@ public class AppLibreria implements Serializable
 		}
 		else
 		{
-			throw new E_ContraseniaInvalida("La password es invalida.-", intentos++);
+			throw new E_ContraseniaInvalida("La password es invalida.-");
+		}
+	}
+	
+	// VERIFICAR bajaLogica
+	public boolean verificarBajaLogica (UsuarioCliente user) throws E_UsuarioInvalido
+	{
+		if (user.isBajaLogica() == true)
+		{
+			return true;
+		}
+		else
+		{
+			throw new E_UsuarioInvalido("El usuario esta de baja");
 		}
 	}
 }

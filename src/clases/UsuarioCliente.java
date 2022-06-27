@@ -67,6 +67,7 @@ public class UsuarioCliente extends Usuario implements Serializable
 	@Override
 	public String toString() 
 	{	
-		return super.toString();
+		return super.toString() + "\n" +
+				"bajaLogica: " + this.isBajaLogica();
 	}
 }

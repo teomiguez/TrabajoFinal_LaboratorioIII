@@ -16,9 +16,9 @@ public class Libro extends ObraImpresa implements Serializable
 	
 	//	CONSTRUCTORES.
 	
-	public Libro(int stock, String titulo, int anioEdicion, String genero, String autor, String descripcion)
+	public Libro(int id, int stock, String titulo, int anioEdicion, String genero, String autor, String descripcion)
 	{
-		super(stock);
+		super(id, stock);
 		this.titulo = titulo;
 		this.anioEdicion = anioEdicion;
 		this.genero = genero;

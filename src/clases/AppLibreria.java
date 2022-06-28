@@ -642,7 +642,7 @@ public class AppLibreria implements Serializable
 	// VERIFICAR bajaLogica
 	public boolean verificarBajaLogica (UsuarioCliente user) throws E_UsuarioInvalido
 	{
-		if (user.isBajaLogica() == true)
+		if (user.isBajaLogica() == false)
 		{
 			return true;
 		}

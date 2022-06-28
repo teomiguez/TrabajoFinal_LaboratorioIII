@@ -398,8 +398,8 @@ public class IG_Admin_BuscarLibro extends JFrame implements ActionListener
 			{
 				if (textAnio.getText().trim().length() != 0)
 				{	
-					textArea.setText((this.app.buscarPorGenero_EnObrasImpresas(genero).listar()).toString());
-					System.out.println(this.app.buscarPorGenero_EnObrasImpresas(genero).listar());
+					textArea.setText((this.app.buscarPorAnioEdicion_EnObrasImpresas(anioEdicion).listar()).toString());
+					System.out.println(this.app.buscarPorAnioEdicion_EnObrasImpresas(anioEdicion).listar());
 					miNuevo();
 				}
 				else
